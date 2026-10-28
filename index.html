@@ -297,6 +297,51 @@
             <div class="problemet__del" data-reveal>
               <p class="problemet__merke">Agenter inn</p>
               <p class="problemet__del-tekst">KI-verktøy de ansatte allerede bruker, utfører virkelige kommandoer på bedriftens maskiner. De har nøyaktig de tilgangene den ansatte har. Ingen godkjenning. Ingen spor. Ingen bryter organisasjonen eier. Ikke noe av dette krever tro. Be IT-avdelingen sjekke det i egen organisasjon i morgen.</p>
+
+              <!-- Ticket #20: tre dokumenterte hendelser, som eksternt bevis
+                   i agenter inn-halvdelen. Kopien følger primærkildene
+                   sak for sak: år + plattform + hva som lekket + status.
+                   Kun href-er, ingen innbakte ressurser. -->
+              <div class="problemet__hendelser">
+                <p class="problemet__merke">Dokumentert av andre</p>
+                <p class="problemet__hendelser-ramme">Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
+                <ul class="problemet__hendelser-liste">
+                  <li class="problemet__hendelse" data-reveal>
+                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <rect x="3" y="6" width="18" height="13" rx="2"/>
+                      <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
+                    </svg>
+                    <div class="problemet__hendelse-innhold">
+                      <p class="problemet__merke">2025 · Microsoft 365 Copilot</p>
+                      <p class="problemet__del-tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
+                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
+                    </div>
+                  </li>
+                  <li class="problemet__hendelse" data-reveal>
+                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <rect x="3" y="5" width="18" height="12" rx="2"/>
+                      <path d="M8 17v4l4-4"/>
+                    </svg>
+                    <div class="problemet__hendelse-innhold">
+                      <p class="problemet__merke">2024 · Slack AI</p>
+                      <p class="problemet__del-tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
+                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
+                    </div>
+                  </li>
+                  <li class="problemet__hendelse" data-reveal>
+                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
+                      <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
+                      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+                    </svg>
+                    <div class="problemet__hendelse-innhold">
+                      <p class="problemet__merke">2025 · Asana</p>
+                      <p class="problemet__del-tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
+                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a> · <a href="https://www.upguard.com/blog/asana-discloses-data-exposure-bug-in-mcp-server" rel="noopener">Asanas kundebrev, gjengitt av UpGuard</a></p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </figcaption>
         </figure>
@@ -1079,29 +1124,17 @@
     <section id="kom-i-gang" class="section section--kom-i-gang" data-act="kom-i-gang" aria-labelledby="kom-i-gang-tittel">
       <div class="section__inner">
         <div class="kig__intro" data-reveal-group>
-          <p class="kicker" data-reveal>Venteliste · to dører</p>
+          <p class="kicker" data-reveal>Venteliste · få om gangen</p>
           <h2 class="section__title" id="kom-i-gang-tittel" data-reveal>Kom i gang</h2>
-          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Vi setter opp zert sammen — fra installasjon til første KI-svar i deres egen sandbox.</p>
+          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Dette er en invitasjon, ikke en nedlasting.</p>
         </div>
 
         <div class="kig__grid" data-reveal-group>
           <div class="kig__formside" data-reveal>
             <form class="kig__form" id="venteliste">
-              <fieldset class="kig__doors">
-                <legend class="kig__legend">Kommer du som utvikler eller leder?</legend>
-                <div class="kig__doorvalg">
-                  <input class="kig__door-input" type="radio" name="door" id="door-utvikler" value="utvikler" required>
-                  <label class="kig__door" for="door-utvikler">
-                    <span class="kig__door-tittel">Utvikler</span>
-                    <span class="kig__door-tekst">Jeg vil bruke zert selv</span>
-                  </label>
-                  <input class="kig__door-input" type="radio" name="door" id="door-leder" value="leder" required>
-                  <label class="kig__door" for="door-leder">
-                    <span class="kig__door-tittel">Leder</span>
-                    <span class="kig__door-tekst">Jeg vurderer en runtime for organisasjonen</span>
-                  </label>
-                </div>
-              </fieldset>
+              <!-- Døren er ikke et valg på styreflaten: verdien «leder»
+                   følger med skjult, slik utviklerflaten bærer sin. -->
+              <input type="hidden" name="door" value="leder">
 
               <p class="kig__felt">
                 <label class="kig__merkelapp" for="felt-navn">Navn</label>
@@ -1120,12 +1153,12 @@
               <p class="kig__personvern">E-posten brukes bare til å svare dere.</p>
 
               <noscript>
-                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap, e-post og om du kommer som utvikler eller leder.</p>
+                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap og e-post.</p>
               </noscript>
             </form>
 
             <div class="kig__takk" id="venteliste-takk" role="status" hidden>
-              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi installerer sammen.</p>
+              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi tar oppstarten sammen.</p>
             </div>
 
             <div class="kig__feil" id="venteliste-feil" role="alert" hidden>
@@ -1134,13 +1167,9 @@
             </div>
           </div>
 
-          <aside class="kig__bevis" data-reveal aria-labelledby="kig-bevis-tittel">
-            <p class="kicker" id="kig-bevis-tittel">Veien inn</p>
-            <p class="kig__bevis-tekst">Klienten er et lite CLI-verktøy. Du installerer den med:</p>
-            <p class="kig__install"><span class="kig__install-prompt" aria-hidden="true">$</span> <code class="kig__install-kode">brew install zert</code></p>
-            <p class="kig__bevis-tekst">Kilden er åpen og MIT-lisensiert. Les koden selv, før dere skriver dere på.</p>
-            <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-            <p class="kig__repo"><a href="https://github.com/zert" rel="noopener">github.com/zert</a></p>
+          <aside class="kig__invitasjon" data-reveal aria-labelledby="kig-invitasjon-tittel">
+            <p class="kicker" id="kig-invitasjon-tittel">Plassen ved bordet</p>
+            <p class="kig__invitasjon-tekst">Vi setter opp zert sammen — fra første samtale til første KI-svar i deres egen KI-sandbox.</p>
             <p class="kig__guidet">Ingen selvbetjening ennå. De første brukerne onboarder vi selv, sammen med dere. Derfor tar vi imot få om gangen.</p>
           </aside>
         </div>

@@ -1377,10 +1377,12 @@ p.beviset__micro { margin-top: 12px; }
 
 /* ===== ACT: kom-i-gang ===== */
 
-/* Dual-dør venteliste (utvikler|leder) + bevis for ernst + bluetime-band.
-   Den tonale aktøren er blå — sidens standard for interaktivt, ingen
-   --action-color-override trengs. Endepunktskonstanten ligger øverst i
-   scripts.js; feil avslører alltid mailto-fallbacken (ingen stille tap). */
+/* Styre-flatens venteliste: navn, selskap, e-post — døren («leder») følger
+   med i et skjult felt og nevnes aldri i tekst. Invitasjonen bærer akten;
+   guidet-linja er den load-bearing-ærligheten, ordrett. Den tonale aktøren
+   er blå — sidens standard for interaktivt, ingen --action-color-override
+   trengs. Endepunktskonstanten ligger øverst i scripts.js; feil avslører
+   alltid mailto-fallbacken (ingen stille tap). */
 
 .kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
 
@@ -1400,66 +1402,6 @@ p.beviset__micro { margin-top: 12px; }
 .kig__form[hidden],
 .kig__takk[hidden],
 .kig__feil[hidden] { display: none; }
-
-.kig__doors { border: 0; margin: 0; padding: 0; min-width: 0; }
-
-.kig__legend {
-  padding: 0;
-  font-weight: 600;
-  font-size: 17px;
-  color: var(--fg);
-}
-
-.kig__doorvalg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-/* Radioknappen er visuelt skjult, men fokusbar — selve døra er knappen. */
-.kig__door-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  border: 0;
-}
-
-.kig__door {
-  display: block;
-  height: 100%;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 16px;
-  cursor: pointer;
-}
-.kig__door:hover { border-color: var(--line-strong); }
-
-.kig__door-input:checked + .kig__door {
-  border-color: var(--interactive);
-  background: color-mix(in srgb, var(--interactive) 10%, transparent);
-}
-.kig__door-input:focus-visible + .kig__door {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
-.kig__door-tittel {
-  display: block;
-  font-weight: 600;
-  font-size: 17px;
-  margin-bottom: 4px;
-}
-.kig__door-tekst {
-  display: block;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--fg-muted);
-}
 
 .kig__felt { display: grid; gap: 8px; }
 
@@ -1531,9 +1473,9 @@ p.beviset__micro { margin-top: 12px; }
   line-height: 1.5;
 }
 
-/* --- Bevis for ernst: brew-linja og det opne repoet --- */
+/* --- Pilotinvitasjonen: plassen ved det korte bordet --- */
 
-.kig__bevis {
+.kig__invitasjon {
   display: grid;
   gap: 16px;
   align-content: start;
@@ -1543,22 +1485,7 @@ p.beviset__micro { margin-top: 12px; }
   padding: clamp(22px, 3vw, 34px);
 }
 
-.kig__bevis-tekst { color: var(--fg-muted); }
-
-.kig__install {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  padding: 14px 16px;
-  font-family: var(--font-mono);
-  font-size: 15px;
-}
-.kig__install-prompt { color: var(--interactive-hover); }
-.kig__install-kode { color: var(--fg); }
-
-.kig__repo a { font-family: var(--font-mono); font-size: 15px; }
+.kig__invitasjon-tekst { color: var(--fg-muted); }
 
 .kig__guidet {
   border-top: 1px solid var(--line);
@@ -2380,3 +2307,85 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* ===== /ACT: dev-venteliste ===== */
+
+/* ===== ACT: problemet — hendelser (ticket #20) ===== */
+
+/* Tre hendelseskort i agenter inn-halvdelen av problemet-akten. Akten
+   holder fortsatt én sekundærfargefamilie: oransje/rød via --action-color
+   (satt i ACT-blokken «ACT: problemet»), brukt bare på piktogram og
+   etiketter — aldri på brødtekst (DESIGN.md). År- og plattformetiketten
+   og brødteksten gjenbruker .problemet__merke og .problemet__del-tekst
+   fra blokkene over. Lenker følger den globalt blå interaktive fargen.
+   Ingen egne animasjoner: kortene følger avdukingen til det eksisterende
+   globale reveal-mønsteret (data-reveal i en data-reveal-gruppe). */
+
+.problemet__hendelser {
+  margin-top: clamp(28px, 4vh, 40px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(18px, 2.5vh, 24px);
+}
+
+.problemet__hendelser .problemet__merke { color: var(--action-color); }
+
+/* Rammen: den synlige, ærlige etiketten om at dette er ekstern dokumentasjon. */
+.problemet__hendelser-ramme {
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.problemet__hendelser-liste {
+  list-style: none;
+  padding: 0;
+  margin-top: clamp(18px, 2.5vh, 26px);
+  display: grid;
+  gap: clamp(18px, 2.5vh, 26px);
+}
+
+/* Kortet: piktogram til venstre, tekst til høyre. Hairline toppregel,
+   ingen flater eller effekter — samme rolige språk som pilrammen over. */
+.problemet__hendelse {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.problemet__hendelse .problemet__merke { margin-bottom: 8px; }
+
+/* piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
+   database) i 24x24-rutenett, én tykkelse, én farge (--action-color). */
+.problemet__piktogram {
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  color: var(--action-color);
+}
+
+.problemet__piktogram rect,
+.problemet__piktogram path,
+.problemet__piktogram ellipse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Kildelinjen: mono mikroletikke, blå lenker mot mørk bakgrunn. */
+.problemet__hendelse-kilde {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 720px) {
+  .problemet__hendelse { gap: 12px; }
+}
+
+/* ===== /ACT: problemet — hendelser (ticket #20) ===== */
