@@ -422,25 +422,25 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:veien-videre ===== */
 
-  /* ===== BEHAVIOR:kom-i-gang ===== */
+  /* ===== Venteliste — delt skjemahåndter for begge flatene ===== */
 
-  /* Venteliste for styreflaten. Plain fetch POST-er JSON {name, company,
-     email, door} til WAITLIST_ENDPOINT. Døren er skjult innhold, ikke et
-     valg: besøkende på styreflaten er ledelsen, og verdien «leder» står i
-     HTML — utviklerflaten har sin tilsvarende skjulte verdi. Ingen
+  /* Venteliste(form, takk, feil, knappSel) — brukt av BEHAVIOR:kom-i-gang
+     (styreflaten) og BEHAVIOR:dev-venteliste (utviklerflaten). Plain fetch
+     POST-er JSON {name, company, email, door} til WAITLIST_ENDPOINT. Døren
+     er skjult innhold, ikke et valg: hver flate bærer sin verdi («leder»
+     henholdsvis «utvikler») i det skjulte feltet i HTML — besøkende på en
+     flate er publikummet dit, og spørsmålet er allerede besvart. Ingen
      optimistisk kvittering: takkemeldingen vises bare når endepunktet
      svarer 2xx. Nettverksfeil eller ikke-2xx avslører mailto-fallbacken
      med feltene ferdig utfylt — interessen skal aldri forsvinne stille.
      Dobbelsending er blokkert av en sending-flagg, og knappen er deaktivert
-     mens sendinga pågår. */
+     mens sendinga pågår. Uten JavaScript viser noscript-teksten i HTML veien
+     til mailto. */
 
-  (function () {
-    var form = doc.getElementById('venteliste');
-    var takk = doc.getElementById('venteliste-takk');
-    var feil = doc.getElementById('venteliste-feil');
+  function venteliste(form, takk, feil, knappSel) {
     if (!form || !takk || !feil) { return; }
 
-    var knapp = form.querySelector('.kig__send');
+    var knapp = form.querySelector(knappSel);
     var feilLenke = feil.querySelector('a');
     var knappetekst = knapp ? knapp.textContent : '';
     var sender = false;
@@ -450,7 +450,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       return el ? el.value.replace(/^\s+|\s+$/, '') : '';
     }
 
-    // Doren er skjult innhold, ikke et valg: verdien (leder) står i HTML.
+    // Døren er skjult innhold, ikke et valg: verdien (leder/utvikler) står i HTML.
     function dør() { return verdi('door'); }
 
     function settSending(på) {
@@ -509,6 +509,24 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
         visFeil();
       });
     });
+  }
+
+  /* ===== /Venteliste — delt skjemahåndter ===== */
+
+  /* ===== BEHAVIOR:kom-i-gang ===== */
+
+  /* Venteliste for styreflaten. Hele atferden ligger i den delte
+     venteliste()-funksjonen; denne blokken binder bare skjemaets elementer.
+     Døren «leder» følger med skjult i HTML — styreflatens besøkende er
+     ledelsen. */
+
+  (function () {
+    venteliste(
+      doc.getElementById('venteliste'),
+      doc.getElementById('venteliste-takk'),
+      doc.getElementById('venteliste-feil'),
+      '.kig__send'
+    );
   }());
 
   /* ===== /BEHAVIOR:kom-i-gang ===== */
@@ -521,88 +539,19 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:dev-venteliste ===== */
 
-  /* Venteliste for utviklerflaten (utviklere.html). Atferden er kom-i-gangs
-     mønster ord for ord — plain fetch POST {name, company, email, door},
-     ingen optimistisk kvittering, mailto-fallback som alltid avsløres ved
-     feil (aldri stille tap) — men med egne id-er, og døren leses fra det
-     skjulte feltet i stedet for radio-knapper: besøkende på utviklerflaten
-     er utviklere, og spørsmålet er allerede besvart. */
+  /* Venteliste for utviklerflaten (utviklere.html). Hele atferden ligger i
+     den delte venteliste()-funksjonen — kom-i-gangs mønster ord for ord —
+     med egne id-er; døren «utvikler» leses fra det skjulte feltet i HTML:
+     besøkende på utviklerflaten er utviklere, og spørsmålet er allerede
+     besvart. */
 
   (function () {
-    var form = doc.getElementById('venteliste-utvikler');
-    var takk = doc.getElementById('venteliste-utvikler-takk');
-    var feil = doc.getElementById('venteliste-utvikler-feil');
-    if (!form || !takk || !feil) { return; }
-
-    var knapp = form.querySelector('.dev-liste__send');
-    var feilLenke = feil.querySelector('a');
-    var knappetekst = knapp ? knapp.textContent : '';
-    var sender = false;
-
-    function verdi(navn) {
-      var el = form.querySelector('[name="' + navn + '"]');
-      return el ? el.value.replace(/^\s+|\s+$/, '') : '';
-    }
-
-    // Doren er skjult innhold, ikke et valg: verdien (utvikler) står i HTML.
-    function dør() { return verdi('door'); }
-
-    function settSending(på) {
-      sender = på;
-      if (!knapp) { return; }
-      knapp.disabled = på;
-      knapp.textContent = på ? 'Sender …' : knappetekst;
-    }
-
-    // Fallbacklenka bærer med alt brukeren har skrevet inn, slik at
-    // e-posten er ferdig utfylt når den åpnes.
-    function mailtoLenke() {
-      var tekst = 'Navn: ' + verdi('name') +
-        '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email');
-      return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
-        '&body=' + encodeURIComponent(tekst);
-    }
-
-    function visTakk() {
-      feil.hidden = true;
-      form.hidden = true;
-      takk.hidden = false;
-    }
-
-    function visFeil() {
-      if (feilLenke) { feilLenke.href = mailtoLenke(); }
-      takk.hidden = true;
-      feil.hidden = false;
-      settSending(false); // tillat forsøk igjen — fallbacken står uansett fram
-    }
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      if (sender) { return; }
-
-      var melding = {
-        name: verdi('name'),
-        company: verdi('company'),
-        email: verdi('email'),
-        door: dør()
-      };
-
-      settSending(true);
-
-      // Gammel nettleser utan fetch: fallback med en gang, aldri stille tap.
-      if (!('fetch' in window)) { visFeil(); return; }
-
-      fetch(WAITLIST_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(melding)
-      }).then(function (svar) {
-        if (svar.ok) { visTakk(); } else { visFeil(); }
-      })['catch'](function () {
-        visFeil();
-      });
-    });
+    venteliste(
+      doc.getElementById('venteliste-utvikler'),
+      doc.getElementById('venteliste-utvikler-takk'),
+      doc.getElementById('venteliste-utvikler-feil'),
+      '.dev-liste__send'
+    );
   }());
 
   /* ===== /BEHAVIOR:dev-venteliste ===== */
