@@ -282,6 +282,15 @@ a:hover { text-decoration: underline; }
 }
 .site-nav::-webkit-scrollbar { display: none; }
 
+/* Mobil: navstripen kan horisontalscrolles. Den tonede høyre kanten viser
+   at det finnes flere lenker utenfor kanten (skjult scrollbar). */
+@media (max-width: 719px) {
+  .site-nav {
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+  }
+}
+
 .site-nav ul {
   display: flex;
   gap: clamp(14px, 1.8vw, 26px);
