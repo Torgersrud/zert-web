@@ -238,6 +238,57 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:hero-diagram ===== */
 
+  /* ===== BEHAVIOR:hero-scene ===== */
+
+  /* Hodet/hender-diagrammet (ticket #17): starter engangsanimasjonen første
+     gang diagrammet er i visningen (og aldri igjen). Ingen dev-variantbytter;
+     ellers samme klokkemønster som BEHAVIOR:hero-diagram. All styling og hele
+     animasjonstidslinjen ligger i CSS; denne blokken legger bare på klasser
+     én gang. */
+
+  (function () {
+    var diagrams = doc.querySelectorAll('.hero__agendiagram');
+    if (!diagrams.length) { return; }
+
+    var DRAWN_CLASS = 'is-drawn';
+    var DONE_CLASS = 'is-done';
+    var PASS_MS = 2000; // hele einepasseringen (~1,8 s) + margin for sluttstate
+
+    each(diagrams, function (el) {
+      function arm() {
+        addClass(el, DRAWN_CLASS);
+        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
+        // bytter vi til den statiske slutttilstanden (is-done). Da kan
+        // animasjonen verken loope eller starte på ny.
+        window.setTimeout(function () {
+          removeClass(el, DRAWN_CLASS);
+          addClass(el, DONE_CLASS);
+        }, PASS_MS);
+      }
+
+      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
+      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+      if (reducedMotion()) { return; }
+
+      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
+      if (!('IntersectionObserver' in window)) { arm(); return; }
+
+      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
+      var observer = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.unobserve(entries[i].target);
+            arm();
+          }
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+    });
+  }());
+
+  /* ===== /BEHAVIOR:hero-scene ===== */
+
   /* ===== BEHAVIOR:problemet ===== */
 
   /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
