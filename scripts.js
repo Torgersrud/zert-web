@@ -331,6 +331,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:loven ===== */
 
+  /* ===== BEHAVIOR:hendelser ===== */
+
+  /* Agenter inn-beatet (de tre dokumenterte hendelseskortene, flyttet ut av
+     problemet-akten i review av spec #15) er statisk innhold: bare lenker
+     til primærkildene, og revealene håndteres av BEHAVIOR:scroll-reveal.
+     Ingen egen atferd. */
+
+  /* ===== /BEHAVIOR:hendelser ===== */
+
   /* ===== BEHAVIOR:losningen ===== */
 
   /* Losningen eier denne blokken. To engangsanimasjoner: karantene-diagrammet

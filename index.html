@@ -297,51 +297,6 @@
             <div class="problemet__del" data-reveal>
               <p class="problemet__merke">Agenter inn</p>
               <p class="problemet__del-tekst">KI-verktøy de ansatte allerede bruker, utfører virkelige kommandoer på bedriftens maskiner. De har nøyaktig de tilgangene den ansatte har. Ingen godkjenning. Ingen spor. Ingen bryter organisasjonen eier. Ikke noe av dette krever tro. Be IT-avdelingen sjekke det i egen organisasjon i morgen.</p>
-
-              <!-- Ticket #20: tre dokumenterte hendelser, som eksternt bevis
-                   i agenter inn-halvdelen. Kopien følger primærkildene
-                   sak for sak: år + plattform + hva som lekket + status.
-                   Kun href-er, ingen innbakte ressurser. -->
-              <div class="problemet__hendelser">
-                <p class="problemet__merke">Dokumentert av andre</p>
-                <p class="problemet__hendelser-ramme">Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
-                <ul class="problemet__hendelser-liste">
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <rect x="3" y="6" width="18" height="13" rx="2"/>
-                      <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2025 · Microsoft 365 Copilot</p>
-                      <p class="problemet__del-tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
-                    </div>
-                  </li>
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <rect x="3" y="5" width="18" height="12" rx="2"/>
-                      <path d="M8 17v4l4-4"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2024 · Slack AI</p>
-                      <p class="problemet__del-tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
-                    </div>
-                  </li>
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
-                      <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
-                      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2025 · Asana</p>
-                      <p class="problemet__del-tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a></p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
           </figcaption>
         </figure>
@@ -491,6 +446,61 @@
       </div>
     </section>
     <!-- ===== /ACT:loven ===== -->
+
+    <!-- ===== ACT:hendelser:start ===== -->
+    <!-- De tre dokumenterte hendelsene (tidl. ticket #20, beat i problemets
+         agenter inn-halvdelen) står nå som eget agenter inn-beat rett etter
+         loven, i beslutningsrekkefølgen: loven for data ut, beviset for
+         agenter inn. Kopien følger primærkildene sak for sak: år + plattform
+         + hva som kunne skjedd + status. Kun href-er, ingen innbakte
+         ressurser. -->
+    <section id="hendelser" class="section section--hendelser" data-act="hendelser" aria-labelledby="hendelser-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="hendelser__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen — agenter inn</p>
+          <h2 class="section__title" id="hendelser-tittel" data-reveal>Agenter inn har hendt. Hos andre.</h2>
+          <p class="ingress" data-reveal>Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
+        </div>
+
+        <ul class="hendelser__liste">
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="6" width="18" height="13" rx="2"/>
+              <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Microsoft 365 Copilot</p>
+              <p class="hendelser__tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="12" rx="2"/>
+              <path d="M8 17v4l4-4"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2024 · Slack AI</p>
+              <p class="hendelser__tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
+              <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
+              <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Asana</p>
+              <p class="hendelser__tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- ===== /ACT:hendelser ===== -->
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">

@@ -2316,44 +2316,52 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* ===== /ACT: dev-venteliste ===== */
 
-/* ===== ACT: problemet — hendelser (ticket #20) ===== */
+/* ===== ACT: hendelser — agenter inn (tidl. ticket #20) ===== */
 
-/* Tre hendelseskort i agenter inn-halvdelen av problemet-akten. Akten
-   holder fortsatt én sekundærfargefamilie: oransje/rød via --action-color
-   (satt i ACT-blokken «ACT: problemet»), brukt bare på piktogram og
-   etiketter — aldri på brødtekst (DESIGN.md). År- og plattformetiketten
-   og brødteksten gjenbruker .problemet__merke og .problemet__del-tekst
-   fra blokkene over. Lenker følger den globalt blå interaktive fargen.
-   Ingen egne animasjoner: kortene følger avdukingen til det eksisterende
-   globale reveal-mønsteret (data-reveal i en data-reveal-gruppe). */
+/* De tre hendelseskortene ble flyttet ut av problemets agenter inn-halvdel
+   og står nå som eget beat med primærbevis rett etter loven (review av
+   spec #15). Akten viderefører risikohistoriens familie: oransje/rød som
+   --action-color her, brukt bare på piktogram og etiketter — aldri på
+   brødtekst (DESIGN.md). Etikett- og teksttypografien er gjort selvstendig
+   i denne blokken (tidl. gjenbruk av .problemet__merke og
+   .problemet__del-tekst). Lenkene følger den globalt blå interaktive
+   fargen. Ingen egne animasjoner: kortene følger avdukingen til det
+   eksisterende globale reveal-mønsteret (data-reveal i en
+   data-reveal-gruppe). */
 
-.problemet__hendelser {
-  margin-top: clamp(28px, 4vh, 40px);
-  border-top: 1px solid var(--line);
-  padding-top: clamp(18px, 2.5vh, 24px);
+.section--hendelser {
+  --action-color: var(--orange-500);
 }
 
-.problemet__hendelser .problemet__merke { color: var(--action-color); }
+.hendelser__hode .kicker { margin-bottom: 14px; }
+.hendelser__hode .ingress { margin-top: 18px; }
 
-/* Rammen: den synlige, ærlige etiketten om at dette er ekstern dokumentasjon. */
-.problemet__hendelser-ramme {
-  max-width: 46ch;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--fg-muted);
+/* År- og plattformetiketten: mono mikroversal i aktens farge. */
+.hendelser__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
 }
 
-.problemet__hendelser-liste {
+.hendelser__tekst { max-width: 46ch; }
+
+.hendelser__liste {
   list-style: none;
   padding: 0;
-  margin-top: clamp(18px, 2.5vh, 26px);
+  margin-top: clamp(28px, 4vh, 40px);
   display: grid;
   gap: clamp(18px, 2.5vh, 26px);
 }
 
 /* Kortet: piktogram til venstre, tekst til høyre. Hairline toppregel,
-   ingen flater eller effekter — samme rolige språk som pilrammen over. */
-.problemet__hendelse {
+   ingen flater eller effekter — samme rolige språk som pilrammen i
+   problemet-akten. */
+.hendelser__kort {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 14px;
@@ -2362,20 +2370,20 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   padding-top: 16px;
 }
 
-.problemet__hendelse .problemet__merke { margin-bottom: 8px; }
+.hendelser__kort .hendelser__merke { margin-bottom: 8px; }
 
-/* piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
+/* Piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
    database) i 24x24-rutenett, én tykkelse, én farge (--action-color). */
-.problemet__piktogram {
+.hendelser__piktogram {
   width: 26px;
   height: 26px;
   margin-top: 2px;
   color: var(--action-color);
 }
 
-.problemet__piktogram rect,
-.problemet__piktogram path,
-.problemet__piktogram ellipse {
+.hendelser__piktogram rect,
+.hendelser__piktogram path,
+.hendelser__piktogram ellipse {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -2384,7 +2392,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* Kildelinjen: mono mikroletikke, blå lenker mot mørk bakgrunn. */
-.problemet__hendelse-kilde {
+.hendelser__kilde {
   margin-top: 10px;
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -2393,7 +2401,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 @media (max-width: 720px) {
-  .problemet__hendelse { gap: 12px; }
+  .hendelser__kort { gap: 12px; }
 }
 
-/* ===== /ACT: problemet — hendelser (ticket #20) ===== */
+/* ===== /ACT: hendelser — agenter inn (tidl. ticket #20) ===== */
