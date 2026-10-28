@@ -479,9 +479,173 @@ html.js [data-reveal].is-revealed {
 
 /* ===== ACT: losningen ===== */
 
-/* Innhold og stiler eies av Løsningens ticket. Foto: utviklere på
-   én skjerm (static/utviklere-*.webp). Utviklermøte først — vær
-   konkret, ikke compliance-teater (handling 3). */
+/* Den doble losningen: to dører til ett produkt. Styret presenteres først,
+   utvikleren er publikummet som må overbevises. Blå er aktens eneste
+   aksent (--action-color er ikke override her — standarden holder).
+   Fotoet vises i designelementet: fire blad fra kjennemerket, så den mørke
+   bakgrunnen skjærer seg inn mellom bildeflatene. */
+
+.losningen__layout {
+  display: grid;
+  gap: clamp(36px, 5vw, 56px);
+  align-items: start;
+}
+
+.losningen__intro { max-width: 68ch; }
+
+/* --- Dørene: to paneler, samme kasse, én aksent --- */
+
+.losningen__doors {
+  display: grid;
+  gap: 18px;
+}
+
+.door {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--interactive);
+  border-radius: 6px;
+  padding: clamp(20px, 2.6vw, 30px);
+}
+
+.door__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive-hover);
+  margin-bottom: 12px;
+}
+
+.door__title {
+  font-weight: 600;
+  font-size: clamp(20px, 1.7vw, 25px);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.door__points {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.door__point dt {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 4px;
+}
+
+.door__point dd {
+  margin: 0;
+  max-width: 48ch;
+  line-height: 1.45;
+}
+
+.door__close {
+  margin-top: 16px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+/* --- Designelementet: foto i kjennemerkets fire blad ---
+   2x2-blad etter nordstjerne-formen: de to øvre fylt med fotoet (hvert blad
+   er et portrettsnitt av hver sin utvikler), de to nedre tone-i-tone —
+   autoriserte varianter fra DESIGN.md. Den mørke bakgrunnen skjærer seg inn
+   mellom bildeflatene. Fotoet er beskåret slik at ansiktene faller i
+   bladene, ikke i merkevarens negative rom. */
+
+.losningen__figure { width: 100%; }
+
+.designelement {
+  --leaf-gap: clamp(9px, 0.9vw, 13px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Øvre bladerekke er høyere: portrettsnittene gir hver utvikler et blad
+     der ansiktet faller trygt innenfor buen. */
+  grid-template-rows: 1.75fr 1fr;
+  gap: var(--leaf-gap);
+  aspect-ratio: 0.97;
+}
+
+.designelement__leaf {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Kvartsirkel-blad forankret i elementets ytterhjørne (DESIGN.md: to par
+   bueformer i 2x2-rutenett). Radius 100% gir buen fra cellehjørne til
+   cellehjørne — det negative rommet i midten blir nordstjernen. */
+.designelement__leaf--ov { border-radius: 0 0 100% 0; }
+.designelement__leaf--oh { border-radius: 0 0 0 100%; }
+.designelement__leaf--nv { border-radius: 0 100% 0 0; }
+.designelement__leaf--nh { border-radius: 100% 0 0 0; }
+
+.designelement__leaf--tone {
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+
+/* Hvert øvre blad er sin egen bildeflate — merkevarens kollasjgrep: «den
+   mørke bakgrunnen skjærer seg inn mellom bildeflatene». Beskjæringene
+   plasserer den ene utvikleren i hvert sitt blad: ansiktene faller i
+   bladenes fulle flate, aldri i buen eller den smale spissen. */
+.designelement__bilde {
+  position: absolute;
+  top: -11%;
+  left: -45%;
+  width: 300%;
+  height: auto;
+  max-width: none;
+  /* Beskjæringen er kalkulert: bildet er 1600x1067. Mannens ansikt dekker
+     ca. 27–41 % av bredden, kvinnens 49–63 %. Bladet viser en tredjedel av
+     bredden; forskyvningen legger hvert ansikt midt i bladets fulle flate,
+     langt fra buen og den smale spissen. */
+}
+
+.designelement__bilde--hoyre {
+  left: -126%;
+}
+
+.losningen__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-top: 14px;
+}
+
+/* --- Erklæringen under begge dørene --- */
+
+.losningen__creed {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  max-width: 56ch;
+  font-weight: 500;
+  font-size: clamp(19px, 1.5vw, 22px);
+  line-height: 1.4;
+}
+
+@media (min-width: 900px) {
+  .losningen__layout {
+    grid-template-columns: minmax(0, 10fr) minmax(0, 11fr);
+    grid-template-areas:
+      "intro intro"
+      "doors element"
+      "creed creed";
+    column-gap: clamp(48px, 6vw, 88px);
+    row-gap: clamp(40px, 5vh, 60px);
+  }
+  .losningen__intro { grid-area: intro; }
+  .losningen__figure { grid-area: element; }
+  .losningen__doors { grid-area: doors; }
+  .losningen__creed { grid-area: creed; }
+}
 
 /* ===== /ACT: losningen ===== */
 
