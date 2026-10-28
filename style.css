@@ -1,0 +1,1643 @@
+/*
+  zert.no — all styles. Zero dependencies, no build step.
+
+  Struktur (hold denne rekkefølgen):
+    1. fonts        — self-hostet IBM Plex Sans + Plex Mono
+    2. tokens       — :root-varabler i henhold til DESIGN.md, plus semantiske tokens
+    3. light        — den reserverte lyse inversjonen, definert ett sted (Beviset)
+    4. base         — reset, typografi, knapper, layout-primitiver
+    5. header/nav   — eiet av skeleton
+    6. footer-shell — ytterskall; innhold eies av ACT:footer
+    7. reveal       — scroll-reveal-mekanismen
+    8. ACT-blokker  — en avgrenset blokk per handling, i sidens rekkefølge
+
+  For senere tickets: endre KUN inne i din egen ACT-blokk. Delte stiler ligger
+  under base og lesen av alle seksjoner via semantiske tokens (--bg, --fg,
+  --fg-muted, --line, --line-strong, --interactive, --interactive-hover).
+  Handlingens egen farge settes som override av --action-color i egen blokk.
+*/
+
+/* ===== 1. FONTS (self-hosted, statiske) ===== */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-semibold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-mono-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-mono-medium.woff2') format('woff2');
+}
+
+/* ===== 2. TOKENS ===== */
+
+:root {
+  color-scheme: dark;
+
+  /* Primærfarger — DESIGN.md */
+  --zert-black: #191919;
+  --zert-white: #fcfcfc;
+
+  /* Sekundærfarger — én familie om gangen, aldri dekorativt */
+  --blue-500: #0075e7;   --blue-300: #8ec2ff;   --blue-100: #c3deff;
+  --orange-500: #ff5c38; --orange-300: #ff9078; --orange-100: #ffc4bc;
+  --yellow-500: #ffc04e; --yellow-300: #ffd385; --yellow-100: #ffe8c0;
+  --green-500: #00a368;  --green-300: #46d387;  --green-100: #a8edb3;
+
+  /* Tertiærfarger — gråtoner */
+  --gray-900: #191919; --gray-600: #606060; --gray-400: #909090;
+  --gray-200: #d4d4d4; --gray-100: #f5f5f5;
+
+  /* Semantiske tokens — dark som standard. Akt-blokker leser kun disse
+     og skriver dem aldri. Lyse inversjon overskriver dem ett sted. */
+  --bg: var(--zert-black);
+  --fg: var(--zert-white);
+  --fg-muted: var(--gray-400);
+  --line: rgba(252, 252, 252, 0.14);
+  --line-strong: rgba(252, 252, 252, 0.30);
+
+  /* Interaktivt — blå er den eneste interaktive fargen på hele siden */
+  --interactive: var(--blue-500);
+  --interactive-hover: var(--blue-300);
+  --interactive-ink: var(--zert-white);
+  --focus: var(--blue-300);
+
+  /* Handlingens tonale aktør — overrides kun i ACT-blokk som tilhører den:
+     orange/rød i Problemet, grønn i Beviset. Aldri to i én akt. */
+  --action-color: transparent;
+
+  /* Layout og bevegelse */
+  --gutter: clamp(16px, 4vw, 48px);
+  --section-pad-y: clamp(88px, 14vh, 150px);
+  --header-h: 64px;
+  --reveal-duration: 600ms;
+  --reveal-stagger: 120ms;
+  --reveal-distance: 28px;
+
+  /* Fontstakker — IBM Plex, reserve Arial/Helvetica (DESIGN.md) */
+  --font-sans: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ===== 3. LYSE INVERSJONEN (reservert for Beviset) ===== */
+
+/* Ett sted, eiet av skeleton. Brukes på seksjonen som skal leses som et
+   revisjonsdokument: class="section section--beviset section-light-style".
+   Overskriver kun de semantiske tokens; akt-stiler leser tokens. */
+.section-light-style {
+  --bg: var(--zert-white);
+  --fg: var(--zert-black);
+  --fg-muted: var(--gray-600);
+  --line: rgba(25, 25, 25, 0.14);
+  --line-strong: rgba(25, 25, 25, 0.30);
+}
+
+/* ===== 4. BASE ===== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--zert-black);
+  color: var(--zert-white);
+  font-family: var(--font-sans);
+  font-size: clamp(17px, 1.15vw, 19px);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+a { color: var(--blue-300); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+[id] { scroll-margin-top: calc(var(--header-h) + 20px); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--zert-white);
+  color: var(--zert-black);
+  padding: 10px 16px;
+}
+.skip-link:focus { left: 12px; top: 12px; text-decoration: none; }
+
+.noscript-note {
+  margin: calc(var(--header-h) + 12px) var(--gutter) 0;
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+/* Typografi — nivåer skilles med vekt, aldri med font (DESIGN.md) */
+.kicker {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.section__title {
+  font-weight: 500;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+
+.ingress {
+  font-weight: 400;
+  font-size: clamp(19px, 1.7vw, 25px);
+  line-height: 1.4;
+  color: var(--fg-muted);
+  max-width: 60ch;
+}
+
+.prose { max-width: 62ch; }
+
+/* Knapper — mono-mikroetiketter på blå (interaktiv familie) */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.btn:hover { text-decoration: none; }
+.btn--primary { background: var(--interactive); color: var(--interactive-ink); }
+.btn--primary:hover { background: var(--interactive-hover); color: var(--zert-black); }
+.btn--ghost { border-color: var(--line-strong); color: var(--fg); }
+.btn--ghost:hover { border-color: var(--interactive-hover); color: var(--interactive-hover); }
+
+/* Layout-primitiver — seksjonen maler sin egen bakgrunn via tokens */
+.section {
+  background: var(--bg);
+  color: var(--fg);
+  padding: var(--section-pad-y) 0;
+}
+
+.section__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Plassholderlinje — synlig merket inntil aktens ticket eier innholdet */
+.act-placeholder {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+
+/* ===== 5. HEADER / NAV (eies av skeleton) ===== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  min-height: var(--header-h);
+  padding: 10px var(--gutter);
+  background: rgba(25, 25, 25, 0.92);
+  border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.site-header__logo img { height: 30px; width: auto; }
+.site-header__logo:hover { text-decoration: none; }
+
+.site-nav {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+
+/* Mobil: navstripen kan horisontalscrolles. Den tonede høyre kanten viser
+   at det finnes flere lenker utenfor kanten (skjult scrollbar). */
+@media (max-width: 719px) {
+  .site-nav {
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+  }
+}
+
+.site-nav ul {
+  display: flex;
+  gap: clamp(14px, 1.8vw, 26px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--gray-400);
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--blue-300); text-decoration: none; }
+.site-nav a.is-active { color: var(--zert-white); border-bottom-color: var(--interactive); }
+
+/* ===== 6. FOOTER-SKALL (innhold eies av ACT:footer) ===== */
+
+.site-footer {
+  background: var(--zert-black);
+  color: var(--zert-white);
+  border-top: 1px solid var(--line);
+  padding: 64px 0 56px;
+}
+
+.site-footer__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.site-footer__logo img { height: 34px; width: auto; }
+
+.site-footer__meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--gray-400);
+}
+
+/* ===== 7. SCROLL-REVEAL ===== */
+
+/* Skjules kun når JS er aktivt (html.js), så siden leses uten JavaScript.
+   Mekanikken: scripts.js legger .is-revealed nar elementet er i viewport,
+   og kun én gang. Grupper (data-reveal-group) staggeres via transition-delay. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-duration) ease, transform var(--reveal-duration) ease;
+}
+html.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Fullstendig statisk tilstand: alt innhold vises fra starten. */
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== 8. ACT: hero ===== */
+
+.section--hero {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 48px);
+  padding-bottom: calc(var(--header-h) + 48px);
+}
+
+.section--hero .section__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 7vh, 72px);
+}
+
+.hero__content { max-width: 640px; }
+
+.hero__title {
+  font-weight: 600;
+  font-size: clamp(46px, 6.2vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero__ingress { margin-bottom: 34px; max-width: 46ch; }
+
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.hero__figure { max-width: 920px; }
+
+.hero__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+/* --- Karantene-diagram (ticket #5): inline SVG, engangsanimasjon. --- */
+
+.hero__diagram { position: relative; }
+
+.hero__diagram svg { display: block; width: 100%; height: auto; }
+
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
+   Valgene må være spesifikke nok til å overstyre size-regelen over,
+   som også treffer svg-elementene. */
+.hero__diagram .diagram--tall { display: none; }
+@media (max-width: 720px) {
+  .hero__diagram .diagram--wide { display: none; }
+  .hero__diagram .diagram--tall { display: block; }
+}
+
+/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
+   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
+.diagram__vault--leaf { display: none; }
+.hero__diagram--leaf .diagram__vault--rect { display: none; }
+.hero__diagram--leaf .diagram__vault--leaf { display: block; }
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.diagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.diagram__text--strong { fill: var(--fg); }
+.diagram__text--micro { font-size: 10px; }
+.diagram__text--muted { fill: var(--gray-600); }
+.diagram__text--exit { fill: var(--blue-300); }
+.diagram__text--strike { text-decoration: line-through; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.diagram__leaf-shape {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__arrow--in { fill: var(--line-strong); }
+.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__arrow--out { fill: var(--interactive); }
+.diagram__pulse { fill: var(--blue-300); opacity: 0; }
+.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
+.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
+.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
+
+/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
+   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
+   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
+   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
+   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
+   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
+
+html.js .hero__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .hero__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .hero__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
+html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
+   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
+   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
+@keyframes d-probe {
+  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
+  18% { opacity: 0.9; }
+  55% { transform: translate(0, 0); opacity: 0.5; }
+  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
+}
+
+@keyframes d-pulse {
+  0% { transform: translate(0, 0); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
+}
+
+/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
+   alle etiketter synlige, partiklene frosset midt i oplosningen. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
+  html.js .hero__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .hero__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .hero__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
+  html.js .hero__diagram.is-drawn .diagram__pulse { animation: none; }
+}
+
+/* --- /Karantene-diagram (ticket #5) --- */
+
+/* ===== ACT: problemet ===== */
+
+/* Akten åpner med den låste setningen, nevner den dobbelte risikoen — data
+   ut og agenter inn — og avslutter rett. Den tonale aktøren er oransje/rød,
+   ene sekundærfarge i denne akten, brukt bare på etiketter og grafikk
+   (DESIGN.md: ikke på brødtekst). Familjetokens (--orange-*) finnes allerede
+   i :root. Ingen interaktive elementer her; sidenav og knapper holder blå. */
+
+.section--problemet {
+  --action-color: var(--orange-500);
+}
+
+/* Åpning — første synlige tekst i akten er den faste setningen. */
+.problemet__led {
+  font-weight: 500;
+  font-size: clamp(26px, 2.9vw, 38px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  max-width: 30ch;
+  margin-bottom: clamp(56px, 9vh, 96px);
+}
+
+.problemet__hode .ingress { margin-top: 18px; }
+
+/* Akuten på «En vane» (É) rager over linjeboksen — litt luft mellom kicker
+   og tittel slik at akuten ikke tar kontakt med kickerlinjen over. */
+.problemet__hode .section__title { padding-top: 0.14em; }
+
+/* De to risikoene — ett bilde på samme problem (GLOSSARY: Data ut /
+   agenter inn). Redaksjonelt: hairline toppregel i aktens farge, ingen
+   kortflate, ingen effekter. */
+.problemet__kort {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(48px, 7vh, 72px);
+}
+
+.problemet__risiko {
+  border-top: 2px solid var(--action-color);
+  padding-top: 26px;
+}
+
+.problemet__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+
+.problemet__risiko-tittel {
+  font-weight: 500;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.problemet__risiko-tekst { max-width: 46ch; }
+
+.problemet__risiko-note {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* Avslutning — board-takeaway, uten løfte om løsningen (neste akt eier den). */
+.problemet__avslutning { margin-top: clamp(48px, 7vh, 72px); }
+
+@media (max-width: 720px) {
+  .problemet__kort { grid-template-columns: 1fr; }
+}
+
+/* ===== /ACT: problemet ===== */
+
+/* ===== ACT: losningen ===== */
+
+/* Den doble losningen: to dører til ett produkt. Styret presenteres først,
+   utvikleren er publikummet som må overbevises. Blå er aktens eneste
+   aksent (--action-color er ikke override her — standarden holder).
+   Fotoet vises i designelementet: fire blad fra kjennemerket, så den mørke
+   bakgrunnen skjærer seg inn mellom bildeflatene. */
+
+.losningen__layout {
+  display: grid;
+  gap: clamp(36px, 5vw, 56px);
+  align-items: start;
+}
+
+.losningen__intro { max-width: 68ch; }
+
+/* --- Dørene: to paneler, samme kasse, én aksent --- */
+
+.losningen__doors {
+  display: grid;
+  gap: 18px;
+}
+
+.door {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--interactive);
+  border-radius: 6px;
+  padding: clamp(20px, 2.6vw, 30px);
+}
+
+.door__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive-hover);
+  margin-bottom: 12px;
+}
+
+.door__title {
+  font-weight: 600;
+  font-size: clamp(20px, 1.7vw, 25px);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.door__points {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.door__point dt {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 4px;
+}
+
+.door__point dd {
+  margin: 0;
+  max-width: 48ch;
+  line-height: 1.45;
+}
+
+.door__close {
+  margin-top: 16px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+/* --- Designelementet: foto i kjennemerkets fire blad ---
+   2x2-blad etter nordstjerne-formen: de to øvre fylt med fotoet (hvert blad
+   er et portrettsnitt av hver sin utvikler), de to nedre tone-i-tone —
+   autoriserte varianter fra DESIGN.md. Den mørke bakgrunnen skjærer seg inn
+   mellom bildeflatene. Fotoet er beskåret slik at ansiktene faller i
+   bladene, ikke i merkevarens negative rom. */
+
+.losningen__figure { width: 100%; }
+
+.designelement {
+  --leaf-gap: clamp(9px, 0.9vw, 13px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Øvre bladerekke er høyere: portrettsnittene gir hver utvikler et blad
+     der ansiktet faller trygt innenfor buen. */
+  grid-template-rows: 1.75fr 1fr;
+  gap: var(--leaf-gap);
+  aspect-ratio: 0.97;
+}
+
+.designelement__leaf {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Kvartsirkel-blad forankret i elementets ytterhjørne (DESIGN.md: to par
+   bueformer i 2x2-rutenett). Radius 100% gir buen fra cellehjørne til
+   cellehjørne — det negative rommet i midten blir nordstjernen. */
+.designelement__leaf--ov { border-radius: 0 0 100% 0; }
+.designelement__leaf--oh { border-radius: 0 0 0 100%; }
+.designelement__leaf--nv { border-radius: 0 100% 0 0; }
+.designelement__leaf--nh { border-radius: 100% 0 0 0; }
+
+.designelement__leaf--tone {
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+
+/* Hvert øvre blad er sin egen bildeflate — merkevarens kollasjgrep: «den
+   mørke bakgrunnen skjærer seg inn mellom bildeflatene». Beskjæringene
+   plasserer den ene utvikleren i hvert sitt blad: ansiktene faller i
+   bladenes fulle flate, aldri i buen eller den smale spissen. */
+.designelement__bilde {
+  position: absolute;
+  top: -11%;
+  left: -45%;
+  width: 300%;
+  height: auto;
+  max-width: none;
+  /* Beskjæringen er kalkulert: bildet er 1600x1067. Mannens ansikt dekker
+     ca. 27–41 % av bredden, kvinnens 49–63 %. Bladet viser en tredjedel av
+     bredden; forskyvningen legger hvert ansikt midt i bladets fulle flate,
+     langt fra buen og den smale spissen. */
+}
+
+.designelement__bilde--hoyre {
+  left: -126%;
+}
+
+.losningen__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-top: 14px;
+}
+
+/* --- Erklæringen under begge dørene --- */
+
+.losningen__creed {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  max-width: 56ch;
+  font-weight: 500;
+  font-size: clamp(19px, 1.5vw, 22px);
+  line-height: 1.4;
+}
+
+@media (min-width: 900px) {
+  .losningen__layout {
+    grid-template-columns: minmax(0, 10fr) minmax(0, 11fr);
+    grid-template-areas:
+      "intro intro"
+      "doors element"
+      "creed creed";
+    column-gap: clamp(48px, 6vw, 88px);
+    row-gap: clamp(40px, 5vh, 60px);
+  }
+  .losningen__intro { grid-area: intro; }
+  .losningen__figure { grid-area: element; }
+  .losningen__doors { grid-area: doors; }
+  .losningen__creed { grid-area: creed; }
+}
+
+/* ===== /ACT: losningen ===== */
+
+/* ===== ACT: slik-virker-det ===== */
+
+/* Forløpet repo inn -> KI-arbeid inne -> resultater ut -> VM-en dør, som fire
+   steg på rad, pluss den iscenesatte autoplay-terminalen som først viser seg
+   i denne handlingen. Blå er handlingens eneste aksent (standard interaktiv).
+   Terminalinnholdet er på engelsk; rundteksten er bokmål. */
+
+.section--slik-virker-det .kicker { margin-bottom: 14px; }
+
+.svd__ingress { margin-bottom: clamp(44px, 6vh, 64px); }
+
+/* Flyten — fire kolonner som leses som én setning: inn, arbeid, ut, død */
+.svd__flow {
+  list-style: none;
+  margin: 0 0 clamp(44px, 6vh, 64px);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px clamp(16px, 2.4vw, 32px);
+}
+
+.svd__step {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+}
+
+.svd__num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--interactive);
+  margin-bottom: 10px;
+}
+
+.svd__step-title {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.svd__step-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  max-width: 34ch;
+}
+
+.svd__step-text code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--fg);
+}
+
+/* Terminalen — en ekte terminalrute: ingen vinduskrom, ingen glød, ingen
+   skygger. Hele sesjonen står statisk i HTML-en; når scripts.js er aktiv
+   (og bevegelse er tillatt) legges .term--replay på og trinnene spilles av
+   én gang. Redusert bevegelse og uten JavaScript: statisk fulltilstand. */
+
+.term { max-width: 880px; }
+
+.term__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.term__screen {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+  padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 1vw + 8px, 13px);
+  line-height: 1.7;
+  color: var(--fg);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.term__prompt { color: var(--blue-300); }
+
+/* Linjene er på plass fra starten (lesbart for skjermlesere) — replay
+   skjuler dem med gjennomsiktighet, ikke display, slik at innholdet blir
+   værende i tilgjengelighetstreet. */
+.term--replay .term__line { opacity: 0; }
+.term--replay .term__line.is-shown { opacity: 1; }
+
+/* Blokkmarkøren hører til i en ekte terminal. Den blinker bare mens
+   sesjonen skrives; på fullført tilstand står den stille (ingen løkke). */
+.term__caret { display: none; }
+.term--replay .term__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--blue-300);
+  animation: term-caret 1.1s step-end infinite;
+}
+.term--replay.term--done .term__caret { animation: none; }
+
+@keyframes term-caret { 50% { opacity: 0; } }
+
+.term__caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 12px;
+}
+
+@media (max-width: 880px) {
+  .svd__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .svd__flow { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term__caret { display: none; }
+}
+
+/* ===== /ACT: slik-virker-det ===== */
+
+/* ===== ACT: infrastrukturen ===== */
+
+/* Innhold og stiler eies av Infrastrukturens ticket. Fullbreddefoto:
+   Lofoten (static/lofoten-*.webp). Blix nevnes som partner i tekst; ISO 27001
+   kun som attributt ved datasenteret: «datasenteret er ISO 27001-sertifisert
+   — Zert er det ikke.» Ingen ISO-påstand om Zert (handling 5). */
+
+/* Egen vertikal rytme: båndet maler kanten mot kanten, innholdet under
+   styrer sin egen padding. */
+.section--infrastrukturen {
+  padding: 0;
+}
+
+/* --- Fullbreddefoto: Lofoten som filmmessig bånd --- */
+.infra__band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: clamp(460px, 60vh, 660px);
+  overflow: hidden;
+  background: var(--zert-black);
+}
+
+.infra__band-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+
+/* Mørk vegg bak teksten (DESIGN.md: aldri tekst over travle partier uten
+   mørk flate bak). Skrimen tykner øverst, der sjøflaten er rolig. */
+.infra__band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 72%, transparent) 46%,
+    color-mix(in srgb, var(--bg) 18%, transparent) 72%,
+    color-mix(in srgb, var(--bg) 36%, transparent) 100%);
+}
+
+.infra__band-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-top: clamp(56px, 9vh, 110px);
+}
+
+.infra__band-copy .section__title {
+  font-weight: 600;
+  max-width: 18ch;
+}
+
+.infra__band-lead {
+  color: var(--fg);
+  max-width: 44ch;
+}
+
+/* --- Datasenteret og partneren --- */
+.infra__partner {
+  padding: clamp(56px, 9vh, 100px) 0 clamp(40px, 6vh, 64px);
+}
+
+.infra__sub {
+  font-weight: 600;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.infra__iso {
+  margin-top: 26px;
+  padding-left: 20px;
+  border-left: 2px solid var(--line-strong);
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 58ch;
+  text-wrap: balance;
+}
+
+.infra__iso-word {
+  white-space: nowrap;
+}
+
+/* --- Logo-plass: synlig merket placeholder til Blix godkjenner --- */
+.infra__logo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.infra__logo-stub {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.infra__logo-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--gray-400);
+}
+
+/* --- Modellene --- */
+.infra__modeller {
+  padding-bottom: var(--section-pad-y);
+}
+
+.infra__modeller .infra__sub {
+  max-width: 30ch;
+}
+
+.infra__model-grid {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.infra__model {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  padding: 24px 22px;
+}
+
+.infra__model-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.infra__model-name {
+  font-weight: 600;
+  font-size: clamp(19px, 1.5vw, 21px);
+  line-height: 1.25;
+}
+
+.infra__model-spec {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 8px;
+}
+
+.infra__honest {
+  margin-top: 28px;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--fg);
+  max-width: 52ch;
+}
+
+/* Mobil: tettere beskjæring rundt landsbyen og jevn, mørk vegg bak teksten. */
+@media (max-width: 720px) {
+  .infra__band {
+    min-height: 520px;
+  }
+  .infra__band-img {
+    object-position: center 42%;
+  }
+  .infra__band::before {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 74%, transparent) 55%,
+      color-mix(in srgb, var(--bg) 58%, transparent) 100%);
+  }
+  .infra__band-copy {
+    padding-top: clamp(44px, 12vh, 72px);
+  }
+}
+
+/* ===== /ACT: infrastrukturen ===== */
+
+/* ===== ACT: beviset ===== */
+
+/* Den lyse inversjonen kommer fra .section-light-style (definert ett sted av
+   skeleton — gjeninnføres ikke her). Den tonale aktøren er grønn, brukt
+   som aktør — markør, tall, venstrekanter, brikkefelt — aldri som brødtekst.
+   Akten leser som et revisjonsdokument: platåband mot mørket, felta (dt/dd)
+   med hairline-regler, mono-mikroetiketter. Ingen JS: avdukingen kjører på
+   kjerne-mekanismen. */
+
+.section--beviset {
+  --action-color: var(--green-500);
+  padding-top: 0; /* dagslysbandet ligger inntil mørket over */
+}
+
+/* Lenker i den lyse akten: samme interaktive familie, den mørke tonen —
+   blue-300 mot --zert-white gir for lav kontrast. */
+.section--beviset a { color: var(--interactive); }
+
+/* --- Dagslysbandet: panoramafoto i full bredde, anslag mot mørket --- */
+
+.beviset__band img {
+  width: 100%;
+  height: clamp(220px, 34vw, 440px);
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.beviset__band figcaption {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 12px var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* --- Dokumentdelen: luft mellom band og overskrift --- */
+
+.section--beviset .section__inner {
+  padding-top: clamp(48px, 8vh, 96px);
+}
+
+/* --- Bevisloggen: feltrader som i et revisjonsdokument --- */
+
+.beviset__log {
+  margin: clamp(40px, 6vh, 64px) 0 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.beviset__row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 6px 40px;
+  padding: clamp(24px, 3.5vh, 34px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.beviset__field {
+  display: flex;
+  gap: 10px;
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* Grønn feltnyansert markør — aktørens faste plass i marginen */
+.beviset__field::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 3px;
+  background: var(--action-color);
+}
+
+.beviset__entry {
+  margin: 0;
+  max-width: 66ch;
+}
+
+.beviset__entry p + p { margin-top: 14px; }
+
+/* Mono-tallet — akten ene store-grønn-tekst (stor nok til AA-large) */
+.beviset__tall {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.15;
+  color: var(--action-color);
+}
+
+.beviset__micro {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+p.beviset__micro { margin-top: 12px; }
+
+/* --- Hendelsestypene som verifiserte brikker (grønt bakteppe, svart tekst) --- */
+
+.beviset__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beviset__chips li {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--green-100);
+  color: var(--zert-black);
+}
+
+/* --- Gap Policy-sitatet: dokumentutdrag med grønn vensterkant --- */
+
+.beviset__quote {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  border-left: 3px solid var(--action-color);
+  font-family: var(--font-mono);
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--fg);
+}
+
+/* --- Avsluttende presenslinje --- */
+
+.beviset__closing {
+  margin-top: clamp(28px, 4vh, 40px);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 720px) {
+  .beviset__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .beviset__band img { height: clamp(180px, 46vw, 260px); }
+}
+
+/* ===== /ACT: beviset ===== */
+
+/* ===== ACT: veien-videre ===== */
+
+/* Veien videre — den designede roadmap-akten: de tre punktene, ærlig
+   merket, bak et gråtonet fjellbånd i tåke. Den tonale aktøren er gul,
+   brukt KUN på «Ikke i produksjon ennå»-merkene. Oransje og grønn
+   tilhører andre akter; blå er forbeholdt det interaktive. */
+
+.section--veien-videre {
+  --action-color: var(--yellow-300);
+  position: relative;
+  overflow: hidden;
+}
+
+.section--veien-videre .kicker { margin-bottom: 14px; }
+
+.section--veien-videre .section__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fjellbåndet: statisk dekorasjon som anker akten mot neste seksjon,
+   gråtonet og nedtonet slik teksten alltid står på mørk flate. */
+.veien-videre__fjell {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  height: clamp(300px, 55%, 620px);
+  pointer-events: none;
+}
+.veien-videre__fjell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 68%;
+  filter: grayscale(1) brightness(0.55) contrast(1.05);
+}
+.veien-videre__fjell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Skjær i --bg med alfa via color-mix, slik headeren og --line-tokenene gjør:
+     tett oppe der teksten står, lettest midt på fjellet, og igjen i
+     bunnen slik fjellet toner ut som tåke mot slutten av akten. */
+  background: linear-gradient(
+    180deg,
+    var(--bg) 0%,
+    color-mix(in srgb, var(--bg) 82%, transparent) 30%,
+    color-mix(in srgb, var(--bg) 45%, transparent) 62%,
+    color-mix(in srgb, var(--bg) 90%, transparent) 92%,
+    var(--bg) 100%
+  );
+}
+
+/* Roadmap-listen: nivåer skilles med vekt, rekkefølge med mono-tall. */
+.roadmap {
+  list-style: none;
+  margin: clamp(40px, 6vh, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.roadmap__item {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--line-strong);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  padding: 24px 24px 28px;
+}
+
+.roadmap__nummer {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+  margin-bottom: 14px;
+}
+
+.roadmap__tittel {
+  font-weight: 600;
+  font-size: clamp(20px, 1.6vw, 24px);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+/* Ærlighetsmerket — aktens ene aksentfarve, aldri dekorativt. */
+.roadmap__status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+.roadmap__status::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--action-color);
+}
+
+.roadmap__tekst {
+  color: var(--fg-muted);
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+/* Peker tilbake til presens: det som gjelder i dag, og punktene på
+   veien videre, blandes aldri. */
+.veien-videre__avslutning {
+  margin-top: clamp(28px, 4vh, 44px);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 900px) {
+  .roadmap { grid-template-columns: 1fr; }
+  .roadmap__item { padding: 20px 20px 24px; }
+  .roadmap__tekst { max-width: none; }
+}
+
+/* ===== /ACT: veien-videre ===== */
+
+/* ===== ACT: kom-i-gang ===== */
+
+/* Dual-dør venteliste (utvikler|leder) + bevis for ernst + bluetime-band.
+   Den tonale aktøren er blå — sidens standard for interaktivt, ingen
+   --action-color-override trengs. Endepunktskonstanten ligger øverst i
+   scripts.js; feil avslører alltid mailto-fallbacken (ingen stille tap). */
+
+.kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+
+.kig__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: start;
+}
+
+/* --- Ventelisteskjema --- */
+
+.kig__form { display: grid; gap: 22px; max-width: 540px; }
+
+/* Egne display-regler overskrider UA-stilarkets [hidden]. Skjul tilstandane
+   eksplisitt — ellers står skjemaet og feilboksen framme alltid. */
+.kig__form[hidden],
+.kig__takk[hidden],
+.kig__feil[hidden] { display: none; }
+
+.kig__doors { border: 0; margin: 0; padding: 0; min-width: 0; }
+
+.kig__legend {
+  padding: 0;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--fg);
+}
+
+.kig__doorvalg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* Radioknappen er visuelt skjult, men fokusbar — selve døra er knappen. */
+.kig__door-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
+
+.kig__door {
+  display: block;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  cursor: pointer;
+}
+.kig__door:hover { border-color: var(--line-strong); }
+
+.kig__door-input:checked + .kig__door {
+  border-color: var(--interactive);
+  background: color-mix(in srgb, var(--interactive) 10%, transparent);
+}
+.kig__door-input:focus-visible + .kig__door {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.kig__door-tittel {
+  display: block;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+.kig__door-tekst {
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--fg-muted);
+}
+
+.kig__felt { display: grid; gap: 8px; }
+
+.kig__merkelapp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.kig__input {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+}
+.kig__input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--interactive);
+}
+
+.kig__send { width: 100%; }
+.kig__send[disabled] { opacity: 0.6; cursor: default; }
+
+.kig__personvern {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.kig__noscript {
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* --- Tilstandane: takk (berre ved 2xx) og feil (alltid med mailto) --- */
+
+.kig__takk {
+  max-width: 540px;
+  border: 1px solid var(--interactive);
+  border-radius: 6px;
+  padding: 28px 26px;
+}
+.kig__takk-tekst {
+  font-weight: 600;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.35;
+}
+
+.kig__feil {
+  display: grid;
+  gap: 10px;
+  max-width: 540px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 22px 22px;
+  line-height: 1.5;
+}
+
+/* --- Bevis for ernst: brew-linja og det opne repoet --- */
+
+.kig__bevis {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.kig__bevis-tekst { color: var(--fg-muted); }
+
+.kig__install {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+.kig__install-prompt { color: var(--interactive-hover); }
+.kig__install-kode { color: var(--fg); }
+
+.kig__repo a { font-family: var(--font-mono); font-size: 15px; }
+
+.kig__guidet {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--fg-muted);
+  font-size: 15px;
+}
+
+/* --- Sluttband: bluetime i blå time, full bredd --- */
+
+.kig__band { margin-top: clamp(56px, 9vh, 96px); }
+
+.kig__band-bilde { width: 100%; height: auto; }
+
+.kig__band-tekst {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 12px var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 900px) {
+  .kig__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== /ACT: kom-i-gang ===== */
+
+/* ===== ACT: footer ===== */
+
+/* Skallet (bakgrunn, padding, logo, opphavsrettslinje) eies av skeleton.
+   Innholdet: dempet-hvit-logo, ett slagord, kontaktlenker og organisasjons-
+   linje. Dette er en fotnote — aldri en team-seksjon. */
+
+.site-footer__tagline {
+  max-width: 58ch;
+  font-size: 16px;
+  color: var(--fg-muted);
+}
+
+.site-footer__lenker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-footer__lenker a {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--blue-300);
+}
+
+/* ===== /ACT: footer ===== */
