@@ -157,8 +157,68 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:hero-diagram ===== */
 
-  /* Ticket #5: animert karantene-diagram (inline SVG + engangsanimasjon).
-     All JS for diagrammet hører hjemme i denne blokken. */
+  /* Karantene-diagrammet: starter engangsanimasjonen første gang diagrammet
+     er i visningen (og aldri igjen), og velger hvelvform via ?vault=rect|leaf
+     (dev-parameter; standard: rektangel). All styling og hele animasjonstid-
+     linjen ligger i CSS; denne blokken legger bare på klasser én gang. */
+
+  (function () {
+    var diagrams = doc.querySelectorAll('.hero__diagram');
+    if (!diagrams.length) { return; }
+
+    var DRAWN_CLASS = 'is-drawn';
+    var DONE_CLASS = 'is-done';
+    var LEAF_CLASS = 'hero__diagram--leaf';
+    var PASS_MS = 1700; // hele einepasseringa; + margin for bytte til sluttstate
+
+    function hasClass(el, name) { return el.className.indexOf(name) !== -1; }
+    function addClass(el, name) {
+      if (!hasClass(el, name)) { el.className += (el.className ? ' ' : '') + name; }
+    }
+    function removeClass(el, name) {
+      el.className = (' ' + el.className + ' ').replace(' ' + name + ' ', ' ').replace(/^ | $/g, '');
+    }
+
+    // Dev-only hvelvvalg: ?vault=leaf bytter til firbladet. Rektangel er
+    // standard og krever ingen JS — varianten byttes kun på classen.
+    var search = window.location && window.location.search ? window.location.search : '';
+    var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
+
+    each(diagrams, function (el) {
+      if (vault && vault[1] === 'leaf') { addClass(el, LEAF_CLASS); }
+
+      function arm() {
+        addClass(el, DRAWN_CLASS);
+        // Ett eneste pass: nar animasjonstidslinjen er spelte ferdig,
+        // bytter vi til den statiske slutttilstanden (is-done). Da kan
+        // animasjonen verken loope eller starte pa ny (f.eks. ved at
+        // viewport storrelsen endres) — slutttilstanden er basen i CSS.
+        window.setTimeout(function () {
+          removeClass(el, DRAWN_CLASS);
+          addClass(el, DONE_CLASS);
+        }, PASS_MS);
+      }
+
+      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
+      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+      if (reducedMotion()) { return; }
+
+      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
+      if (!('IntersectionObserver' in window)) { arm(); return; }
+
+      // Første sikt: aktiverer vi animasjonen — og slår observatoren av for godt.
+      var observer = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.unobserve(entries[i].target);
+            arm();
+          }
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+    });
+  }());
 
   /* ===== /BEHAVIOR:hero-diagram ===== */
 

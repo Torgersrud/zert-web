@@ -399,74 +399,111 @@ html.js [data-reveal].is-revealed {
   margin-bottom: 12px;
 }
 
-.hero__figure-note {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--gray-400);
-  margin-top: 12px;
-}
+/* --- Karantene-diagram (ticket #5): inline SVG, engangsanimasjon. --- */
 
-/* --- PLACEHOLDER: containment-skissen — erstattes helhetlig av ticket #5.
-       Slett hele denne subblokken sammen med figuren i index.html. --- */
-.hero__diagram {
-  display: flex;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(252, 252, 252, 0.02);
-  padding: 24px 22px;
-}
+.hero__diagram { position: relative; }
 
-.hero__node {
-  align-self: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  padding: 14px 16px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--fg);
-}
-.hero__node small {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 6px;
-}
-.hero__node--vault {
-  border-color: var(--blue-500);
-  background: rgba(0, 117, 231, 0.08);
-}
+.hero__diagram svg { display: block; width: 100%; height: auto; }
 
-.hero__arrow {
-  align-self: center;
-  font-family: var(--font-mono);
-  color: var(--blue-300);
-}
-
-.hero__blocked {
-  align-self: center;
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--gray-600);
-  border: 1px dashed var(--gray-600);
-  border-radius: 4px;
-  padding: 8px 10px;
-}
-
+/* Layout: bred visning i viewport-bredde, loddrett visning pa mobil.
+   Valgene matte vaere spesifikke nok til a overstyre size-regelen over,
+   som ogsa treffer svg-elementene. */
+.hero__diagram .diagram--tall { display: none; }
 @media (max-width: 720px) {
-  .hero__diagram { flex-direction: column; align-items: stretch; }
-  .hero__node { align-self: stretch; }
-  /* Pilene peker nedover nar nodene staler: roterer tegnet, ikke logoen. */
-  .hero__arrow { align-self: center; transform: rotate(90deg); }
-  .hero__blocked { align-self: flex-end; margin-left: 0; }
+  .hero__diagram .diagram--wide { display: none; }
+  .hero__diagram .diagram--tall { display: block; }
 }
-/* --- /PLACEHOLDER: containment-skissen (ticket #5) --- */
+
+/* Hvelvform: rektangel som standard, firblad via ?vault=leaf (kun dev).
+   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
+.diagram__vault--leaf { display: none; }
+.hero__diagram--leaf .diagram__vault--rect { display: none; }
+.hero__diagram--leaf .diagram__vault--leaf { display: block; }
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.diagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.diagram__text--strong { fill: var(--fg); }
+.diagram__text--micro { font-size: 10px; }
+.diagram__text--muted { fill: var(--gray-600); }
+.diagram__text--exit { fill: var(--blue-300); }
+.diagram__text--strike { text-decoration: line-through; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.diagram__leaf-shape {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__arrow--in { fill: var(--line-strong); }
+.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__arrow--out { fill: var(--interactive); }
+.diagram__pulse { fill: var(--blue-300); opacity: 0; }
+.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
+.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
+.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
+
+/* Engangsanimasjon (forsinkelse via --d pa elementene, alt i ett pass pa
+   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
+   -> partikler prover seg. Alt med iteration-count 1 — ingenting looper.
+   Tilstandsmaskin: forste sikt gir .is-drawn (animasjonen spilles én gang),
+   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
+   CSS og kan ikke starte pa ny. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
+
+html.js .hero__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .hero__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .hero__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
+html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Partikkelen starter ved hvelvet, prover utover og oploses — basetilstanden
+   (geitet midt pa stummen, lav bakgrunns-opacity) er det statiske bildet av
+   en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
+@keyframes d-probe {
+  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
+  18% { opacity: 0.9; }
+  55% { transform: translate(0, 0); opacity: 0.5; }
+  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
+}
+
+@keyframes d-pulse {
+  0% { transform: translate(0, 0); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
+}
+
+/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
+   alle etiketter synlige, partiklene frosset midt i oplosningen. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
+  html.js .hero__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .hero__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .hero__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
+  html.js .hero__diagram.is-drawn .diagram__pulse { animation: none; }
+}
+
+/* --- /Karantene-diagram (ticket #5) --- */
 
 /* ===== ACT: problemet ===== */
 
