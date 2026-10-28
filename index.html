@@ -184,11 +184,61 @@
 
     <!-- ===== ACT:infrastrukturen:start ===== -->
     <section id="infrastrukturen" class="section section--infrastrukturen" data-act="infrastrukturen" aria-labelledby="infrastrukturen-tittel">
-      <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 5</p>
-        <h2 class="section__title" id="infrastrukturen-tittel" data-reveal>Infrastrukturen</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+
+      <div class="infra__band">
+        <img class="infra__band-img"
+             src="static/lofoten-1600.webp"
+             srcset="static/lofoten-800.webp 800w, static/lofoten-1600.webp 1600w, static/lofoten-2400.webp 2400w"
+             sizes="100vw"
+             alt="Flyfoto av et fiskevær i Lofoten: rorbuene ved vannet, omgitt av fjell"
+             loading="lazy" decoding="async">
+        <div class="section__inner infra__band-copy" data-reveal-group>
+          <p class="kicker" data-reveal>Blix datasenter · Oslo</p>
+          <h2 class="section__title" id="infrastrukturen-tittel" data-reveal>Infrastrukturen</h2>
+          <p class="infra__band-lead ingress" data-reveal>Det er ikke noe hav mellom koden din og svarene. Inferensen og VM-ene dine bor i samme bygget i Oslo.</p>
+        </div>
       </div>
+
+      <div class="section__inner">
+        <div class="infra__partner" data-reveal-group>
+          <p class="kicker" data-reveal>Infrastrukturpartner</p>
+          <h3 class="infra__sub" data-reveal>Norskeiet datasenter i Oslo</h3>
+          <p class="prose" data-reveal>Blix Solutions eier og drifter datasenteret i Oslo der KI-endepunktet og VM-ene dine kjører. Blix er norskeid. De er infrastrukturpartneren vår — inferensen skjer i samme bygget som VM-ene.</p>
+          <p class="infra__iso" data-reveal>Datasenteret er <span class="infra__iso-word">ISO 27001-sertifisert</span> — Zert er det ikke.</p>
+          <!-- TODO (eksternt avhengighet, eier: Zert): innhent Blix' godkjenning
+               for bruk av logoen deres. Inntil da står tekstnavngivelsen over
+               alene. Når godkjenningen foreligger er byttet én fil: erstatt
+               span.infra__logo-stub under med
+               <img class="infra__logo-img" src="static/blix-logo.webp" alt="Blix Solutions" width="120" height="48">. -->
+          <div class="infra__logo" data-reveal>
+            <span class="infra__logo-stub" aria-hidden="true">logo</span>
+            <p class="infra__logo-note">Blix Solutions — logo: avventer Blix' godkjenning</p>
+          </div>
+        </div>
+
+        <div class="infra__modeller" data-reveal-group>
+          <p class="kicker" data-reveal>Modellene</p>
+          <h3 class="infra__sub" data-reveal>De beste åpent vektede modellene, på norsk jord — det norske alternativet.</h3>
+          <ul class="infra__model-grid" data-reveal-group>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">Qwen3.8 Flash Next FP8</p>
+              <p class="infra__model-spec">Tekst og bilde</p>
+            </li>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">GLM 5.3 FP4</p>
+              <p class="infra__model-spec">512k context · 32k output</p>
+            </li>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">DeepSeek V4 Flash</p>
+            </li>
+          </ul>
+          <p class="infra__honest" data-reveal>Vektene kan komme globalt — det du skriver, forlater aldri Norge.</p>
+        </div>
+      </div>
+
     </section>
     <!-- ===== /ACT:infrastrukturen ===== -->
 

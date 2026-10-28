@@ -692,6 +692,201 @@ html.js [data-reveal].is-revealed {
    kun som attributt ved datasenteret: «datasenteret er ISO 27001-sertifisert
    — Zert er det ikke.» Ingen ISO-påstand om Zert (handling 5). */
 
+/* Egen vertikal rytme: båndet maler kanten mot kanten, innholdet under
+   styrer sin egen padding. */
+.section--infrastrukturen {
+  padding: 0;
+}
+
+/* --- Fullbreddefoto: Lofoten som filmmessig bånd --- */
+.infra__band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: clamp(460px, 60vh, 660px);
+  overflow: hidden;
+  background: var(--zert-black);
+}
+
+.infra__band-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+
+/* Mørk vegg bak teksten (DESIGN.md: aldri tekst over travle partier uten
+   mørk flate bak). Skrimen tykner øverst, der sjøflaten er rolig. */
+.infra__band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(25, 25, 25, 0.88) 0%,
+    rgba(25, 25, 25, 0.72) 46%,
+    rgba(25, 25, 25, 0.18) 72%,
+    rgba(25, 25, 25, 0.36) 100%);
+}
+
+.infra__band-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-top: clamp(56px, 9vh, 110px);
+}
+
+.infra__band-copy .section__title {
+  font-weight: 600;
+  max-width: 18ch;
+}
+
+.infra__band-lead {
+  color: var(--fg);
+  max-width: 44ch;
+}
+
+/* --- Datasenteret og partneren --- */
+.infra__partner {
+  padding: clamp(56px, 9vh, 100px) 0 clamp(40px, 6vh, 64px);
+}
+
+.infra__sub {
+  font-weight: 600;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.infra__iso {
+  margin-top: 26px;
+  padding-left: 20px;
+  border-left: 2px solid var(--line-strong);
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 58ch;
+  text-wrap: balance;
+}
+
+.infra__iso-word {
+  white-space: nowrap;
+}
+
+/* --- Logo-plass: synlig merket placeholder til Blix godkjenner --- */
+.infra__logo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.infra__logo-stub {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.infra__logo-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--gray-400);
+}
+
+/* --- Modellene --- */
+.infra__modeller {
+  padding-bottom: var(--section-pad-y);
+}
+
+.infra__modeller .infra__sub {
+  max-width: 30ch;
+}
+
+.infra__model-grid {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.infra__model {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(252, 252, 252, 0.02);
+  padding: 24px 22px;
+}
+
+.infra__model-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.infra__model-name {
+  font-weight: 600;
+  font-size: clamp(19px, 1.5vw, 21px);
+  line-height: 1.25;
+}
+
+.infra__model-spec {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 8px;
+}
+
+.infra__honest {
+  margin-top: 28px;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--fg);
+  max-width: 52ch;
+}
+
+/* Mobil: tettere beskjæring rundt landsbyen og jevn, mørk vegg bak teksten. */
+@media (max-width: 720px) {
+  .infra__band {
+    min-height: 520px;
+  }
+  .infra__band-img {
+    object-position: center 42%;
+  }
+  .infra__band::before {
+    background: linear-gradient(180deg,
+      rgba(25, 25, 25, 0.88) 0%,
+      rgba(25, 25, 25, 0.74) 55%,
+      rgba(25, 25, 25, 0.58) 100%);
+  }
+  .infra__band-copy {
+    padding-top: clamp(44px, 12vh, 72px);
+  }
+}
+
 /* ===== /ACT: infrastrukturen ===== */
 
 /* ===== ACT: beviset ===== */
