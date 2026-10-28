@@ -1,0 +1,540 @@
+/*
+  zert.no — all styles. Zero dependencies, no build step.
+
+  Struktur (hold denne rekkefølgen):
+    1. fonts        — self-hostet IBM Plex Sans + Plex Mono
+    2. tokens       — :root-varabler i henhold til DESIGN.md, plus semantiske tokens
+    3. light        — den reserverte lyse inversjonen, definert ett sted (Beviset)
+    4. base         — reset, typografi, knapper, layout-primitiver
+    5. header/nav   — eiet av skeleton
+    6. footer-shell — ytterskall; innhold eies av ACT:footer
+    7. reveal       — scroll-reveal-mekanismen
+    8. ACT-blokker  — en avgrenset blokk per handling, i sidens rekkefølge
+
+  For senere tickets: endre KUN inne i din egen ACT-blokk. Delte stiler ligger
+  under base og lesen av alle seksjoner via semantiske tokens (--bg, --fg,
+  --fg-muted, --line, --line-strong, --interactive, --interactive-hover).
+  Handlingens egen farge settes som override av --action-color i egen blokk.
+*/
+
+/* ===== 1. FONTS (self-hosted, statiske) ===== */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-semibold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-sans-bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-mono-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('static/fonts/ibm-plex-mono-medium.woff2') format('woff2');
+}
+
+/* ===== 2. TOKENS ===== */
+
+:root {
+  color-scheme: dark;
+
+  /* Primærfarger — DESIGN.md */
+  --zert-black: #191919;
+  --zert-white: #fcfcfc;
+
+  /* Sekundærfarger — én familie om gangen, aldri dekorativt */
+  --blue-500: #0075e7;   --blue-300: #8ec2ff;   --blue-100: #c3deff;
+  --orange-500: #ff5c38; --orange-300: #ff9078; --orange-100: #ffc4bc;
+  --yellow-500: #ffc04e; --yellow-300: #ffd385; --yellow-100: #ffe8c0;
+  --green-500: #00a368;  --green-300: #46d387;  --green-100: #a8edb3;
+
+  /* Tertiærfarger — gråtoner */
+  --gray-900: #191919; --gray-600: #606060; --gray-400: #909090;
+  --gray-200: #d4d4d4; --gray-100: #f5f5f5;
+
+  /* Semantiske tokens — dark som standard. Akt-blokker leser kun disse
+     og skriver dem aldri. Lyse inversjon overskriver dem ett sted. */
+  --bg: var(--zert-black);
+  --fg: var(--zert-white);
+  --fg-muted: var(--gray-400);
+  --line: rgba(252, 252, 252, 0.14);
+  --line-strong: rgba(252, 252, 252, 0.30);
+
+  /* Interaktivt — blå er den eneste interaktive fargen på hele siden */
+  --interactive: var(--blue-500);
+  --interactive-hover: var(--blue-300);
+  --interactive-ink: var(--zert-white);
+  --focus: var(--blue-300);
+
+  /* Handlingens tonale aktør — overrides kun i ACT-blokk som behoerer den:
+     orange/roed i Problemet, stoenn (gronn) i Beviset. Aldri to i én akt. */
+  --action-color: transparent;
+
+  /* Layout og bevegelse */
+  --gutter: clamp(16px, 4vw, 48px);
+  --section-pad-y: clamp(88px, 14vh, 150px);
+  --header-h: 64px;
+  --reveal-duration: 600ms;
+  --reveal-stagger: 120ms;
+  --reveal-distance: 28px;
+
+  /* Fontstakker — IBM Plex, reserve Arial/Helvetica (DESIGN.md) */
+  --font-sans: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ===== 3. LYSE INVERSJONEN (reservert for Beviset) ===== */
+
+/* Ett sted, eiet av skeleton. Brukes på seksjonen som skal leses som et
+   revisjonsdokument: class="section section--beviset section-light-style".
+   Overskriver kun de semantiske tokens; akt-stiler leser tokens. */
+.section-light-style {
+  --bg: var(--zert-white);
+  --fg: var(--zert-black);
+  --fg-muted: var(--gray-600);
+  --line: rgba(25, 25, 25, 0.14);
+  --line-strong: rgba(25, 25, 25, 0.30);
+}
+
+/* ===== 4. BASE ===== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--zert-black);
+  color: var(--zert-white);
+  font-family: var(--font-sans);
+  font-size: clamp(17px, 1.15vw, 19px);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+a { color: var(--blue-300); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+[id] { scroll-margin-top: calc(var(--header-h) + 20px); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--zert-white);
+  color: var(--zert-black);
+  padding: 10px 16px;
+}
+.skip-link:focus { left: 12px; top: 12px; text-decoration: none; }
+
+.noscript-note {
+  margin: calc(var(--header-h) + 12px) var(--gutter) 0;
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+/* Typografi — nivaer skilles med vekt, aldri med font (DESIGN.md) */
+.kicker {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.section__title {
+  font-weight: 500;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+
+.ingress {
+  font-weight: 400;
+  font-size: clamp(19px, 1.7vw, 25px);
+  line-height: 1.4;
+  color: var(--fg-muted);
+  max-width: 60ch;
+}
+
+.prose { max-width: 62ch; }
+
+/* Knapper — mono-mikroetikette paa blaa (interaktiv familie) */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.btn:hover { text-decoration: none; }
+.btn--primary { background: var(--interactive); color: var(--interactive-ink); }
+.btn--primary:hover { background: var(--interactive-hover); color: var(--zert-black); }
+.btn--ghost { border-color: var(--line-strong); color: var(--fg); }
+.btn--ghost:hover { border-color: var(--interactive-hover); color: var(--interactive-hover); }
+
+/* Layout-primitiver — seksjonen maler sin egen bakgrunn via tokens */
+.section {
+  background: var(--bg);
+  color: var(--fg);
+  padding: var(--section-pad-y) 0;
+}
+
+.section__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Plassholderlinje — synlig merket inntil aktens ticket eier innholdet */
+.act-placeholder {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+
+/* ===== 5. HEADER / NAV (eies av skeleton) ===== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  min-height: var(--header-h);
+  padding: 10px var(--gutter);
+  background: rgba(25, 25, 25, 0.92);
+  border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.site-header__logo img { height: 30px; width: auto; }
+.site-header__logo:hover { text-decoration: none; }
+
+.site-nav {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+
+.site-nav ul {
+  display: flex;
+  gap: clamp(14px, 1.8vw, 26px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--gray-400);
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--blue-300); text-decoration: none; }
+.site-nav a.is-active { color: var(--zert-white); border-bottom-color: var(--interactive); }
+
+/* ===== 6. FOOTER-SKALL (innhold eies av ACT:footer) ===== */
+
+.site-footer {
+  background: var(--zert-black);
+  color: var(--zert-white);
+  border-top: 1px solid var(--line);
+  padding: 64px 0 56px;
+}
+
+.site-footer__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.site-footer__logo img { height: 34px; width: auto; }
+
+.site-footer__meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--gray-400);
+}
+
+/* ===== 7. SCROLL-REVEAL ===== */
+
+/* Skjules kun når JS er aktivt (html.js), så siden leses uten JavaScript.
+   Mekanikken: scripts.js legger .is-revealed nar elementet er i viewport,
+   og kun én gang. Grupper (data-reveal-group) staggeres via transition-delay. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-duration) ease, transform var(--reveal-duration) ease;
+}
+html.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Fullstendig statisk tilstand: alt innhold vises fra starten. */
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== 8. ACT: hero ===== */
+
+.section--hero {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 48px);
+  padding-bottom: calc(var(--header-h) + 48px);
+}
+
+.section--hero .section__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 7vh, 72px);
+}
+
+.hero__content { max-width: 640px; }
+
+.hero__title {
+  font-weight: 600;
+  font-size: clamp(46px, 6.2vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero__ingress { margin-bottom: 34px; max-width: 46ch; }
+
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.hero__figure { max-width: 920px; }
+
+.hero__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.hero__figure-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 12px;
+}
+
+/* --- PLACEHOLDER: containment-skissen — erstattes helhetlig av ticket #5.
+       Slett hele denne subblokken sammen med figuren i index.html. --- */
+.hero__diagram {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(252, 252, 252, 0.02);
+  padding: 24px 22px;
+}
+
+.hero__node {
+  align-self: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg);
+}
+.hero__node small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+.hero__node--vault {
+  border-color: var(--blue-500);
+  background: rgba(0, 117, 231, 0.08);
+}
+
+.hero__arrow {
+  align-self: center;
+  font-family: var(--font-mono);
+  color: var(--blue-300);
+}
+
+.hero__blocked {
+  align-self: center;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gray-600);
+  border: 1px dashed var(--gray-600);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+@media (max-width: 720px) {
+  .hero__diagram { flex-direction: column; align-items: stretch; }
+  .hero__node { align-self: stretch; }
+  /* Pilene peker nedover nar nodene staler: roterer tegnet, ikke logoen. */
+  .hero__arrow { align-self: center; transform: rotate(90deg); }
+  .hero__blocked { align-self: flex-end; margin-left: 0; }
+}
+/* --- /PLACEHOLDER: containment-skissen (ticket #5) --- */
+
+/* ===== ACT: problemet ===== */
+
+/* Innhold og stiler eies av Problemets ticket. Den tonale aktøren her er
+   oransje/rød: sett --action-color: var(--orange-500) i denne blokken.
+   Seksjonen åpner med: «Utviklerne dine bruker KI allerede. Spørsmålet er
+   hva de sender, og hvor.» (handling 2). */
+
+/* ===== /ACT: problemet ===== */
+
+/* ===== ACT: losningen ===== */
+
+/* Innhold og stiler eies av Løsningens ticket. Foto: utviklere på
+   én skjerm (static/utviklere-*.webp). Utviklermøte først — vær
+   konkret, ikke compliance-teater (handling 3). */
+
+/* ===== /ACT: losningen ===== */
+
+/* ===== ACT: slik-virker-det ===== */
+
+/* Innhold og stiler eies av Slik-virker-det-ticketen: forløpet repo inn →
+   KI-arbeid inne → resultater ut → VM dør, pluss den iscenesatte
+   autoplay-terminalen fra denne handlingen og utover. Terminalen skriver
+   seg selv én gang, aldri i hero (handling 4). */
+
+/* ===== /ACT: slik-virker-det ===== */
+
+/* ===== ACT: infrastrukturen ===== */
+
+/* Innhold og stiler eies av Infrastrukturens ticket. Fullbreddefoto:
+   Lofoten (static/lofoten-*.webp). Blix nevnes som partner i tekst; ISO 27001
+   kun som attributt ved datasenteret: «datasenteret er ISO 27001-sertifisert
+   — Zert er det ikke.» Ingen ISO-påstand om Zert (handling 5). */
+
+/* ===== /ACT: infrastrukturen ===== */
+
+/* ===== ACT: beviset ===== */
+
+/* Innhold og stiler eies av Bevisets ticket. Siden bruker den reserverte
+   lyse inversjonen via .section-light-style (definert ett sted over — ikke
+   omkjor den her). Den tonale aktoren her er gronn: sett
+   --action-color: var(--green-500) i denne blokken. Bare paastander med
+   presens-dom fra GRC-forskningen; Gap Policy siteres verbatim (handling 6). */
+
+/* ===== /ACT: beviset ===== */
+
+/* ===== ACT: veien-videre ===== */
+
+/* Innhold og stiler eies av Veien-videre-ticketen. Bakgrunnsfoto: fjell
+   (static/fjell-*.webp). Avgrenset til de tre roadmap-punktene: kutt ved
+   switch-laget ved produksjonslansering, DMZ med prompt injection-
+   inspeksjon, signerte evidence exports. Tydelig merket roadmap (handling 7). */
+
+/* ===== /ACT: veien-videre ===== */
+
+/* ===== ACT: kom-i-gang ===== */
+
+/* Innhold og stiler eies av Kom i gangs ticket. Bakgrunnsband: bluetime
+   (static/bluetime-*.webp). Dual-dor venteliste (utvikler|leder), feltene
+   navn/virksomhet/e-post, endepunkt-post mot /v1/waitlist via konstant,
+   mailto-fallback ved feil. «brew install zert» + GitHub som bevis (handling 8). */
+
+/* ===== /ACT: kom-i-gang ===== */
+
+/* ===== ACT: footer ===== */
+
+/* Skallet (bakgrunn, padding, logo, opphavsrettslinje) eies av skeleton.
+   Dette er en fotnote — ikke en team-seksjon. Tilfoy eventuelle
+   tilleggslenker her, ikke andre steder. */
+
+/* ===== /ACT: footer ===== */
