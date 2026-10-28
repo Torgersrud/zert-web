@@ -379,21 +379,99 @@
           <p class="ingress" data-reveal>Du trenger ikke ta en KI-beslutning. Den er allerede tatt — på laptoper i virksomheten din. To risikoer følger med. Hver av dem står alene på en risikoliste.</p>
         </div>
 
-        <div class="problemet__kort">
-          <article class="problemet__risiko" data-reveal>
-            <p class="problemet__merke">Risiko 1 — Data ut</p>
-            <h3 class="problemet__risiko-tittel">Følsomt materiale drar ut.</h3>
-            <p class="problemet__risiko-tekst">Utviklerne har private KI-abonnement og bruker dem på jobbmaskiner. Følsom kode og kundedata limes inn hos amerikanske tilbydere. Hvor dataene ender opp, er ukjent. Ingen logger utvegen.</p>
-            <p class="problemet__risiko-note">Retningslinjene dine dekker e-post og filsystem. Ikke dette.</p>
-          </article>
+        <figure class="problemet__ramme" data-reveal-group>
+          <div class="problemet__diagram" data-reveal>
 
-          <article class="problemet__risiko" data-reveal>
-            <p class="problemet__merke">Risiko 2 — Agenter inn</p>
-            <h3 class="problemet__risiko-tittel">Autoritet slipper inn.</h3>
-            <p class="problemet__risiko-tekst">Samme utviklere kjører KI-agenter som jobber selvstendig. Agentene har autoritet på bedriftens maskiner: de leser filer, endrer kode og utfører kommandoer. De kjenner ingen retningslinjer utover oppgaven de fikk.</p>
-            <p class="problemet__risiko-note">En agent arver maskinens tilganger. Ikke din vurderingsevne.</p>
-          </article>
-        </div>
+            <!-- Bred variant (desktop): ett bilde, to piler over virksomhetens
+                 grense. Data ut tegnes først (styrets egen bekymring leder),
+                 så agenter inn. -->
+            <svg class="pilediagram pilediagram--wide" viewBox="0 0 940 310" role="img" focusable="false"
+                 aria-labelledby="piler-breed-t piler-breed-d">
+              <title id="piler-breed-t">Den dobbelte risikoen: data ut og agenter inn</title>
+              <desc id="piler-breed-d">Mitt i bildet er virksomheten: egen data, egne maskiner, egne ansatte. Den første pilen, data ut, går fra virksomheten og ut til KI-tilbydere i andre land: følsomt innhold sendes ut. Den andre pilen, agenter inn, går inn i virksomheten fra KI-agenten, som kjører på bedriftens egne maskiner og utfører kommandoer med reelle tilganger.</desc>
+
+              <!-- Virksomheten: grensen begge pilene krysser -->
+              <g>
+                <rect class="pilediagram__node pilediagram__node--org d-draw" pathLength="100" x="350" y="50" width="240" height="210" rx="6"/>
+                <rect class="pilediagram__seam d-draw" style="--d:60ms" pathLength="100" x="360" y="60" width="220" height="190" rx="4"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:150ms" x="470" y="140" text-anchor="middle">virksomheten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:200ms" x="470" y="164" text-anchor="middle">data · maskiner</text>
+              </g>
+
+              <!-- Pil 1: data ut — virksomheten -> utenlandske tilbyder -->
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:150ms" pathLength="100" x="20" y="75" width="200" height="110" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:300ms" x="120" y="123" text-anchor="middle">KI-tilbydere</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:340ms" x="120" y="145" text-anchor="middle">i andre land</text>
+                <line class="pilediagram__pil d-draw" style="--d:300ms" pathLength="100" x1="346" y1="130" x2="242" y2="130"/>
+                <path class="pilediagram__spiss d-fade" style="--d:620ms" d="M240 124.5 L228 130 L240 135.5 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:560ms" x="289" y="114" text-anchor="middle">data ut</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:610ms" x="289" y="154" text-anchor="middle">følsomt innhold</text>
+              </g>
+
+              <!-- Pil 2: agenter inn — KI-agenten -> inn i virksomheten -->
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:800ms" pathLength="100" x="720" y="125" width="200" height="110" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:950ms" x="820" y="173" text-anchor="middle">KI-agenten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:990ms" x="820" y="195" text-anchor="middle">på bedriftens maskiner</text>
+                <line class="pilediagram__pil d-draw" style="--d:950ms" pathLength="100" x1="716" y1="180" x2="612" y2="180"/>
+                <path class="pilediagram__spiss d-fade" style="--d:1270ms" d="M610 174.5 L598 180 L610 185.5 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:1210ms" x="655" y="164" text-anchor="middle">agenter inn</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:1260ms" x="655" y="204" text-anchor="middle">reelle tilganger</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp —
+                 data ut øverst, agenter inn nederst -->
+            <svg class="pilediagram pilediagram--tall" viewBox="0 0 356 520" role="img" focusable="false"
+                 aria-labelledby="piler-smal-t piler-smal-d">
+              <title id="piler-smal-t">Den dobbelte risikoen: data ut og agenter inn</title>
+              <desc id="piler-smal-d">Mitt i bildet er virksomheten: egen data, egne maskiner, egne ansatte. Den første pilen, data ut, går fra virksomheten og ut til KI-tilbydere i andre land: følsomt innhold sendes ut. Den andre pilen, agenter inn, går inn i virksomheten fra KI-agenten, som kjører på bedriftens egne maskiner og utfører kommandoer med reelle tilganger.</desc>
+
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:150ms" pathLength="100" x="68" y="16" width="220" height="92" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:300ms" x="178" y="56" text-anchor="middle">KI-tilbydere</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:340ms" x="178" y="78" text-anchor="middle">i andre land</text>
+              </g>
+
+              <g>
+                <line class="pilediagram__pil d-draw" style="--d:300ms" pathLength="100" x1="178" y1="202" x2="178" y2="126"/>
+                <path class="pilediagram__spiss d-fade" style="--d:620ms" d="M172.5 124 L178 112 L183.5 124 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:560ms" x="192" y="152">data ut</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:610ms" x="192" y="168">følsomt innhold</text>
+              </g>
+
+              <g>
+                <rect class="pilediagram__node pilediagram__node--org d-draw" pathLength="100" x="68" y="206" width="220" height="124" rx="6"/>
+                <rect class="pilediagram__seam d-draw" style="--d:60ms" pathLength="100" x="78" y="216" width="200" height="104" rx="4"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:150ms" x="178" y="258" text-anchor="middle">virksomheten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:200ms" x="178" y="280" text-anchor="middle">data · maskiner</text>
+              </g>
+
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:800ms" pathLength="100" x="68" y="404" width="220" height="92" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:950ms" x="178" y="444" text-anchor="middle">KI-agenten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:990ms" x="178" y="466" text-anchor="middle">på bedriftens maskiner</text>
+                <line class="pilediagram__pil d-draw" style="--d:950ms" pathLength="100" x1="178" y1="400" x2="178" y2="344"/>
+                <path class="pilediagram__spiss d-fade" style="--d:1270ms" d="M172.5 342 L178 330 L183.5 342 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:1210ms" x="192" y="364">agenter inn</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:1260ms" x="192" y="380">reelle tilganger</text>
+              </g>
+            </svg>
+
+          </div>
+
+          <figcaption class="problemet__forklaring">
+            <div class="problemet__del" data-reveal>
+              <p class="problemet__merke">Data ut</p>
+              <p class="problemet__del-tekst">Det de ansatte skriver i KI-verktøy, forlater Norge. Følsomt arbeid blir sendt til selskaper i andre land. Hvem som kan be om dataene, og etter hvilke lover, vet dere ikke.</p>
+            </div>
+            <div class="problemet__del" data-reveal>
+              <p class="problemet__merke">Agenter inn</p>
+              <p class="problemet__del-tekst">KI-verktøy de ansatte allerede bruker, utfører virkelige kommandoer på bedriftens maskiner. De har nøyaktig de tilgangene den ansatte har. Ingen godkjenning. Ingen spor. Ingen bryter organisasjonen eier. Ikke noe av dette krever tro. Be IT-avdelingen sjekke det i egen organisasjon i morgen.</p>
+            </div>
+          </figcaption>
+        </figure>
 
         <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. De pågår i uken som gikk. Verken policy eller opplæring har stoppet dem så langt.</p>
       </div>

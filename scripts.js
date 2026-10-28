@@ -291,9 +291,54 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
-     avslutningen er statisk innhold, og revealene håndteres av
-     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
+  /* To-piler-diagrammet (ticket #19): starter engangsanimasjonen første
+     gang diagrammet er i visningen, og aldri igjen. Data ut tegnes først
+     (styrets egen bekymring leder), så agenter inn. All styling og hele
+     animasjonstidslinjen ligger i CSS; denne blokken legger bare på
+     klasser én gang. Resten av akten er statisk innhold, og revealene
+     håndteres av BEHAVIOR:scroll-reveal. */
+
+  (function () {
+    var diagrams = doc.querySelectorAll('.problemet__diagram');
+    if (!diagrams.length) { return; }
+
+    var DRAWN_CLASS = 'is-drawn';
+    var DONE_CLASS = 'is-done';
+    var PASS_MS = 1900; // hele einepasseringen; + margin for bytte til sluttstate
+
+    each(diagrams, function (el) {
+      function arm() {
+        addClass(el, DRAWN_CLASS);
+        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
+        // bytter vi til den statiske slutttilstanden (is-done). Da kan
+        // animasjonen verken loope eller starte på ny — slutttilstanden
+        // er basen i CSS.
+        window.setTimeout(function () {
+          removeClass(el, DRAWN_CLASS);
+          addClass(el, DONE_CLASS);
+        }, PASS_MS);
+      }
+
+      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
+      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+      if (reducedMotion()) { return; }
+
+      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
+      if (!('IntersectionObserver' in window)) { arm(); return; }
+
+      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
+      var observer = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.unobserve(entries[i].target);
+            arm();
+          }
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+    });
+  }());
 
   /* ===== /BEHAVIOR:problemet ===== */
 

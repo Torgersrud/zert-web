@@ -1723,6 +1723,89 @@ html.js .hero__agendiagram.is-drawn .agent__puls { animation: d-pulse 500ms ease
 
 /* ===== /ACT: hero scene — hodet/hender (ticket #17) ===== */
 
+/* ===== ACT: problemet — to piler (ticket #19) ===== */
+
+/* Egen blokk for ticket #19: ett rammefigur med begge pilene
+   (data ut -> agenter inn) erstatter de to tekstkortene i blokken
+   «ACT: problemet» over. Kun nye klasser her; de gamle kortklassene
+   (problemet__kort, problemet__risiko ...) er forlatt markup og står
+   urørt. Akten holder én sekundærfargefamilie: oransje/rød via
+   --action-color (satt i ACT-blokken over), brukt bare på piler og
+   etiketter — aldri på brødtekst (DESIGN.md). */
+
+/* Rammen: ett diagram, to piler, én forklaring under. */
+.problemet__ramme {
+  margin: clamp(48px, 7vh, 72px) 0 0;
+  border: 1px solid var(--line);
+  padding: clamp(20px, 3vw, 36px);
+}
+
+.problemet__diagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett visning på mobil. */
+.problemet__diagram .pilediagram--tall { display: none; }
+@media (max-width: 720px) {
+  .problemet__diagram .pilediagram--wide { display: none; }
+  .problemet__diagram .pilediagram--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.pilediagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.pilediagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.pilediagram__text--micro { font-size: 10px; }
+.pilediagram__text--pil { font-size: 12px; font-weight: 500; fill: var(--action-color); letter-spacing: 0.04em; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.pilediagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.pilediagram__node--org { stroke-width: 1.6; }
+.pilediagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.pilediagram__pil { fill: none; stroke: var(--action-color); stroke-width: 1.6; }
+.pilediagram__spiss { fill: var(--action-color); }
+
+/* Engangsanimasjon i samme tilstandsmaskin som karantene-diagrammet:
+   data ut tegnes først (styrets egen bekymring leder), så agenter inn
+   (--d-forsinkelser fra 800 ms). Alt i ett pass på omtrent 1,4 sekunder;
+   JS bytter is-drawn -> is-done, slik at slutttilstanden er basen i CSS
+   og ikke kan starte på ny. Redusert bevegelse: fullstendig statisk
+   tilstand — begge pilene tegnet, alle etiketter synlige. */
+html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .problemet__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .problemet__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .problemet__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .problemet__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+}
+
+/* Forklaringen under diagrammet: to halvdeler i leserekkefølge — data ut
+   først, så agenter inn. Etiketten gjenbruker .problemet__merke fra
+   ACT-blokken over (mono, oransje, ingen ny stil nødvendig). */
+.problemet__forklaring {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(24px, 3vh, 36px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(20px, 3vh, 32px);
+}
+
+.problemet__del-tekst { max-width: 46ch; }
+
+@media (max-width: 720px) {
+  .problemet__forklaring { grid-template-columns: 1fr; }
+}
+
+/* ===== /ACT: problemet — to piler (ticket #19) ===== */
+
 /* ===== ACT: loven ===== */
 
 /* Akten står i sidens rekkefølge mellom problemet og losningen, men blokken
