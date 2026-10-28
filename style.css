@@ -745,7 +745,7 @@ html.js .grensediagram.is-drawn .ramme__ramme { animation: grense-draw 700ms eas
 
 /* Fire steg i leserekkefølge — inn, arbeid, ut, død — som leses som én
    setning. Blå er handlingens eneste aksent (standard interaktiv).
-   Den iscenesatte autoplay-terminalen bor ikke lenger i denne akten: den
+   Den iscenesatte autoplay-terminalen bør ikke lenger i denne akten: den
    følger utviklerflatens dev-karantene-akt, og .term-stilene eies der. */
 
 .section--slik-virker-det .kicker { margin-bottom: 14px; }
@@ -1809,7 +1809,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* Beviset i to lag. Det synlige laget er én hverdagssetning per bevis
    (beviset__setning), avløst av revisjonsordlyden — urørt — i et native
-   <details>/<summary> som virker uten JavaScript. Aktoren er samme grønn
+   <details>/<summary> som virker uten JavaScript. Aktøren er samme grønn
    som i ACT: beviset, arvet via --action-color. Utvidelsen er et
    dokumentutdrag med hairline-vensterkant, mikrolabelen i samme mono-snitt
    som feltmerkene. Kun tokens — ingen nye farger eller fonter. */
@@ -1977,12 +1977,12 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   text-decoration: none;
 }
 
-/* ===== /ACT: port (utviklerdoren i headern) ===== */
+/* ===== /ACT: port (utviklerdøren i headern) ===== */
 
 /* ===== ACT: dev-hero ===== */
 
-/* Utvikler-flatens apning: kort forretningsgang, ingen diagram. Bla er
-   fortsatte sidens eneste interaktive farge — ingen --action-color-override. */
+/* Utvikler-flatens åpning: kort forretningsgang, ingen diagram. Blå er
+   fortsatt sidens eneste interaktive farge — ingen --action-color-override. */
 
 .section--dev-hero {
   padding-top: calc(var(--header-h) + clamp(56px, 10vh, 120px));
@@ -2011,8 +2011,8 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* ===== ACT: dev-karantene ===== */
 
-/* Sandboxen innenfra: fire steg pa rad (samme leselogikk som svd-flowen pa
-   styre-flaten) og en overstegs-setning. Tonal aktor er bla — standard
+/* Sandboxen innenfra: fire steg på rad (samme leselogikk som svd-flowen på
+   styre-flaten) og en summerende setning. Tonal aktor er blå — standard
    interaktiv, ingen override. Redusert bevegelse dekkes av kjerne-CSS for
    reveal; ingen egen animasjon i denne akten. */
 
