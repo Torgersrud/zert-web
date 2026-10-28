@@ -515,10 +515,137 @@ html.js [data-reveal].is-revealed {
 
 /* ===== ACT: veien-videre ===== */
 
-/* Innhold og stiler eies av Veien-videre-ticketen. Bakgrunnsfoto: fjell
-   (static/fjell-*.webp). Avgrenset til de tre roadmap-punktene: kutt ved
-   switch-laget ved produksjonslansering, DMZ med prompt injection-
-   inspeksjon, signerte evidence exports. Tydelig merket roadmap (handling 7). */
+/* Veien videre — den designede roadmap-akten: de tre punktene, ærlig
+   merket, bak et gråtonet fjellbånd i tåke. Den tonale aktøren er gul,
+   brukt KUN på «Ikke i produksjon ennå»-merkene. Oransje og grønn
+   tilhører andre akter; blå er forbeholdt det interaktive. */
+
+.section--veien-videre {
+  --action-color: var(--yellow-300);
+  position: relative;
+  overflow: hidden;
+}
+
+.section--veien-videre .kicker { margin-bottom: 14px; }
+
+.section--veien-videre .section__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fjellbåndet: statisk dekorasjon som anker akten mot neste seksjon,
+   gråtonet og nedtonet slik teksten alltid står på mørk flate. */
+.veien-videre__fjell {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  height: clamp(300px, 55%, 620px);
+  pointer-events: none;
+}
+.veien-videre__fjell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 68%;
+  filter: grayscale(1) brightness(0.55) contrast(1.05);
+}
+.veien-videre__fjell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Skjær i --zert-black med alfa, slik headeren og --line-tokenene gør:
+     tett oppe der teksten står, lettest midt på fjellet, og igjen i
+     bunnen slik fjellet toner ut som tåke mot slutten av akten. */
+  background: linear-gradient(
+    180deg,
+    var(--bg) 0%,
+    rgba(25, 25, 25, 0.82) 30%,
+    rgba(25, 25, 25, 0.45) 62%,
+    rgba(25, 25, 25, 0.9) 92%,
+    var(--bg) 100%
+  );
+}
+
+/* Roadmap-listen: nivaer skilles med vekt, rekkefolge med mono-tall. */
+.roadmap {
+  list-style: none;
+  margin: clamp(40px, 6vh, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.roadmap__item {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--line-strong);
+  border-radius: 4px;
+  background: rgba(25, 25, 25, 0.55);
+  padding: 24px 24px 28px;
+}
+
+.roadmap__nummer {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+  margin-bottom: 14px;
+}
+
+.roadmap__tittel {
+  font-weight: 600;
+  font-size: clamp(20px, 1.6vw, 24px);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+/* Ærlighetsmerket — aktens ene aksentfarve, aldri dekorativt. */
+.roadmap__status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+.roadmap__status::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--action-color);
+}
+
+.roadmap__tekst {
+  color: var(--fg-muted);
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+/* Peker tilbake til presens: det som gjelder i dag, og punktene på
+   veien videre, blandes aldri. */
+.veien-videre__avslutning {
+  margin-top: clamp(28px, 4vh, 44px);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 900px) {
+  .roadmap { grid-template-columns: 1fr; }
+  .roadmap__item { padding: 20px 20px 24px; }
+  .roadmap__tekst { max-width: none; }
+}
 
 /* ===== /ACT: veien-videre ===== */
 
