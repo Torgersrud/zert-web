@@ -16,6 +16,15 @@
     - prefers-reduced-motion: CSS viser alt statisk; JS blander ikke inn.
 */
 
+/*
+ * WAITLIST_ENDPOINT — én linje å endre: URL-en til venteliste-API-et
+ * (POST /v1/waitlist, JSON {name, company, email, door}).
+ * Backend er et eget ticket og ennå ikke deployet; så lenge endepunktet
+ * ikke svarer, viser skjemaet mailto-fallbacken i stedet — aldri stille tap.
+ * Ved lokal testing: pek denne på en stub (se ticket #12).
+ */
+var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
+
 (function () {
   'use strict';
 
@@ -282,8 +291,92 @@
 
   /* ===== BEHAVIOR:kom-i-gang ===== */
 
-  /* Kom-i-gang-ticketen eier denne blokken: venteliste-skjema, POST til
-     /v1/waitlist via en konfigurerbar endepunktskonstant, mailto-fallback. */
+  /* Venteliste med dual-dør. Plain fetch POST-er JSON {name, company,
+     email, door} til WAITLIST_ENDPOINT. Ingen optimistisk kvittering:
+     takkemeldingen vises bare når endepunktet svarer 2xx. Nettverksfeil
+     eller ikke-2xx avslører mailto-fallbacken med feltene ferdig utfylt —
+     interessen skal aldri forsvinne stille. Dobbelsending er blokkert av
+     en sending-flagg, og knappen er deaktivert mens sendinga pågår. */
+
+  (function () {
+    var form = doc.getElementById('venteliste');
+    var takk = doc.getElementById('venteliste-takk');
+    var feil = doc.getElementById('venteliste-feil');
+    if (!form || !takk || !feil) { return; }
+
+    var knapp = form.querySelector('.kig__send');
+    var feilLenke = feil.querySelector('a');
+    var knappetekst = knapp ? knapp.textContent : '';
+    var sender = false;
+
+    function verdi(navn) {
+      var el = form.querySelector('[name="' + navn + '"]');
+      return el ? el.value.replace(/^\s+|\s+$/, '') : '';
+    }
+
+    function dør() {
+      var el = form.querySelector('[name="door"]:checked');
+      return el ? el.value : '';
+    }
+
+    function settSending(på) {
+      sender = på;
+      if (!knapp) { return; }
+      knapp.disabled = på;
+      knapp.textContent = på ? 'Sender …' : knappetekst;
+    }
+
+    // Fallbacklenka bærer med alt brukeren har skrevet inn, slik at
+    // e-posten er ferdig utfylt når den åpnes.
+    function mailtoLenke() {
+      var tekst = 'Navn: ' + verdi('name') +
+        '\nSelskap: ' + verdi('company') +
+        '\nE-post: ' + verdi('email') +
+        '\nKommer som: ' + dør();
+      return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
+        '&body=' + encodeURIComponent(tekst);
+    }
+
+    function visTakk() {
+      feil.hidden = true;
+      form.hidden = true;
+      takk.hidden = false;
+    }
+
+    function visFeil() {
+      if (feilLenke) { feilLenke.href = mailtoLenke(); }
+      takk.hidden = true;
+      feil.hidden = false;
+      settSending(false); // tillat forsøk igjen — fallbacken står uansett fram
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sender) { return; }
+
+      var melding = {
+        name: verdi('name'),
+        company: verdi('company'),
+        email: verdi('email'),
+        door: dør()
+      };
+
+      settSending(true);
+
+      // Gammel nettleser utan fetch: fallback med en gang, aldri stille tap.
+      if (!('fetch' in window)) { visFeil(); return; }
+
+      fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(melding)
+      }).then(function (svar) {
+        if (svar.ok) { visTakk(); } else { visFeil(); }
+      })['catch'](function () {
+        visFeil();
+      });
+    });
+  }());
 
   /* ===== /BEHAVIOR:kom-i-gang ===== */
 
