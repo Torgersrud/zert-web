@@ -342,6 +342,58 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:problemet ===== */
 
+  /* ===== BEHAVIOR:loven ===== */
+
+  /* Jurisdiksjonsdiagrammet (ticket #18): starter engangsanimasjonen første
+     gang diagrammet er i visningen, og aldri igjen. Klon av
+     BEHAVIOR:hero-diagram uten dev-varianten. All styling og hele
+     animasjonstidslinjen ligger i CSS (ACT: loven); denne blokken legger
+     bare på klasser én gang. */
+
+  (function () {
+    var diagrams = doc.querySelectorAll('.lovdiagram');
+    if (!diagrams.length) { return; }
+
+    var DRAWN_CLASS = 'is-drawn';
+    var DONE_CLASS = 'is-done';
+    var PASS_MS = 1750; // hele einepasseringen (siste --d 1320 ms + fade); + margin for bytte til sluttstate
+
+    each(diagrams, function (el) {
+      function arm() {
+        addClass(el, DRAWN_CLASS);
+        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
+        // bytter vi til den statiske slutttilstanden (is-done). Da kan
+        // animasjonen verken loope eller starte på ny (f.eks. ved at
+        // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
+        window.setTimeout(function () {
+          removeClass(el, DRAWN_CLASS);
+          addClass(el, DONE_CLASS);
+        }, PASS_MS);
+      }
+
+      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
+      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+      if (reducedMotion()) { return; }
+
+      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
+      if (!('IntersectionObserver' in window)) { arm(); return; }
+
+      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
+      var observer = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.unobserve(entries[i].target);
+            arm();
+          }
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+    });
+  }());
+
+  /* ===== /BEHAVIOR:loven ===== */
+
   /* ===== BEHAVIOR:losningen ===== */
 
   /* Losningen eier denne blokken. Akten er bevisst uten egen atferd:

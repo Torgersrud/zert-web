@@ -394,8 +394,6 @@ html.js [data-reveal].is-revealed {
 
 .hero__ingress { margin-bottom: 34px; max-width: 46ch; }
 
-.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
-
 .hero__figure { max-width: 920px; }
 
 .hero__figure-label {
@@ -1807,3 +1805,167 @@ html.js .problemet__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(
 }
 
 /* ===== /ACT: problemet — to piler (ticket #19) ===== */
+
+/* ===== ACT: loven ===== */
+
+/* Akten står i sidens rekkefølge mellom problemet og losningen, men blokken
+   er lagt på filenden slik at samtidige tickets kun får egne avgrensede
+   blokker (konfliktfri appending). Akten er beviset bak «data ut»-pila og
+   bruker derfor samme tonale familie som Problemet: oransje/rød, ene
+   sekundærfarge i akten, kun på etiketter og grafikk (DESIGN.md: ikke på
+   brødtekst). Innholdet er utelukkende eksterne rettsfakta — ingen setning
+   handler om Zert. */
+
+.section--loven {
+  --action-color: var(--orange-500);
+}
+
+.loven__hode .ingress { margin-top: 18px; }
+
+/* Diagrammet bærer akten — samme figurformat som hero. */
+.loven__figure {
+  max-width: 920px;
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.loven__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.lovdiagram { position: relative; }
+
+.lovdiagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett på mobil. */
+.lovdiagram .lovdiagram__svg--tall { display: none; }
+@media (max-width: 720px) {
+  .lovdiagram .lovdiagram__svg--wide { display: none; }
+  .lovdiagram .lovdiagram__svg--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens. */
+.lovdiagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.lovdiagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.lovdiagram__text--micro { font-size: 10px; }
+.lovdiagram__text--muted { fill: var(--gray-600); }
+.lovdiagram__text--law { fill: var(--orange-300); }
+
+/* Streker og flater — tokens alene, tynn streg. */
+.lovdiagram__ground { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__ground-mark { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1.2; }
+.lovdiagram__data { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__state { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__reach { fill: none; stroke: var(--action-color); stroke-width: 1.6; }
+.lovdiagram__arrow { fill: var(--action-color); }
+
+/* Engangsanimasjon — klon av karantene-diagrammets tilstandsmaskin
+   (forsinkelse via --d på elementene, ett pass på omtrent 1,6 sekunder):
+   jord -> data -> USA -> havetikett -> kravet tegnes over havet ->
+   overskrift og presisering toner fram. Eget navngitte keyframes, så blokken
+   er selvstendig. Tilstandsmaskin: første sikt gir .is-drawn (spilles én
+   gang), deretter bytter JS til .is-done — da er den fulle komposisjonen
+   basen i CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse
+   vises den ferdige komposisjonen direkte. */
+html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .lovdiagram.is-drawn .d-draw { animation: lov-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .lovdiagram.is-drawn .d-fade { animation: lov-fade 250ms ease var(--d, 0ms) 1 both; }
+/* Selve kravet får lengre tegnetid — det er poenget i komposisjonen. */
+html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes lov-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes lov-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — kravet tegnet, alle
+   etiketter synlige. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .lovdiagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .lovdiagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: none; stroke-dashoffset: 0; }
+}
+
+/* De tre rettsaktene — redaksjonelt snitt i samme lag som problemet-kortene:
+   hairline toppregel i aktens farge, ingen kortflate, ingen effekter. */
+.loven__lover {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.loven__lov {
+  border-top: 2px solid var(--action-color);
+  padding-top: 26px;
+}
+
+.loven__lov-merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+
+.loven__lov-tittel {
+  font-weight: 500;
+  font-size: clamp(20px, 1.8vw, 25px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.loven__lov-tekst { max-width: 46ch; }
+
+/* Sitatet — engelsk lovordning gjengis verbatim, i Plex Mono (husregel:
+   lovordninger sitter i mono), dempet grå og hairline-venstrestripe. */
+.loven__lov-sitat {
+  margin: 18px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: 44ch;
+}
+
+.loven__lov-sitat cite {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.loven__lov-note {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* Avslutning — board-takeaway; løsningen eier neste akt, denne løfter ingenting. */
+.loven__avslutning { margin-top: clamp(48px, 7vh, 72px); }
+
+@media (max-width: 980px) {
+  .loven__lover { grid-template-columns: 1fr; }
+}
+
+/* ===== /ACT: loven ===== */
