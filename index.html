@@ -55,14 +55,141 @@
     <section id="hero" class="section section--hero" data-act="hero" aria-labelledby="hero-tittel">
       <div class="section__inner">
         <div class="hero__content" data-reveal-group>
-          <p class="kicker" data-reveal>Zert · Norsk KI-sandbox</p>
-          <h1 class="hero__title" id="hero-tittel" data-reveal>Si ja til KI. Uten å slippe ut data.</h1>
-          <p class="hero__ingress ingress" data-reveal>Zert gir utviklerne dine en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
-          <p class="hero__ctas" data-reveal>
-            <a class="btn btn--primary" href="#kom-i-gang">Skriv deg på liste</a>
-            <a class="btn btn--ghost" href="#slik-virker-det">Se hvordan det virker</a>
-          </p>
+          <p class="kicker" data-reveal>Hodet og hendene</p>
+          <h1 class="hero__title" id="hero-tittel" data-reveal>KI-agenten har allerede fått hender i virksomheten din.</h1>
+          <p class="hero__ingress ingress" data-reveal>Hodet kjører på en server et annet sted i verden. Hendene jobber på virksomhetens egen maskin. Mellom dem går én forbindelse.</p>
         </div>
+
+        <!-- Hodet/hender-diagrammet (ticket #17): KI-agenten som scene. -->
+        <figure class="hero__figure hero__figure--scene" data-reveal-group>
+          <figcaption class="hero__figure-label" data-reveal>KI-agenten — hodet i verden, hendene på din maskin</figcaption>
+
+          <div class="hero__agendiagram" data-reveal>
+
+            <!-- Bred variant (desktop): hodet i verden til høyre, hender på
+                 virksomhetens maskin til venstre, én forbindelse over grensen. -->
+            <svg class="agent agent--wide" viewBox="0 0 940 500" role="img" focusable="false"
+                 aria-labelledby="agent-breed-t agent-breed-d">
+              <title id="agent-breed-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-breed-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:100ms" x="64" y="46">virksomheten</text>
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="914" y="46" text-anchor="end">resten av verden</text>
+              <line class="agent__grense d-fade" style="--d:550ms" x1="470" y1="64" x2="470" y2="452"/>
+
+              <!-- Hendene: på virksomhetens egen maskin -->
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="64" y="150" width="328" height="224" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="228" y="134" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="126" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="138" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="150" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="162" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="121" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="270" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="282" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="294" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="306" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="259" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="228" y="312" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="110" y="326" width="94" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="157" y="347" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="252" y="326" width="112" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="308" y="347" text-anchor="middle">systemer</text>
+              </g>
+
+              <!-- Hodet: designelementet et annet sted i verden -->
+              <g transform="translate(612 128) scale(0.245)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="710" cy="226" r="34"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="710" y="231" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="710" y="352" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="710" y="370" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <!-- Én forbindelse mellom hodet og hendene -->
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="398" y1="240" x2="604" y2="240"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M404 234.5 L392 240 L404 245.5 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="501" y="218" text-anchor="middle">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="501" y="264" text-anchor="middle">frem og tilbake</text>
+                <circle class="agent__puls" style="--px:-198px; --d:1300ms" cx="602" cy="240" r="3.5"/>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp —
+                 hodet øverst, grensen under, maskinen med hendene nederst. -->
+            <svg class="agent agent--tall" viewBox="-8 0 356 660" role="img" focusable="false"
+                 aria-labelledby="agent-smal-t agent-smal-d">
+              <title id="agent-smal-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-smal-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="170" y="30" text-anchor="middle">resten av verden</text>
+
+              <g transform="translate(90 48) scale(0.2)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="170" cy="128" r="30"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="170" y="133" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="170" y="232" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="170" y="250" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <line class="agent__grense d-fade" style="--d:550ms" x1="8" y1="280" x2="332" y2="280"/>
+
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="170" y1="292" x2="170" y2="374"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M164.5 376 L170 388 L175.5 376 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="184" y="326">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="184" y="344">frem og tilbake</text>
+                <circle class="agent__puls" style="--py:88px; --d:1300ms" cx="170" cy="294" r="3.5"/>
+              </g>
+
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="40" y="400" width="260" height="212" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="170" y="426" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="89" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="99" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="109" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="119" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="85" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="213" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="223" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="233" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="243" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="205" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="170" y="518" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="72" y="532" width="86" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="115" y="552" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="186" y="532" width="102" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="237" y="552" text-anchor="middle">systemer</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+        <!-- /Hodet/hender-diagrammet (ticket #17) -->
 
         <!-- PLACEHOLDER: replaced by ticket #5 containment diagram -->
         <figure class="hero__figure" data-reveal-group>

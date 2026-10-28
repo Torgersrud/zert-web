@@ -394,8 +394,6 @@ html.js [data-reveal].is-revealed {
 
 .hero__ingress { margin-bottom: 34px; max-width: 46ch; }
 
-.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
-
 .hero__figure { max-width: 920px; }
 
 .hero__figure-label {
@@ -1641,6 +1639,89 @@ p.beviset__micro { margin-top: 12px; }
 }
 
 /* ===== /ACT: footer ===== */
+
+/* ===== ACT: hero scene — hodet/hender (ticket #17) ===== */
+
+/* Ny hero: scenen (overskrift + ingress) og hodet/hender-diagrammet.
+   Delte hero-regler ligger i ACT:hero; alt nytt står i denne blokken.
+   Én sekundærfarge: blå (samme familie som det parkerte karantene-
+   diagrammet) — brukt på grafikk, aldri på brødtekst (DESIGN.md). */
+
+.section--hero .hero__content { max-width: 900px; }
+
+.section--hero .hero__title {
+  font-size: clamp(36px, 4vw, 56px);
+  max-width: 30ch;
+}
+
+.section--hero .hero__figure--scene { max-width: 880px; }
+
+.hero__agendiagram { position: relative; }
+
+.hero__agendiagram svg { display: block; width: 100%; height: auto; }
+
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil —
+   samme kryssbytte som karantene-diagrammet. */
+.hero__agendiagram .agent--tall { display: none; }
+@media (max-width: 720px) {
+  .hero__agendiagram .agent--wide { display: none; }
+  .hero__agendiagram .agent--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.agent__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.agent__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.agent__text--strong { fill: var(--fg); }
+.agent__text--micro { font-size: 10px; }
+.agent__text--muted { fill: var(--gray-600); }
+.agent__text--led { fill: var(--blue-300); }
+
+/* Streker og flater — tokens alene, tynn streg */
+.agent__grense { stroke: var(--gray-600); stroke-opacity: 0.45; stroke-width: 1; stroke-dasharray: 3 6; }
+.agent__maskin { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.agent__hand rect { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.agent__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.agent__blad {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.agent__kjerne { fill: var(--bg); stroke: var(--interactive); stroke-width: 1.4; }
+.agent__linje { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.agent__pil { fill: var(--interactive); }
+.agent__puls { fill: var(--blue-300); opacity: 0; }
+
+/* Engangsanimasjon, samme tilstandsmaskin som hero__diagram (js-patterns):
+   første sikt gir .is-drawn (linjene tegnes -> tekst toner fram -> hodet
+   tegnes -> forbindelse + puls), deretter bytter JS til .is-done — da er den
+   fulle komposisjonen basen i CSS. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .hero__agendiagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .hero__agendiagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .hero__agendiagram.is-drawn .agent__puls { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — alt tegnet, alle
+   etiketter synlige, pulsen skjult. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .hero__agendiagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .hero__agendiagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .hero__agendiagram.is-drawn .agent__puls { animation: none; }
+}
+
+/* ===== /ACT: hero scene — hodet/hender (ticket #17) ===== */
 
 /* ===== ACT: loven ===== */
 
