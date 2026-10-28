@@ -10,6 +10,14 @@ Den eneste utveien en KI-sandbox har til omverdenen: KI-serveren som kjører i n
 
 Et midlertidig, isolert virtuelt miljø der utviklere jobber med KI-modeller. Startes fra kommandolinjen, lever så lenge arbeidet gjør det, og avsluttes automatisk. Sensitiv data holdes inne; resultatene tas ut.
 
+## KI-agenten
+
+Hele fenomenet som styret må forstå: en KI-modell (hodet, som kjører andre steder i verden) pluss programmet som gir den hender på virksomhetens egen maskin. Autoritativ term på hele den styre- og ledelsesrettede flaten på zert.no. Uoffisiell term for samme fenomen: «harness» — se under.
+
+## harness
+
+Programmet som gir en KI-model direkte tilgang til en terminal — hender-delens presise navn. Brukes kun på utviklerflaten. Styreflaten kaller hele fenomenet KI-agenten; «harness» forekommer aldri der.
+
 ## Karantene (containment)
 
 Tilstanden en KI-sandbox er i: den kan nå KI-endepunktet, og ingenting annet. Karantene handler om hva som er fysisk mulig for sandboxen, ikke om hva politikken sier den ikke får gjøre.
@@ -38,9 +46,9 @@ Zerts skriftlige policy for hva som skjer med revisjonsdata under brudd: *«infr
 
 Merkevarens kjennetegn fra logoen — nordstjerne-formen: to par bueformer i et 2×2-rutenett — brukt som aktivt layoutgrep: fylt med innhold, stort og dristig. Se `DESIGN.md` seksjon 5. Elementet skal leses som Zert, aldri som dekorasjon.
 
-## dual-dør (waitlist)
+## dual-dør (de to flatene)
 
-Påmeldingsformen med to dører: utvikler eller leder. Den besøkende velger selv hvilken dør å gå gjennom. Da vet Zert fra første steg hvilket ansikt henvendelsen skal ha.
+Nettstedets to flater: zert.no for ledelsen og zert.no/utviklere for utvikleren. Den besøkende går selv gjennom døren — via lenken «Utvikler» i headern — og ventelisteformen registrerer hvilken dør som ble brukt, uten å spørre. Zert vet fra første steg hvilket ansikt henvendelsen skal ha. «harness» og annet utviklerspråk finnes kun på utviklerflaten.
 
 ## Beviset
 
