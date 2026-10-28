@@ -423,7 +423,7 @@ html.js [data-reveal].is-revealed {
   .hero__diagram .diagram--tall { display: block; }
 }
 
-/* Hvelvform: rektangel som standard, firblad via ?vault=leaf (kun dev).
+/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
    Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
 .diagram__vault--leaf { display: none; }
 .hero__diagram--leaf .diagram__vault--rect { display: none; }
@@ -1109,7 +1109,7 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
    skeleton — gjeninnføres ikke her). Den tonale aktøren er grønn, brukt
    som aktør — markør, tall, venstrekanter, brikkefelt — aldri som brødtekst.
    Akten leser som et revisjonsdokument: platåband mot mørket, felta (dt/dd)
-   med hairline-regler, mono-mikroetiketter. Ingen JS: avdukinga kjører på
+   med hairline-regler, mono-mikroetiketter. Ingen JS: avdukingen kjører på
    kjerne-mekanismen. */
 
 .section--beviset {
@@ -1404,7 +1404,7 @@ p.beviset__micro { margin-top: 12px; }
 
 /* Dual-dør venteliste (utvikler|leder) + bevis for ernst + bluetime-band.
    Den tonale aktøren er blå — sidens standard for interaktivt, ingen
-   --action-color-override trengs. Endepunktskonstanten ligg øvst i
+   --action-color-override trengs. Endepunktskonstanten ligger øverst i
    scripts.js; feil avslører alltid mailto-fallbacken (ingen stille tap). */
 
 .kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
@@ -1442,7 +1442,7 @@ p.beviset__micro { margin-top: 12px; }
   margin-top: 14px;
 }
 
-/* Radioknappen er visuelt skjult, men fokusbar — døra sjøl er knappen. */
+/* Radioknappen er visuelt skjult, men fokusbar — selve døra er knappen. */
 .kig__door-input {
   position: absolute;
   width: 1px;
@@ -1617,8 +1617,8 @@ p.beviset__micro { margin-top: 12px; }
 /* ===== ACT: footer ===== */
 
 /* Skallet (bakgrunn, padding, logo, opphavsrettslinje) eies av skeleton.
-   Innholdet: dempet-hvit-logo, eitt slagord, kontaktlenker og organisasjons-
-   linje. Dette er ein fotnote — aldri ein team-seksjon. */
+   Innholdet: dempet-hvit-logo, ett slagord, kontaktlenker og organisasjons-
+   linje. Dette er en fotnote — aldri en team-seksjon. */
 
 .site-footer__skrav {
   max-width: 58ch;
