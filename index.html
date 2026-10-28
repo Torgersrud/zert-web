@@ -244,9 +244,31 @@
     <!-- ===== ACT:problemet:start ===== -->
     <section id="problemet" class="section section--problemet" data-act="problemet" aria-labelledby="problemet-tittel">
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 2</p>
-        <h2 class="section__title" id="problemet-tittel" data-reveal>Problemet</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="problemet__led" data-reveal>Utviklerne dine bruker KI allerede. Spørsmålet er hva de sender, og hvor.</p>
+
+        <div class="problemet__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen</p>
+          <h2 class="section__title" id="problemet-tittel" data-reveal>Én vane. To risikoer.</h2>
+          <p class="ingress" data-reveal>Du trenger ikke ta en KI-beslutning. Den er allerede tatt — på laptoper i virksomheten din. To risikoer følger med. Hver av dem står alene på en risikoliste.</p>
+        </div>
+
+        <div class="problemet__kort">
+          <article class="problemet__risiko" data-reveal>
+            <p class="problemet__merke">Risiko 1 — Data ut</p>
+            <h3 class="problemet__risiko-tittel">Følsomt materiale drar ut.</h3>
+            <p class="problemet__risiko-tekst">Utviklerne har private KI-abonnement og bruker dem på jobbmaskiner. Følsom kode og kundedata limes inn hos amerikanske tilbydere. Hvor dataene ender opp, er ukjent. Ingen logger utvegen.</p>
+            <p class="problemet__risiko-note">Retningslinjene dine dekker e-post og filsystem. Ikke dette.</p>
+          </article>
+
+          <article class="problemet__risiko" data-reveal>
+            <p class="problemet__merke">Risiko 2 — Agenter inn</p>
+            <h3 class="problemet__risiko-tittel">Autoritet slipper inn.</h3>
+            <p class="problemet__risiko-tekst">Samme utviklere kjører KI-agenter som jobber selvstendig. Agentene har autoritet på bedriftens maskiner: de leser filer, endrer kode og utfører kommandoer. De kjenner ingen retningslinjer utover oppgaven de fikk.</p>
+            <p class="problemet__risiko-note">En agent arver maskinens tilganger. Ikke din vurderingsevne.</p>
+          </article>
+        </div>
+
+        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. De pågår i uken som gikk. Verken policy eller opplæring har stoppet dem så langt.</p>
       </div>
     </section>
     <!-- ===== /ACT:problemet ===== -->
@@ -264,9 +286,58 @@
     <!-- ===== ACT:slik-virker-det:start ===== -->
     <section id="slik-virker-det" class="section section--slik-virker-det" data-act="slik-virker-det" aria-labelledby="slik-virker-det-tittel">
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 4</p>
+        <p class="kicker" data-reveal>Én økt · fire steg</p>
         <h2 class="section__title" id="slik-virker-det-tittel" data-reveal>Slik virker det</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="svd__ingress ingress" data-reveal>Én økt, fire steg. Slik forklarer du Zert for noen andre på under ett minutt — uten å se på notatene.</p>
+
+        <ol class="svd__flow">
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">01</p>
+            <h3 class="svd__step-title">Repo inn</h3>
+            <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">02</p>
+            <h3 class="svd__step-title">KI-arbeid inne</h3>
+            <p class="svd__step-text">Utvikleren jobber med en ledende åpen KI-modell. VM-en når bare KI-endepunktet — ingenting annet.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">03</p>
+            <h3 class="svd__step-title">Resultater ut</h3>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">04</p>
+            <h3 class="svd__step-title">VM-en dør</h3>
+            <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
+          </li>
+        </ol>
+
+        <figure class="term" data-reveal>
+          <p class="term__label">Slik ser en økt ut i terminalen</p>
+          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
+<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
+<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
+<span class="term__line" data-pause="110">route out: KI endpoint only</span>
+<span class="term__line" data-pause="200">attached — you are inside the VM</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
+<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
+<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
+<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
+<span class="term__line" data-pause="300"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
+<span class="term__line" data-pause="170">connection to sandbox closed</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
+<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
+<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
+<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
+<span class="term__line" data-pause="340"> </span>
+<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
+<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
+          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
+        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
@@ -283,10 +354,89 @@
 
     <!-- ===== ACT:beviset:start ===== -->
     <section id="beviset" class="section section--beviset section-light-style" data-act="beviset" aria-labelledby="beviset-tittel">
+      <figure class="beviset__band" data-reveal>
+        <img src="static/operaen-1600.webp"
+             srcset="static/operaen-800.webp 800w, static/operaen-1600.webp 1600w, static/operaen-2400.webp 2400w"
+             sizes="100vw"
+             width="2400" height="823"
+             alt="Panorama av Operahuset i Oslo i dagslys.">
+        <figcaption>Pl. 1 · Operahuset, Oslo</figcaption>
+      </figure>
+
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 6</p>
+        <p class="kicker" data-reveal>Zert i presens</p>
         <h2 class="section__title" id="beviset-tittel" data-reveal>Beviset</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="ingress" data-reveal>Revisors spørsmål er enkelt: «who did what to whose VM, and were they allowed». Zert skriver svaret for én kunde om gangen — som et løpende hendelsesspor.</p>
+
+        <dl class="beviset__log">
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Hendelsesspor</dt>
+            <dd class="beviset__entry">
+              <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
+              <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
+              <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
+                <li>vm.create</li>
+                <li>vm.kill</li>
+                <li>vm.timeout_extend</li>
+                <li>tunnel.open</li>
+                <li>tunnel.close</li>
+                <li>auth.login</li>
+                <li>auth.key_use</li>
+                <li>quota.reject</li>
+                <li>byok.key_set</li>
+                <li>byok.key_delete</li>
+                <li>admin.user_add</li>
+                <li>admin.user_remove</li>
+              </ul>
+              <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Retensjon</dt>
+            <dd class="beviset__entry">
+              <p class="beviset__tall">12 mnd</p>
+              <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
+              <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Tenantisolasjon</dt>
+            <dd class="beviset__entry">
+              <p class="beviset__tall">36 tester</p>
+              <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
+              <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Hull i recorden</dt>
+            <dd class="beviset__entry">
+              <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
+              <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Gap Policy</dt>
+            <dd class="beviset__entry">
+              <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
+              <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
+              <p class="beviset__micro">Ærlige grenser (ADR-0002): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Kantsone</dt>
+            <dd class="beviset__entry">
+              <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
+              <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+            </dd>
+          </div>
+        </dl>
+
+        <p class="beviset__closing" data-reveal>Alt som står i denne delen, er bygget og i drift i dag. Det som ennå ikke er bygget, står i <a href="#veien-videre">Veien videre</a>.</p>
       </div>
     </section>
     <!-- ===== /ACT:beviset ===== -->

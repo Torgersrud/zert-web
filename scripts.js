@@ -215,7 +215,9 @@
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-ticketen eier denne blokken. */
+  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
+     avslutningen er statisk innhold, og revealene håndteres av
+     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
 
   /* ===== /BEHAVIOR:problemet ===== */
 
@@ -227,8 +229,89 @@
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Slik-virker-det-ticketen eier denne blokken: iscenesatt autoplay-terminal
-     som skriver seg selv én gang (scrollutløst eller engangspass), aldri løkke. */
+  /* Iscenesatt autoplay-terminal. Scrollutloest, skriver seg selv én gang
+     og blir så stående på den komplette sesjonen. Aldri loekke, aldri
+     interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
+     JavaScript: den komplette terminaltranskripsjonen står statisk i
+     HTML-en, og denne blokken blander seg ikke inn. */
+
+  (function () {
+    var term = doc.querySelector('[data-term]');
+    if (!term) { return; }
+    if (reducedMotion()) { return; }
+    if (!('IntersectionObserver' in window)) { return; }
+
+    var TYPE_MS = 12;       // millisekunder per tegn i kommandolinjene
+    var FINALIZE_MS = 6000; // sikkerhetsnett: fullendt senest da
+
+    var lines = [];
+    each(term.querySelectorAll('.term__line'), function (el) { lines.push(el); });
+    if (!lines.length) { return; }
+
+    var caret = term.querySelector('.term__caret');
+    var lastLine = lines[lines.length - 1];
+    var done = false;
+    var index = 0;
+
+    // Kommandoene tas ut av DOM-en før skrivningen starter.
+    each(term.querySelectorAll('.term__cmd'), function (el) {
+      el.setAttribute('data-cmd', el.textContent);
+    });
+
+    term.className += ' term--replay';
+
+    function finish() {
+      if (done) { return; }
+      done = true;
+      var i, cmd;
+      for (i = 0; i < lines.length; i++) {
+        lines[i].className += ' is-shown';
+        cmd = lines[i].querySelector('.term__cmd');
+        if (cmd) { cmd.textContent = cmd.getAttribute('data-cmd'); }
+      }
+      if (caret && lastLine) { lastLine.appendChild(caret); }
+      term.className += ' term--done';
+    }
+
+    function type(el, text, at) {
+      if (done) { return; }
+      el.textContent = text.slice(0, at);
+      if (at >= text.length) { step(); return; }
+      setTimeout(function () { type(el, text, at + 1); }, TYPE_MS);
+    }
+
+    function step() {
+      if (done) { return; }
+      if (index >= lines.length) { finish(); return; }
+      var line = lines[index];
+      index += 1;
+      var pause = parseInt(line.getAttribute('data-pause'), 10) || 0;
+      setTimeout(function () {
+        if (done) { return; }
+        var cmd = line.querySelector('.term__cmd');
+        line.className += ' is-shown';
+        if (caret) { line.appendChild(caret); }
+        if (cmd && cmd.getAttribute('data-cmd')) {
+          type(cmd, cmd.getAttribute('data-cmd'), 0);
+        } else {
+          step();
+        }
+      }, pause);
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      var i;
+      for (i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) { continue; }
+        observer.unobserve(term); // én gangs avspilling — aldri omstart
+        setTimeout(finish, FINALIZE_MS);
+        step();
+        return;
+      }
+    }, { threshold: 0, rootMargin: '0px 0px 12% 0px' });
+
+    observer.observe(term);
+  }());
 
   /* ===== /BEHAVIOR:slik-virker-det ===== */
 
@@ -240,7 +323,10 @@
 
   /* ===== BEHAVIOR:beviset ===== */
 
-  /* Beviset-ticketen eier denne blokken. */
+  /* Beviset er statisk: dokumentet trenger ingen egen atferd. Avduking
+     skjer via BEHAVIOR:scroll-reveal, og prefers-reduced-motion dekkes av
+     kjerne-CSS. Ingen hendelsesdata genereres i nettleseren — radene er
+     faktatekst, ikke simulering. */
 
   /* ===== /BEHAVIOR:beviset ===== */
 
