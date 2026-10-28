@@ -333,10 +333,38 @@
 
     <!-- ===== ACT:veien-videre:start ===== -->
     <section id="veien-videre" class="section section--veien-videre" data-act="veien-videre" aria-labelledby="veien-videre-tittel">
+      <div class="veien-videre__fjell" aria-hidden="true">
+        <picture>
+          <source srcset="static/fjell-2400.webp" media="(min-width: 1400px)">
+          <source srcset="static/fjell-1600.webp" media="(min-width: 720px)">
+          <img src="static/fjell-800.webp" alt="" width="800" height="247" loading="lazy" decoding="async">
+        </picture>
+      </div>
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 7</p>
+        <p class="kicker" data-reveal>Roadmap</p>
         <h2 class="section__title" id="veien-videre-tittel" data-reveal>Veien videre</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="ingress" data-reveal>Vi skriver i presens bare om det vi styrer i dag. Det som ikke er i produksjon ennå, står her — merket som det de er.</p>
+        <ol class="roadmap">
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">01</p>
+            <h3 class="roadmap__tittel">Nettkutt i switch-laget</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+          </li>
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">02</p>
+            <h3 class="roadmap__tittel">DMZ for prompt injection</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+          </li>
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">03</p>
+            <h3 class="roadmap__tittel">Eksport av signerte bevis</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+          </li>
+        </ol>
+        <p class="veien-videre__avslutning" data-reveal>Hva som er i drift i dag, står <a href="#beviset">i Beviset</a>.</p>
       </div>
     </section>
     <!-- ===== /ACT:veien-videre ===== -->

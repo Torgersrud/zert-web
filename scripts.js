@@ -274,7 +274,9 @@
 
   /* ===== BEHAVIOR:veien-videre ===== */
 
-  /* Veien-videre-ticketen eier denne blokken. */
+  /* Veien-videre-ticketen eier denne blokken. Akten er statisk: fjell-
+     bakgrunnen skjøtes av CSS og reveal av BEHAVIOR:scroll-reveal.
+     Ingen egen atferd per i dag. */
 
   /* ===== /BEHAVIOR:veien-videre ===== */
 
