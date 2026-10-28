@@ -164,7 +164,9 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-ticketen eier denne blokken. */
+  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
+     avslutningen er statisk innhold, og revealene håndteres av
+     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
 
   /* ===== /BEHAVIOR:problemet ===== */
 
@@ -189,7 +191,10 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:beviset ===== */
 
-  /* Beviset-ticketen eier denne blokken. */
+  /* Beviset er statisk: dokumentet trenger ingen egen atferd. Avduking
+     skjer via BEHAVIOR:scroll-reveal, og prefers-reduced-motion dekkes av
+     kjerne-CSS. Ingen hendelsesdata genereres i nettleseren — radene er
+     faktatekst, ikke simulering. */
 
   /* ===== /BEHAVIOR:beviset ===== */
 
