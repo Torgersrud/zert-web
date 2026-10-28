@@ -476,66 +476,102 @@
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Hendelsesspor</dt>
             <dd class="beviset__entry">
-              <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
-              <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
-              <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
-                <li>vm.create</li>
-                <li>vm.kill</li>
-                <li>vm.timeout_extend</li>
-                <li>tunnel.open</li>
-                <li>tunnel.close</li>
-                <li>auth.login</li>
-                <li>auth.key_use</li>
-                <li>quota.reject</li>
-                <li>byok.key_set</li>
-                <li>byok.key_delete</li>
-                <li>admin.user_add</li>
-                <li>admin.user_remove</li>
-              </ul>
-              <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+              <p class="beviset__setning">Zert loggfører oppstart, stopp, forlengelser, innlogging, nøkkelbruk og nektede handlinger rundt KI-sandboxen — i ett eget revisjonsspor for din virksomhet.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
+                    <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
+                    <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
+                      <li>vm.create</li>
+                      <li>vm.kill</li>
+                      <li>vm.timeout_extend</li>
+                      <li>tunnel.open</li>
+                      <li>tunnel.close</li>
+                      <li>auth.login</li>
+                      <li>auth.key_use</li>
+                      <li>quota.reject</li>
+                      <li>byok.key_set</li>
+                      <li>byok.key_delete</li>
+                      <li>admin.user_add</li>
+                      <li>admin.user_remove</li>
+                    </ul>
+                    <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Retensjon</dt>
             <dd class="beviset__entry">
-              <p class="beviset__tall">12 mnd</p>
-              <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
-              <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+              <p class="beviset__setning">Revisjonshistorikken er søkbar i de siste tolv månedene, og fristen håndheves i selve lagringen.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p class="beviset__tall">12 mnd</p>
+                    <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
+                    <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Tenantisolasjon</dt>
             <dd class="beviset__entry">
-              <p class="beviset__tall">36 sjekker</p>
-              <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
-              <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+              <p class="beviset__setning">Ingen kunde kan se dataene til en annen: isolasjonen ligger i selve lagringen og kontrolleres automatisk av 36 tester mot det levende systemet.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p class="beviset__tall">36 sjekker</p>
+                    <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
+                    <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Hull i recorden</dt>
             <dd class="beviset__entry">
-              <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
-              <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+              <p class="beviset__setning">Mangler noe i hendelsesrecorden, utløses en alarm i stedet for at hullet passerer stille; gap-tall oppgir vi som en nedre grense, ikke som en garanti.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
+                    <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Gap Policy</dt>
             <dd class="beviset__entry">
-              <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
-              <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
-              <p class="beviset__micro">Ærlige grenser (ADR-0001): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+              <p class="beviset__setning">Gap Policy er den skriftlige policyen for hva som skjer med revisjonsdata under et avbrudd — den siteres ordrett nedenfor.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
+                    <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
+                    <p class="beviset__micro">Ærlige grenser (ADR-0001): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Revisjonsdata ut</dt>
             <dd class="beviset__entry">
-              <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
-              <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+              <p class="beviset__setning">Revisorer får et avgrenset utsnitt levert av Zert, ikke en portal med egeninnlogging — og revisjonsdataene går kun én vei ut fra produksjonsverten.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
+                    <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+                </div>
+              </details>
             </dd>
           </div>
         </dl>
