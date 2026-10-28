@@ -743,10 +743,10 @@ html.js .grensediagram.is-drawn .ramme__ramme { animation: grense-draw 700ms eas
 
 /* ===== ACT: slik-virker-det ===== */
 
-/* Forløpet repo inn -> KI-arbeid inne -> resultater ut -> VM-en dør, som fire
-   steg på rad, pluss den iscenesatte autoplay-terminalen som først viser seg
-   i denne handlingen. Blå er handlingens eneste aksent (standard interaktiv).
-   Terminalinnholdet er på engelsk; rundteksten er bokmål. */
+/* Fire steg i leserekkefølge — inn, arbeid, ut, død — som leses som én
+   setning. Blå er handlingens eneste aksent (standard interaktiv).
+   Den iscenesatte autoplay-terminalen bor ikke lenger i denne akten: den
+   følger utviklerflatens dev-karantene-akt, og .term-stilene eies der. */
 
 .section--slik-virker-det .kicker { margin-bottom: 14px; }
 
@@ -796,80 +796,12 @@ html.js .grensediagram.is-drawn .ramme__ramme { animation: grense-draw 700ms eas
   color: var(--fg);
 }
 
-/* Terminalen — en ekte terminalrute: ingen vinduskrom, ingen glød, ingen
-   skygger. Hele sesjonen står statisk i HTML-en; når scripts.js er aktiv
-   (og bevegelse er tillatt) legges .term--replay på og trinnene spilles av
-   én gang. Redusert bevegelse og uten JavaScript: statisk fulltilstand. */
-
-.term { max-width: 880px; }
-
-.term__label {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 12px;
-}
-
-.term__screen {
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--fg) 3%, transparent);
-  padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: clamp(11px, 1vw + 8px, 13px);
-  line-height: 1.7;
-  color: var(--fg);
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-}
-
-.term__prompt { color: var(--blue-300); }
-
-/* Linjene er på plass fra starten (lesbart for skjermlesere) — replay
-   skjuler dem med gjennomsiktighet, ikke display, slik at innholdet blir
-   værende i tilgjengelighetstreet. */
-.term--replay .term__line { opacity: 0; }
-.term--replay .term__line.is-shown { opacity: 1; }
-
-/* Blokkmarkøren hører til i en ekte terminal. Den blinker bare mens
-   sesjonen skrives; på fullført tilstand står den stille (ingen løkke). */
-.term__caret { display: none; }
-.term--replay .term__caret {
-  display: inline-block;
-  width: 0.6em;
-  height: 1.05em;
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  background: var(--blue-300);
-  animation: term-caret 1.1s step-end infinite;
-}
-.term--replay.term--done .term__caret { animation: none; }
-
-@keyframes term-caret { 50% { opacity: 0; } }
-
-.term__caption {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--fg-muted);
-  margin-top: 12px;
-}
-
 @media (max-width: 880px) {
   .svd__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
   .svd__flow { grid-template-columns: 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .term__caret { display: none; }
 }
 
 /* ===== /ACT: slik-virker-det ===== */
@@ -2137,6 +2069,114 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   max-width: 46ch;
 }
 
+/* --- Iscenesatt autoplay-terminal (flyttet hit fra slik-virker-det på
+       styreflaten, review av spec #15): utviklerflaten eier
+       terminalhistorien. En ekte terminalrute: ingen vinduskrom, ingen
+       glød, ingen skygger. Hele sesjonen står statisk i HTML-en; når
+       scripts.js er aktiv (og bevegelse er tillatt) legges .term--replay
+       på og trinnene spilles av én gang. Redusert bevegelse og uten
+       JavaScript: statisk fulltilstand. Innholdet er på engelsk;
+       rundteksten er bokmål. --- */
+
+/* Stegflyten på utviklerflaten har ingen egen margin — terminalen tar
+   pusten med egen toppmargin her, ikke i de delte .term-reglene. */
+.section--dev-karantene .term { margin-top: clamp(44px, 6vh, 64px); }
+
+.term { max-width: 880px; }
+
+.term__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.term__screen {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+  padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 1vw + 8px, 13px);
+  line-height: 1.7;
+  color: var(--fg);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.term__prompt { color: var(--blue-300); }
+
+/* Linjene er på plass fra starten (lesbart for skjermlesere) — replay
+   skjuler dem med gjennomsiktighet, ikke display, slik at innholdet blir
+   værende i tilgjengelighetstreet. */
+.term--replay .term__line { opacity: 0; }
+.term--replay .term__line.is-shown { opacity: 1; }
+
+/* Blokkmarkøren hører til i en ekte terminal. Den blinker bare mens
+   sesjonen skrives; på fullført tilstand står den stille (ingen løkke). */
+.term__caret { display: none; }
+.term--replay .term__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--blue-300);
+  animation: term-caret 1.1s step-end infinite;
+}
+.term--replay.term--done .term__caret { animation: none; }
+
+@keyframes term-caret { 50% { opacity: 0; } }
+
+.term__caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term__caret { display: none; }
+}
+
+/* --- Publisert industrimønster (spec #15, story 20): skjulte instruksjoner
+       i teksten agenten leser. Både etikett og tekst markerer blokken som
+       eksternt dokumentert — dette er ikke en Zert-hendelse. Kartongen
+       følger sidens rolige språk: hairline, ingen flater eller effekter. --- */
+
+.dev-karantene__monster {
+  margin-top: clamp(44px, 6vh, 64px);
+  max-width: 62ch;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.dev-karantene__monster .kicker { margin-bottom: 12px; }
+
+.dev-karantene__monster-tittel {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.dev-karantene__monster-tekst { color: var(--fg-muted); }
+
+.dev-karantene__monster-kilde {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
 @media (max-width: 880px) {
   .dev-steg__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -2212,19 +2252,19 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
    (aldri stille tap); egne id-er slik at begge skjemaene kan eksistere per
    nettside. */
 
-.dev-kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+.dev-liste__intro { margin-bottom: clamp(40px, 6vh, 64px); }
 
-.dev-kig__form { display: grid; gap: 22px; max-width: 540px; }
+.dev-liste__form { display: grid; gap: 22px; max-width: 540px; }
 
 /* Egne display-regler overskrider UA-stilarkets [hidden] — samme felle som
    i kom-i-gang: ellers staar skjemaet og feilboksen framme alltid. */
-.dev-kig__form[hidden],
-.dev-kig__takk[hidden],
-.dev-kig__feil[hidden] { display: none; }
+.dev-liste__form[hidden],
+.dev-liste__takk[hidden],
+.dev-liste__feil[hidden] { display: none; }
 
-.dev-kig__felt { display: grid; gap: 8px; }
+.dev-liste__felt { display: grid; gap: 8px; }
 
-.dev-kig__merkelapp {
+.dev-liste__merkelapp {
   font-family: var(--font-mono);
   font-weight: 500;
   font-size: 12px;
@@ -2233,7 +2273,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   color: var(--fg-muted);
 }
 
-.dev-kig__input {
+.dev-liste__input {
   width: 100%;
   padding: 13px 14px;
   font-family: var(--font-sans);
@@ -2243,22 +2283,22 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   border: 1px solid var(--line-strong);
   border-radius: 4px;
 }
-.dev-kig__input:focus {
+.dev-liste__input:focus {
   outline: 2px solid var(--focus);
   outline-offset: 1px;
   border-color: var(--interactive);
 }
 
-.dev-kig__send { width: 100%; }
-.dev-kig__send[disabled] { opacity: 0.6; cursor: default; }
+.dev-liste__send { width: 100%; }
+.dev-liste__send[disabled] { opacity: 0.6; cursor: default; }
 
-.dev-kig__personvern {
+.dev-liste__personvern {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--fg-muted);
 }
 
-.dev-kig__noscript {
+.dev-liste__noscript {
   border: 1px dashed var(--line-strong);
   border-radius: 4px;
   padding: 14px 16px;
@@ -2268,19 +2308,19 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   color: var(--fg-muted);
 }
 
-.dev-kig__takk {
+.dev-liste__takk {
   max-width: 540px;
   border: 1px solid var(--interactive);
   border-radius: 6px;
   padding: 28px 26px;
 }
-.dev-kig__takk-tekst {
+.dev-liste__takk-tekst {
   font-weight: 600;
   font-size: clamp(20px, 2vw, 24px);
   line-height: 1.35;
 }
 
-.dev-kig__feil {
+.dev-liste__feil {
   display: grid;
   gap: 10px;
   max-width: 540px;
@@ -2292,11 +2332,11 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* --- Sluttband: utvikler ved laptopen — personer i arbeid (DESIGN.md) --- */
 
-.dev-kig__band { margin-top: clamp(56px, 9vh, 96px); }
+.dev-liste__band { margin-top: clamp(56px, 9vh, 96px); }
 
-.dev-kig__band-bilde { width: 100%; height: auto; }
+.dev-liste__band-bilde { width: 100%; height: auto; }
 
-.dev-kig__band-tekst {
+.dev-liste__band-tekst {
   max-width: 1160px;
   margin: 0 auto;
   padding: 12px var(--gutter) 0;
@@ -2308,44 +2348,52 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* ===== /ACT: dev-venteliste ===== */
 
-/* ===== ACT: problemet — hendelser (ticket #20) ===== */
+/* ===== ACT: hendelser — agenter inn (tidl. ticket #20) ===== */
 
-/* Tre hendelseskort i agenter inn-halvdelen av problemet-akten. Akten
-   holder fortsatt én sekundærfargefamilie: oransje/rød via --action-color
-   (satt i ACT-blokken «ACT: problemet»), brukt bare på piktogram og
-   etiketter — aldri på brødtekst (DESIGN.md). År- og plattformetiketten
-   og brødteksten gjenbruker .problemet__merke og .problemet__del-tekst
-   fra blokkene over. Lenker følger den globalt blå interaktive fargen.
-   Ingen egne animasjoner: kortene følger avdukingen til det eksisterende
-   globale reveal-mønsteret (data-reveal i en data-reveal-gruppe). */
+/* De tre hendelseskortene ble flyttet ut av problemets agenter inn-halvdel
+   og står nå som eget beat med primærbevis rett etter loven (review av
+   spec #15). Akten viderefører risikohistoriens familie: oransje/rød som
+   --action-color her, brukt bare på piktogram og etiketter — aldri på
+   brødtekst (DESIGN.md). Etikett- og teksttypografien er gjort selvstendig
+   i denne blokken (tidl. gjenbruk av .problemet__merke og
+   .problemet__del-tekst). Lenkene følger den globalt blå interaktive
+   fargen. Ingen egne animasjoner: kortene følger avdukingen til det
+   eksisterende globale reveal-mønsteret (data-reveal i en
+   data-reveal-gruppe). */
 
-.problemet__hendelser {
-  margin-top: clamp(28px, 4vh, 40px);
-  border-top: 1px solid var(--line);
-  padding-top: clamp(18px, 2.5vh, 24px);
+.section--hendelser {
+  --action-color: var(--orange-500);
 }
 
-.problemet__hendelser .problemet__merke { color: var(--action-color); }
+.hendelser__hode .kicker { margin-bottom: 14px; }
+.hendelser__hode .ingress { margin-top: 18px; }
 
-/* Rammen: den synlige, ærlige etiketten om at dette er ekstern dokumentasjon. */
-.problemet__hendelser-ramme {
-  max-width: 46ch;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--fg-muted);
+/* År- og plattformetiketten: mono mikroversal i aktens farge. */
+.hendelser__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
 }
 
-.problemet__hendelser-liste {
+.hendelser__tekst { max-width: 46ch; }
+
+.hendelser__liste {
   list-style: none;
   padding: 0;
-  margin-top: clamp(18px, 2.5vh, 26px);
+  margin-top: clamp(28px, 4vh, 40px);
   display: grid;
   gap: clamp(18px, 2.5vh, 26px);
 }
 
 /* Kortet: piktogram til venstre, tekst til høyre. Hairline toppregel,
-   ingen flater eller effekter — samme rolige språk som pilrammen over. */
-.problemet__hendelse {
+   ingen flater eller effekter — samme rolige språk som pilrammen i
+   problemet-akten. */
+.hendelser__kort {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 14px;
@@ -2354,20 +2402,20 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   padding-top: 16px;
 }
 
-.problemet__hendelse .problemet__merke { margin-bottom: 8px; }
+.hendelser__kort .hendelser__merke { margin-bottom: 8px; }
 
-/* piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
+/* Piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
    database) i 24x24-rutenett, én tykkelse, én farge (--action-color). */
-.problemet__piktogram {
+.hendelser__piktogram {
   width: 26px;
   height: 26px;
   margin-top: 2px;
   color: var(--action-color);
 }
 
-.problemet__piktogram rect,
-.problemet__piktogram path,
-.problemet__piktogram ellipse {
+.hendelser__piktogram rect,
+.hendelser__piktogram path,
+.hendelser__piktogram ellipse {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -2376,7 +2424,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* Kildelinjen: mono mikroletikke, blå lenker mot mørk bakgrunn. */
-.problemet__hendelse-kilde {
+.hendelser__kilde {
   margin-top: 10px;
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -2385,7 +2433,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 @media (max-width: 720px) {
-  .problemet__hendelse { gap: 12px; }
+  .hendelser__kort { gap: 12px; }
 }
 
-/* ===== /ACT: problemet — hendelser (ticket #20) ===== */
+/* ===== /ACT: hendelser — agenter inn (tidl. ticket #20) ===== */

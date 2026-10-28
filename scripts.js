@@ -331,6 +331,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:loven ===== */
 
+  /* ===== BEHAVIOR:hendelser ===== */
+
+  /* Agenter inn-beatet (de tre dokumenterte hendelseskortene, flyttet ut av
+     problemet-akten i review av spec #15) er statisk innhold: bare lenker
+     til primærkildene, og revealene håndteres av BEHAVIOR:scroll-reveal.
+     Ingen egen atferd. */
+
+  /* ===== /BEHAVIOR:hendelser ===== */
+
   /* ===== BEHAVIOR:losningen ===== */
 
   /* Losningen eier denne blokken. To engangsanimasjoner: karantene-diagrammet
@@ -401,11 +410,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Iscenesatt autoplay-terminal. Scrollutløst, skriver seg selv én gang
-     og blir så stående på den komplette sesjonen. Aldri løkke, aldri
-     interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
-     JavaScript: den komplette terminaltranskripsjonen står statisk i
-     HTML-en, og denne blokken blander seg ikke inn. */
+  /* Iscenesatt autoplay-terminal. Flyttet ut av slik-virker-det på
+     styreflaten og inn i dev-karantene på utviklerflaten (review av
+     spec #15): blokken er værende per akt-mønsteret og vender hjem
+     tidlig når [data-term] mangler — som på styreflaten nå.
+     Scrollutløst, skriver seg selv én gang og blir så stående på den
+     komplette sesjonen. Aldri løkke, aldri interaktiv. Redusert bevegelse,
+     ingen IntersectionObserver eller ingen JavaScript: den komplette
+     terminaltranskripsjonen står statisk i HTML-en, og denne blokken
+     blander seg ikke inn. */
 
   (function () {
     var term = doc.querySelector('[data-term]');
@@ -555,8 +568,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     function mailtoLenke() {
       var tekst = 'Navn: ' + verdi('name') +
         '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email') +
-        '\nKommer som: ' + dør();
+        '\nE-post: ' + verdi('email');
       return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
         '&body=' + encodeURIComponent(tekst);
     }
@@ -606,19 +618,9 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:footer ===== */
 
-  /* ===== BEHAVIOR:footer ===== */
-
   /* Footer-ticketen eier denne blokken. */
 
   /* ===== /BEHAVIOR:footer ===== */
-
-  /* ===== BEHAVIOR:dev-port ===== */
-
-  /* Utviklerdøren i headern er vanlige lenker (utvikler.html / index.html)
-     uten egen atferd: nettleseren navigerer, og nav-sync berører dem ikke
-     fordi de ikke starter på #. Denne blokken er bevisst tom for kode. */
-
-  /* ===== /BEHAVIOR:dev-port ===== */
 
   /* ===== BEHAVIOR:dev-venteliste ===== */
 
@@ -635,7 +637,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     var feil = doc.getElementById('venteliste-utvikler-feil');
     if (!form || !takk || !feil) { return; }
 
-    var knapp = form.querySelector('.dev-kig__send');
+    var knapp = form.querySelector('.dev-liste__send');
     var feilLenke = feil.querySelector('a');
     var knappetekst = knapp ? knapp.textContent : '';
     var sender = false;
@@ -655,12 +657,12 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       knapp.textContent = på ? 'Sender …' : knappetekst;
     }
 
-    // Fallbacklenka bærer med alt brukeren har skrevet inn, døren inkludert.
+    // Fallbacklenka bærer med alt brukeren har skrevet inn, slik at
+    // e-posten er ferdig utfylt når den åpnes.
     function mailtoLenke() {
       var tekst = 'Navn: ' + verdi('name') +
         '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email') +
-        '\nKommer som: ' + dør();
+        '\nE-post: ' + verdi('email');
       return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
         '&body=' + encodeURIComponent(tekst);
     }

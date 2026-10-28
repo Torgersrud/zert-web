@@ -297,56 +297,11 @@
             <div class="problemet__del" data-reveal>
               <p class="problemet__merke">Agenter inn</p>
               <p class="problemet__del-tekst">KI-verktøy de ansatte allerede bruker, utfører virkelige kommandoer på bedriftens maskiner. De har nøyaktig de tilgangene den ansatte har. Ingen godkjenning. Ingen spor. Ingen bryter organisasjonen eier. Ikke noe av dette krever tro. Be IT-avdelingen sjekke det i egen organisasjon i morgen.</p>
-
-              <!-- Ticket #20: tre dokumenterte hendelser, som eksternt bevis
-                   i agenter inn-halvdelen. Kopien følger primærkildene
-                   sak for sak: år + plattform + hva som lekket + status.
-                   Kun href-er, ingen innbakte ressurser. -->
-              <div class="problemet__hendelser">
-                <p class="problemet__merke">Dokumentert av andre</p>
-                <p class="problemet__hendelser-ramme">Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
-                <ul class="problemet__hendelser-liste">
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <rect x="3" y="6" width="18" height="13" rx="2"/>
-                      <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2025 · Microsoft 365 Copilot</p>
-                      <p class="problemet__del-tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
-                    </div>
-                  </li>
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <rect x="3" y="5" width="18" height="12" rx="2"/>
-                      <path d="M8 17v4l4-4"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2024 · Slack AI</p>
-                      <p class="problemet__del-tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
-                    </div>
-                  </li>
-                  <li class="problemet__hendelse" data-reveal>
-                    <svg class="problemet__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
-                      <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
-                      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
-                    </svg>
-                    <div class="problemet__hendelse-innhold">
-                      <p class="problemet__merke">2025 · Asana</p>
-                      <p class="problemet__del-tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
-                      <p class="problemet__hendelse-kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a> · <a href="https://www.upguard.com/blog/asana-discloses-data-exposure-bug-in-mcp-server" rel="noopener">Asanas kundebrev, gjengitt av UpGuard</a></p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
           </figcaption>
         </figure>
 
-        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. De pågår i uken som gikk. Verken policy eller opplæring har stoppet dem så langt.</p>
+        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. Mønsteret gjentar seg. Verken policy eller opplæring har stoppet dem så langt.</p>
       </div>
     </section>
     <!-- ===== /ACT:problemet ===== -->
@@ -491,6 +446,61 @@
       </div>
     </section>
     <!-- ===== /ACT:loven ===== -->
+
+    <!-- ===== ACT:hendelser:start ===== -->
+    <!-- De tre dokumenterte hendelsene (tidl. ticket #20, beat i problemets
+         agenter inn-halvdelen) står nå som eget agenter inn-beat rett etter
+         loven, i beslutningsrekkefølgen: loven for data ut, beviset for
+         agenter inn. Kopien følger primærkildene sak for sak: år + plattform
+         + hva som kunne skjedd + status. Kun href-er, ingen innbakte
+         ressurser. -->
+    <section id="hendelser" class="section section--hendelser" data-act="hendelser" aria-labelledby="hendelser-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="hendelser__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen — agenter inn</p>
+          <h2 class="section__title" id="hendelser-tittel" data-reveal>Agenter inn har hendt. Hos andre.</h2>
+          <p class="ingress" data-reveal>Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
+        </div>
+
+        <ul class="hendelser__liste">
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="6" width="18" height="13" rx="2"/>
+              <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Microsoft 365 Copilot</p>
+              <p class="hendelser__tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="12" rx="2"/>
+              <path d="M8 17v4l4-4"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2024 · Slack AI</p>
+              <p class="hendelser__tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
+              <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
+              <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Asana</p>
+              <p class="hendelser__tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- ===== /ACT:hendelser ===== -->
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
@@ -827,7 +837,7 @@
         <ol class="svd__flow">
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">01</p>
-            <h3 class="svd__step-title">Repo inn</h3>
+            <h3 class="svd__step-title">Koden inn</h3>
             <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
           </li>
           <li class="svd__step" data-reveal>
@@ -838,7 +848,7 @@
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">03</p>
             <h3 class="svd__step-title">Resultater ut</h3>
-            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med verktøyet og fører dem selv inn i bedriftens systemer fra din egen maskin. Bare resultatet forlater sandboxen.</p>
           </li>
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">04</p>
@@ -846,32 +856,6 @@
             <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
           </li>
         </ol>
-
-        <figure class="term" data-reveal>
-          <p class="term__label">Slik ser en økt ut i terminalen</p>
-          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
-<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
-<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
-<span class="term__line" data-pause="110">route out: KI endpoint only</span>
-<span class="term__line" data-pause="200">attached — you are inside the VM</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
-<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
-<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
-<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
-<span class="term__line" data-pause="300"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
-<span class="term__line" data-pause="170">connection to sandbox closed</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
-<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
-<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
-<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
-<span class="term__line" data-pause="340"> </span>
-<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
-<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
-          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
-        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
@@ -1194,8 +1178,6 @@
       <p class="site-footer__tagline">Zert gir utviklere en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
       <ul class="site-footer__lenker">
         <li><a href="mailto:jp@zert.no">jp@zert.no</a></li>
-        <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-        <li><a href="https://github.com/zert" rel="noopener">GitHub</a></li>
         <li><a href="#kom-i-gang">Ventelisten</a></li>
       </ul>
       <p class="site-footer__meta">Zert · Norge · © 2026. Alle rettigheter reservert.</p>
