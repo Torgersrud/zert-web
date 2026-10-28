@@ -41,6 +41,20 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     for (i = 0; i < list.length; i++) { fn(list[i], i); }
   }
 
+  // Hold --header-h i takt med den faktiske headerhøyden (headeren wrapper
+  // på smale bredder). [id] sin scroll-margin-top leses via tokenen, slik
+  // at ankerlandlinger ikke lander under headeren — heller ikke over den
+  // lyse Beviset-seksjonen.
+  function syncHeaderHeight() {
+    var header = doc.querySelector('.site-header');
+    if (!header || !header.getBoundingClientRect || !rootEl.style.setProperty) { return; }
+    var height = Math.ceil(header.getBoundingClientRect().height);
+    if (height > 0) { rootEl.style.setProperty('--header-h', height + 'px'); }
+  }
+  syncHeaderHeight();
+  if (window.addEventListener) { window.addEventListener('resize', syncHeaderHeight, false); }
+  if (doc.fonts && doc.fonts.ready && doc.fonts.ready.then) { doc.fonts.ready.then(syncHeaderHeight); }
+
   function reducedMotion() {
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
@@ -134,7 +148,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       }
     }
 
-    // Bare den smale midtsonen av viewport telles, slik at hoyst én
+    // Bare den smale midtsonen av viewport telles, slik at høyst én
     // seksjon er aktiv om gangen.
     var visible = {};
     var observer = new IntersectionObserver(function (entries) {
@@ -171,7 +185,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     var DRAWN_CLASS = 'is-drawn';
     var DONE_CLASS = 'is-done';
     var LEAF_CLASS = 'hero__diagram--leaf';
-    var PASS_MS = 1700; // hele einepasseringa; + margin for bytte til sluttstate
+    var PASS_MS = 1700; // hele einepasseringen; + margin for bytte til sluttstate
 
     function hasClass(el, name) { return el.className.indexOf(name) !== -1; }
     function addClass(el, name) {
@@ -193,10 +207,10 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
       function arm() {
         addClass(el, DRAWN_CLASS);
-        // Ett eneste pass: nar animasjonstidslinjen er spelte ferdig,
+        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
         // bytter vi til den statiske slutttilstanden (is-done). Da kan
         // animasjonen verken loope eller starte pa ny (f.eks. ved at
-        // viewport storrelsen endres) — slutttilstanden er basen i CSS.
+        // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
         window.setTimeout(function () {
           removeClass(el, DRAWN_CLASS);
           addClass(el, DONE_CLASS);
@@ -210,7 +224,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
       if (!('IntersectionObserver' in window)) { arm(); return; }
 
-      // Første sikt: aktiverer vi animasjonen — og slår observatoren av for godt.
+      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
       var observer = new IntersectionObserver(function (entries) {
         var i;
         for (i = 0; i < entries.length; i++) {
