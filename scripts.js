@@ -155,7 +155,9 @@
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-ticketen eier denne blokken. */
+  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
+     avslutningen er statisk innhold, og revealene håndteres av
+     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
 
   /* ===== /BEHAVIOR:problemet ===== */
 
