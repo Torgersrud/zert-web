@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zert — Si ja til KI. Uten å slippe ut data.</title>
-  <meta name="description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <title>Zert — KI-agenten i virksomheten din. Karantene på norsk jord.</title>
+  <meta name="description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <link rel="canonical" href="https://zert.no/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zert">
   <meta property="og:locale" content="nb_NO">
   <meta property="og:url" content="https://zert.no/">
-  <meta property="og:title" content="Zert — Si ja til KI. Uten å slippe ut data.">
-  <meta property="og:description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <meta property="og:title" content="Zert — KI-agenten i virksomheten din. Karantene på norsk jord.">
+  <meta property="og:description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <meta property="og:image" content="https://zert.no/static/og-image.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Zert — si ja til KI uten å slippe ut data.">
+  <meta property="og:image:alt" content="Zert — kjennemerke over flyfoto av et norsk fiskevær i kveldslys.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Zert — Si ja til KI. Uten å slippe ut data.">
-  <meta name="twitter:description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <meta name="twitter:title" content="Zert — KI-agenten i virksomheten din. Karantene på norsk jord.">
+  <meta name="twitter:description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <meta name="twitter:image" content="https://zert.no/static/og-image.webp">
   <meta name="theme-color" content="#191919">
   <link rel="icon" type="image/png" href="static/Zert_Kjennemerke_DempetHvit.png">
@@ -192,178 +192,6 @@
         </figure>
         <!-- /Hodet/hender-diagrammet (ticket #17) -->
 
-        <!-- PLACEHOLDER: replaced by ticket #5 containment diagram -->
-        <figure class="hero__figure" data-reveal-group>
-          <figcaption class="hero__figure-label" data-reveal>Karantene — sandboxen har én utvei</figcaption>
-
-          <div class="hero__diagram" data-reveal>
-
-            <!-- Bred variant (desktop). Én tegnforklaring, to hvelvformer:
-                 firblad (standard) og rektangel (?vault=rect, kun dev). -->
-            <svg class="diagram diagram--wide" viewBox="0 0 940 500" role="img" focusable="false"
-                 aria-labelledby="karantene-breed-t karantene-breed-d">
-              <title id="karantene-breed-t">Karantene: KI-sandboxen har én utvei</title>
-              <desc id="karantene-breed-d">Utvikleren og repoet arbeider i en KI-sandbox. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-serveren hos Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
-
-              <!-- Utvikler + repo -->
-              <g>
-                <rect class="diagram__node d-draw" pathLength="100" x="26" y="154" width="150" height="96" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="101" y="196" text-anchor="middle">utvikler</text>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:200ms" x="101" y="216" text-anchor="middle">repo</text>
-              </g>
-
-              <!-- Inn: repo -> hvelv -->
-              <g>
-                <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="176" y1="190" x2="242" y2="190"/>
-                <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M240 184.5 L252 190 L240 195.5 Z"/>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="209" y="176" text-anchor="middle">repo inn</text>
-              </g>
-
-              <!-- Hvelv, variant A: forseglet rektangel -->
-              <g class="diagram__vault diagram__vault--rect">
-                <rect class="diagram__vault-frame d-draw" pathLength="100" x="250" y="100" width="300" height="300" rx="10"/>
-                <rect class="diagram__seam d-draw" style="--d:60ms" pathLength="100" x="262" y="112" width="276" height="276" rx="6"/>
-              </g>
-
-              <!-- Hvelv, variant B: firbladet, avledet av kjennemerket
-                   (fire kvartsirkelblader i 2x2, radier 400 i 800-rute) -->
-              <g class="diagram__vault diagram__vault--leaf" transform="translate(250 100) scale(0.375)">
-                <path class="diagram__leaf-shape d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
-              </g>
-
-              <!-- VM-kjerne + merkelapp -->
-              <g>
-                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:140ms" x="400" y="86" text-anchor="middle">KI-sandbox</text>
-                <rect class="diagram__chip d-draw" style="--d:90ms" pathLength="100" x="338" y="218" width="124" height="64" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:300ms" x="400" y="246" text-anchor="middle">VM</text>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:340ms" x="400" y="266" text-anchor="middle">karantene</text>
-                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:380ms" x="400" y="312" text-anchor="middle">data blir inne</text>
-              </g>
-
-              <!-- Den ene utvegen: hvelv -> KI-server -->
-              <g>
-                <line class="diagram__exit d-draw" style="--d:350ms" pathLength="100" x1="550" y1="310" x2="682" y2="310"/>
-                <path class="diagram__arrow--out d-fade" style="--d:680ms" d="M684 304 L696 310 L684 316 Z"/>
-                <text class="diagram__text diagram__text--exit d-fade" style="--d:620ms" x="616" y="282" text-anchor="middle">én utvei</text>
-                <text class="diagram__text diagram__text--exit diagram__text--micro d-fade" style="--d:670ms" x="616" y="298" text-anchor="middle">bare KI-trafikk</text>
-                <circle class="diagram__pulse" style="--px:126px; --d:420ms" cx="552" cy="310" r="3.5"/>
-              </g>
-              <g>
-                <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="700" y="245" width="216" height="130" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="808" y="300" text-anchor="middle">KI-server</text>
-                <text class="diagram__text d-fade" style="--d:420ms" x="808" y="324" text-anchor="middle">Blix datasenter, Oslo</text>
-              </g>
-
-              <!-- Forbudte utveier: oppløses underveis, ikke fram -->
-              <g class="diagram__forbidden">
-                <g class="d-fade" style="--d:700ms">
-                  <path class="diagram__stub" d="M470 100 L470 84"/>
-                  <path class="diagram__stub diagram__stub--far" d="M470 80 L470 62"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="470" y="46" text-anchor="middle">internetten</text>
-                  <circle class="diagram__ghost" style="--sx:0px; --sy:24px; --ex:0px; --ey:-18px; --d:750ms" cx="470" cy="74" r="2.4"/>
-                </g>
-                <g class="d-fade" style="--d:730ms">
-                  <path class="diagram__stub" d="M322 98 L284 72"/>
-                  <path class="diagram__stub diagram__stub--far" d="M278 68 L238 46"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="222" y="38" text-anchor="end">ukjente adresser</text>
-                  <circle class="diagram__ghost" style="--sx:40px; --sy:26px; --ex:-34px; --ey:-22px; --d:800ms" cx="280" cy="66" r="2.4"/>
-                </g>
-                <g class="d-fade" style="--d:760ms">
-                  <path class="diagram__stub" d="M470 400 L470 416"/>
-                  <path class="diagram__stub diagram__stub--far" d="M470 420 L470 438"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="470" y="462" text-anchor="middle">annen trafikk</text>
-                  <circle class="diagram__ghost" style="--sx:0px; --sy:-24px; --ex:0px; --ey:18px; --d:850ms" cx="470" cy="426" r="2.4"/>
-                </g>
-                <g class="d-fade" style="--d:790ms">
-                  <path class="diagram__stub" d="M322 402 L284 428"/>
-                  <path class="diagram__stub diagram__stub--far" d="M278 432 L236 454"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="222" y="468" text-anchor="end">alt annet</text>
-                  <circle class="diagram__ghost" style="--sx:40px; --sy:-26px; --ex:-34px; --ey:22px; --d:900ms" cx="280" cy="434" r="2.4"/>
-                </g>
-                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="238" y="252" text-anchor="end">prøver seg —</text>
-                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="238" y="266" text-anchor="end">oppløses, ingen framkomst</text>
-              </g>
-            </svg>
-
-            <!-- Smal variant (mobil): samme historie, loddrett forløp -->
-            <svg class="diagram diagram--tall" viewBox="-8 0 356 660" role="img" focusable="false"
-                 aria-labelledby="karantene-smal-t karantene-smal-d">
-              <title id="karantene-smal-t">Karantene: KI-sandboxen har én utvei</title>
-              <desc id="karantene-smal-d">Utvikleren og repoet arbeider i en KI-sandbox. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-serveren hos Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
-
-              <g>
-                <rect class="diagram__node d-draw" pathLength="100" x="70" y="14" width="200" height="72" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="170" y="54" text-anchor="middle">utvikler · repo</text>
-              </g>
-
-              <g>
-                <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="170" y1="88" x2="170" y2="184"/>
-                <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M164.5 186 L170 198 L175.5 186 Z"/>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="180" y="150">repo inn</text>
-              </g>
-
-              <g class="diagram__vault diagram__vault--rect">
-                <rect class="diagram__vault-frame d-draw" pathLength="100" x="70" y="198" width="220" height="220" rx="8"/>
-                <rect class="diagram__seam d-draw" style="--d:60ms" pathLength="100" x="80" y="208" width="200" height="200" rx="5"/>
-              </g>
-
-              <g class="diagram__vault diagram__vault--leaf" transform="translate(70 198) scale(0.275)">
-                <path class="diagram__leaf-shape d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
-                <path class="diagram__leaf-shape d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
-              </g>
-
-              <g>
-                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:140ms" x="202" y="222">KI-sandbox</text>
-                <rect class="diagram__chip d-draw" style="--d:90ms" pathLength="100" x="122" y="270" width="96" height="56" rx="5"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:300ms" x="170" y="294" text-anchor="middle">VM</text>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:340ms" x="170" y="312" text-anchor="middle">karantene</text>
-                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:380ms" x="170" y="354" text-anchor="middle">data blir inne</text>
-              </g>
-
-              <g>
-                <line class="diagram__exit d-draw" style="--d:350ms" pathLength="100" x1="170" y1="418" x2="170" y2="474"/>
-                <path class="diagram__arrow--out d-fade" style="--d:680ms" d="M164.5 476 L170 488 L175.5 476 Z"/>
-                <text class="diagram__text diagram__text--exit d-fade" style="--d:620ms" x="182" y="440">én utvei</text>
-                <text class="diagram__text diagram__text--exit diagram__text--micro d-fade" style="--d:670ms" x="182" y="456">bare KI-trafikk</text>
-                <circle class="diagram__pulse" style="--py:50px; --d:420ms" cx="170" cy="420" r="3.5"/>
-              </g>
-              <g>
-                <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="40" y="490" width="260" height="96" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="170" y="528" text-anchor="middle">KI-server</text>
-                <text class="diagram__text d-fade" style="--d:420ms" x="170" y="552" text-anchor="middle">Blix datasenter, Oslo</text>
-              </g>
-
-              <g class="diagram__forbidden">
-                <g class="d-fade" style="--d:700ms">
-                  <path class="diagram__stub" d="M68 250 L50 250"/>
-                  <path class="diagram__stub diagram__stub--far" d="M46 250 L36 250"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="66" y="236" text-anchor="end">internetten</text>
-                  <circle class="diagram__ghost" style="--sx:18px; --sy:0px; --ex:-8px; --ey:0px; --d:750ms" cx="50" cy="250" r="2.4"/>
-                </g>
-                <g class="d-fade" style="--d:730ms">
-                  <path class="diagram__stub" d="M292 320 L308 320"/>
-                  <path class="diagram__stub diagram__stub--far" d="M312 320 L324 320"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="294" y="306">trafikk</text>
-                  <circle class="diagram__ghost" style="--sx:-18px; --sy:0px; --ex:8px; --ey:0px; --d:800ms" cx="306" cy="320" r="2.4"/>
-                </g>
-                <g class="d-fade" style="--d:760ms">
-                  <path class="diagram__stub" d="M292 370 L308 370"/>
-                  <path class="diagram__stub diagram__stub--far" d="M312 370 L324 370"/>
-                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="294" y="392">ukjent</text>
-                  <circle class="diagram__ghost" style="--sx:-18px; --sy:0px; --ex:8px; --ey:0px; --d:850ms" cx="306" cy="370" r="2.4"/>
-                </g>
-                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="24" y="622">prøver seg — oppløses, ingen framkomst</text>
-              </g>
-            </svg>
-
-          </div>
-        </figure>
-        <!-- /PLACEHOLDER: ticket #5 containment diagram -->
       </div>
     </section>
     <!-- ===== /ACT:hero ===== -->
@@ -621,66 +449,325 @@
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
-      <div class="section__inner losningen__layout" data-reveal-group>
+      <div class="section__inner" data-reveal-group>
         <header class="losningen__intro">
-          <p class="kicker" data-reveal>Løsningen — to dører</p>
-          <h2 class="section__title" id="losningen-tittel" data-reveal>To dører. Ett produkt.</h2>
-          <p class="ingress" data-reveal>Zert er to ting i én løsning: en KI-harness utviklerne faktisk vil bruke, og en runtime dere kan ansvarlig godkjenne.</p>
+          <p class="kicker" data-reveal>Løsningen</p>
+          <h2 class="section__title" id="losningen-tittel" data-reveal>Si ja til KI. Uten å slippe ut data.</h2>
+          <p class="ingress" data-reveal>Svaret er ikke et forbud. KI-en får jobbe i en egen KI-sandbox i norsk datasenter. Sandboxen har én utvei — KI-endepunktet — og ingenting annet.</p>
         </header>
 
-        <figure class="losningen__figure" data-reveal>
-          <div class="designelement" role="img" aria-label="To utviklere sitter skulder ved skulder og ser på felles skjerm på en bærbar pc.">
-            <span class="designelement__leaf designelement__leaf--ov">
-              <img class="designelement__bilde" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
-            </span>
-            <span class="designelement__leaf designelement__leaf--oh">
-              <img class="designelement__bilde designelement__bilde--hoyre" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
-            </span>
-            <span class="designelement__leaf designelement__leaf--nv designelement__leaf--tone" aria-hidden="true"></span>
-            <span class="designelement__leaf designelement__leaf--nh designelement__leaf--tone" aria-hidden="true"></span>
+        <!-- Karantene-diagrammet (ticket #21): flyttet hit fra hero. KI-sandboxen
+             når KI-endepunktet — og fysisk ingenting annet. Engangsanimasjon;
+             tilstandsmaskin i CSS (ACT: losningen), kontroll i BEHAVIOR:losningen. -->
+        <!-- PLACEHOLDER: replaced by ticket #5 containment diagram -->
+        <figure class="losningen__figure" data-reveal-group>
+          <figcaption class="losningen__figure-label" data-reveal>Karantene — sandboxen har én utvei</figcaption>
+
+          <div class="losningen__diagram" data-reveal>
+
+            <!-- Bred variant (desktop). Én tegnforklaring, to hvelvformer:
+                 firblad (standard) og rektangel (?vault=rect, kun dev). -->
+            <svg class="diagram diagram--wide" viewBox="0 0 940 500" role="img" focusable="false"
+                 aria-labelledby="karantene-breed-t karantene-breed-d">
+              <title id="karantene-breed-t">Karantene: KI-sandboxen har én utvei</title>
+              <desc id="karantene-breed-d">Utvikleren arbeider i en KI-sandbox med koden sin. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-endepunktet i Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
+
+              <!-- Utvikler + kode -->
+              <g>
+                <rect class="diagram__node d-draw" pathLength="100" x="26" y="154" width="150" height="96" rx="6"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="101" y="196" text-anchor="middle">utvikler</text>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:200ms" x="101" y="216" text-anchor="middle">kode</text>
+              </g>
+
+              <!-- Inn: kode -> hvelv -->
+              <g>
+                <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="176" y1="190" x2="242" y2="190"/>
+                <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M240 184.5 L252 190 L240 195.5 Z"/>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="209" y="176" text-anchor="middle">kode inn</text>
+              </g>
+
+              <!-- Hvelv, variant A: forseglet rektangel -->
+              <g class="diagram__vault diagram__vault--rect">
+                <rect class="diagram__vault-frame d-draw" pathLength="100" x="250" y="100" width="300" height="300" rx="10"/>
+                <rect class="diagram__seam d-draw" style="--d:60ms" pathLength="100" x="262" y="112" width="276" height="276" rx="6"/>
+              </g>
+
+              <!-- Hvelv, variant B: firbladet, avledet av kjennemerket
+                   (fire kvartsirkelblader i 2x2, radier 400 i 800-rute) -->
+              <g class="diagram__vault diagram__vault--leaf" transform="translate(250 100) scale(0.375)">
+                <path class="diagram__leaf-shape d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+
+              <!-- VM-kjerne + merkelapp -->
+              <g>
+                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:140ms" x="400" y="86" text-anchor="middle">KI-sandbox</text>
+                <rect class="diagram__chip d-draw" style="--d:90ms" pathLength="100" x="338" y="218" width="124" height="64" rx="6"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:300ms" x="400" y="246" text-anchor="middle">VM</text>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:340ms" x="400" y="266" text-anchor="middle">karantene</text>
+                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:380ms" x="400" y="312" text-anchor="middle">data blir inne</text>
+              </g>
+
+              <!-- Den ene utvegen: hvelv -> KI-endepunktet -->
+              <g>
+                <line class="diagram__exit d-draw" style="--d:350ms" pathLength="100" x1="550" y1="310" x2="682" y2="310"/>
+                <path class="diagram__arrow--out d-fade" style="--d:680ms" d="M684 304 L696 310 L684 316 Z"/>
+                <text class="diagram__text diagram__text--exit d-fade" style="--d:620ms" x="616" y="282" text-anchor="middle">én utvei</text>
+                <text class="diagram__text diagram__text--exit diagram__text--micro d-fade" style="--d:670ms" x="616" y="298" text-anchor="middle">bare KI-trafikk</text>
+                <circle class="diagram__pulse" style="--px:126px; --d:420ms" cx="552" cy="310" r="3.5"/>
+              </g>
+              <g>
+                <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="700" y="245" width="216" height="130" rx="6"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="808" y="300" text-anchor="middle">KI-endepunktet</text>
+                <text class="diagram__text d-fade" style="--d:420ms" x="808" y="324" text-anchor="middle">Blix datasenter, Oslo</text>
+              </g>
+
+              <!-- Forbudte utveier: oppløses underveis, ikke fram -->
+              <g class="diagram__forbidden">
+                <g class="d-fade" style="--d:700ms">
+                  <path class="diagram__stub" d="M470 100 L470 84"/>
+                  <path class="diagram__stub diagram__stub--far" d="M470 80 L470 62"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="470" y="46" text-anchor="middle">internetten</text>
+                  <circle class="diagram__ghost" style="--sx:0px; --sy:24px; --ex:0px; --ey:-18px; --d:750ms" cx="470" cy="74" r="2.4"/>
+                </g>
+                <g class="d-fade" style="--d:730ms">
+                  <path class="diagram__stub" d="M322 98 L284 72"/>
+                  <path class="diagram__stub diagram__stub--far" d="M278 68 L238 46"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="222" y="38" text-anchor="end">ukjente adresser</text>
+                  <circle class="diagram__ghost" style="--sx:40px; --sy:26px; --ex:-34px; --ey:-22px; --d:800ms" cx="280" cy="66" r="2.4"/>
+                </g>
+                <g class="d-fade" style="--d:760ms">
+                  <path class="diagram__stub" d="M470 400 L470 416"/>
+                  <path class="diagram__stub diagram__stub--far" d="M470 420 L470 438"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="470" y="462" text-anchor="middle">annen trafikk</text>
+                  <circle class="diagram__ghost" style="--sx:0px; --sy:-24px; --ex:0px; --ey:18px; --d:850ms" cx="470" cy="426" r="2.4"/>
+                </g>
+                <g class="d-fade" style="--d:790ms">
+                  <path class="diagram__stub" d="M322 402 L284 428"/>
+                  <path class="diagram__stub diagram__stub--far" d="M278 432 L236 454"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="222" y="468" text-anchor="end">alt annet</text>
+                  <circle class="diagram__ghost" style="--sx:40px; --sy:-26px; --ex:-34px; --ey:22px; --d:900ms" cx="280" cy="434" r="2.4"/>
+                </g>
+                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="238" y="252" text-anchor="end">prøver seg —</text>
+                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="238" y="266" text-anchor="end">oppløses, ingen framkomst</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp -->
+            <svg class="diagram diagram--tall" viewBox="-8 0 356 660" role="img" focusable="false"
+                 aria-labelledby="karantene-smal-t karantene-smal-d">
+              <title id="karantene-smal-t">Karantene: KI-sandboxen har én utvei</title>
+              <desc id="karantene-smal-d">Utvikleren arbeider i en KI-sandbox med koden sin. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-endepunktet i Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
+
+              <g>
+                <rect class="diagram__node d-draw" pathLength="100" x="70" y="14" width="200" height="72" rx="6"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="170" y="54" text-anchor="middle">utvikler · kode</text>
+              </g>
+
+              <g>
+                <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="170" y1="88" x2="170" y2="184"/>
+                <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M164.5 186 L170 198 L175.5 186 Z"/>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="180" y="150">kode inn</text>
+              </g>
+
+              <g class="diagram__vault diagram__vault--rect">
+                <rect class="diagram__vault-frame d-draw" pathLength="100" x="70" y="198" width="220" height="220" rx="8"/>
+                <rect class="diagram__seam d-draw" style="--d:60ms" pathLength="100" x="80" y="208" width="200" height="200" rx="5"/>
+              </g>
+
+              <g class="diagram__vault diagram__vault--leaf" transform="translate(70 198) scale(0.275)">
+                <path class="diagram__leaf-shape d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="diagram__leaf-shape d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+
+              <g>
+                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:140ms" x="202" y="222">KI-sandbox</text>
+                <rect class="diagram__chip d-draw" style="--d:90ms" pathLength="100" x="122" y="270" width="96" height="56" rx="5"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:300ms" x="170" y="294" text-anchor="middle">VM</text>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:340ms" x="170" y="312" text-anchor="middle">karantene</text>
+                <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:380ms" x="170" y="354" text-anchor="middle">data blir inne</text>
+              </g>
+
+              <g>
+                <line class="diagram__exit d-draw" style="--d:350ms" pathLength="100" x1="170" y1="418" x2="170" y2="474"/>
+                <path class="diagram__arrow--out d-fade" style="--d:680ms" d="M164.5 476 L170 488 L175.5 476 Z"/>
+                <text class="diagram__text diagram__text--exit d-fade" style="--d:620ms" x="182" y="440">én utvei</text>
+                <text class="diagram__text diagram__text--exit diagram__text--micro d-fade" style="--d:670ms" x="182" y="456">bare KI-trafikk</text>
+                <circle class="diagram__pulse" style="--py:50px; --d:420ms" cx="170" cy="420" r="3.5"/>
+              </g>
+              <g>
+                <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="40" y="490" width="260" height="96" rx="6"/>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="170" y="528" text-anchor="middle">KI-endepunktet</text>
+                <text class="diagram__text d-fade" style="--d:420ms" x="170" y="552" text-anchor="middle">Blix datasenter, Oslo</text>
+              </g>
+
+              <g class="diagram__forbidden">
+                <g class="d-fade" style="--d:700ms">
+                  <path class="diagram__stub" d="M68 250 L50 250"/>
+                  <path class="diagram__stub diagram__stub--far" d="M46 250 L36 250"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="66" y="236" text-anchor="end">internetten</text>
+                  <circle class="diagram__ghost" style="--sx:18px; --sy:0px; --ex:-8px; --ey:0px; --d:750ms" cx="50" cy="250" r="2.4"/>
+                </g>
+                <g class="d-fade" style="--d:730ms">
+                  <path class="diagram__stub" d="M292 320 L308 320"/>
+                  <path class="diagram__stub diagram__stub--far" d="M312 320 L324 320"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="294" y="306">trafikk</text>
+                  <circle class="diagram__ghost" style="--sx:-18px; --sy:0px; --ex:8px; --ey:0px; --d:800ms" cx="306" cy="320" r="2.4"/>
+                </g>
+                <g class="d-fade" style="--d:760ms">
+                  <path class="diagram__stub" d="M292 370 L308 370"/>
+                  <path class="diagram__stub diagram__stub--far" d="M312 370 L324 370"/>
+                  <text class="diagram__text diagram__text--micro diagram__text--muted diagram__text--strike" x="294" y="392">ukjent</text>
+                  <circle class="diagram__ghost" style="--sx:-18px; --sy:0px; --ex:8px; --ey:0px; --d:850ms" cx="306" cy="370" r="2.4"/>
+                </g>
+                <text class="diagram__text diagram__text--micro diagram__text--muted d-fade" style="--d:720ms" x="24" y="622">prøver seg — oppløses, ingen framkomst</text>
+              </g>
+            </svg>
+
           </div>
-          <figcaption class="losningen__figure-label">To utviklere. Én skjerm. Én sandbox.</figcaption>
         </figure>
+        <!-- /PLACEHOLDER: ticket #5 containment diagram -->
+        <!-- /Karantene-diagrammet (ticket #21) -->
 
-        <div class="losningen__doors">
-          <article class="door" data-reveal>
-            <p class="door__label">Dør én — Styret og CISO</p>
-            <h3 class="door__title">En runtime dere kan stå inne for</h3>
-            <dl class="door__points">
-              <div class="door__point">
-                <dt>Karantene</dt>
-                <dd>Sandboxen står i norsk datasenter. Eneste vei ut er KI-endepunktet. Alt annet er stengt.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Revisjon</dt>
-                <dd>Alle VM-hendelser og tilgangshandlinger logges per kunde — inkludert nektede forsøk.</dd>
-              </div>
-            </dl>
-            <p class="door__close">Dermed godkjenner dere KI basert på fakta, ikke blind tillit.</p>
-          </article>
+        <!-- Avsluttende beat (ticket #21): virtualiseres -> norsk jord -> den
+             omsluttende rammen som løses opp i Zerts merke. Engangsanimasjon;
+             samme tilstandsmaskin som karantene-diagrammet. -->
+        <figure class="losningen__figure" data-reveal-group>
+          <figcaption class="losningen__figure-label" data-reveal>Rammen er produktet</figcaption>
 
-          <article class="door" data-reveal>
-            <p class="door__label">Dør to — Utvikleren</p>
-            <h3 class="door__title">En KI-harness utviklerne vil ha</h3>
-            <dl class="door__points">
-              <div class="door__point">
-                <dt>Åpen kildekode</dt>
-                <dd>Klienten er åpen. Du leser koden før du installerer den.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Rask CLI</dt>
-                <dd>Én kommando reiser sandboxen. Resten er terminalen du allerede bruker.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Åpne vekter</dt>
-                <dd>Ekte åpne KI-modeller — ikke én snal åpen modell. Det du skriver, blir i datasenteret.</dd>
-              </div>
-            </dl>
-            <p class="door__close">Et verktøy utviklerne selv velger — ikke noe de blir påtvunget.</p>
-          </article>
-        </div>
+          <div class="grensediagram" data-reveal>
 
-        <p class="losningen__creed" data-reveal>De to dørene er ikke to produkter. De er to sider av samme sandbox.</p>
+            <!-- Bred variant (desktop): sandboxen på norsk jord, én utvei til
+                 KI-endepunktet, alt innenfor én ramme — som til høyre blir
+                 Zerts merke: fire blader og navnet. -->
+            <svg class="ramme ramme--wide" viewBox="0 0 940 420" role="img" focusable="false"
+                 aria-labelledby="ramme-breed-t ramme-breed-d">
+              <title id="ramme-breed-t">Rammen er produktet: sandboxen på norsk jord blir til Zerts merke</title>
+              <desc id="ramme-breed-d">Til venstre: en KI-sandbox står på norsk jord og har én utvei til KI-endepunktet i samme datasenter. Hele oppsettet står innenfor én ramme. Til høyre løses rammen og innholdet opp i Zerts merke: fire blader i et rutenett, over navnet Zert.</desc>
+
+              <!-- Virtualisert: KI-sandboxen -->
+              <g>
+                <rect class="ramme__boks d-draw" pathLength="100" x="100" y="112" width="224" height="188" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:320ms" x="212" y="180" text-anchor="middle">KI-sandbox</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:370ms" x="212" y="204" text-anchor="middle">bygges opp og rives</text>
+                <text class="ramme__text ramme__text--micro ramme__text--strong d-fade" style="--d:420ms" x="212" y="256" text-anchor="middle">dataene blir inne</text>
+              </g>
+
+              <!-- Én utvei til endepunktet -->
+              <g>
+                <line class="ramme__utvei d-draw" style="--d:560ms" pathLength="100" x1="324" y1="206" x2="442" y2="206"/>
+                <path class="ramme__spiss d-fade" style="--d:880ms" d="M446 200.5 L456 206 L446 211.5 Z"/>
+                <text class="ramme__text ramme__text--exit d-fade" style="--d:830ms" x="383" y="186" text-anchor="middle">én utvei</text>
+              </g>
+
+              <!-- KI-endepunktet, i samme datasenter -->
+              <g>
+                <rect class="ramme__node d-draw" style="--d:480ms" pathLength="100" x="456" y="150" width="176" height="150" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:700ms" x="544" y="212" text-anchor="middle">KI-endepunktet</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:745ms" x="544" y="236" text-anchor="middle">norsk datasenter</text>
+              </g>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="ramme__jord d-draw" pathLength="100" x1="80" y1="300" x2="644" y2="300"/>
+                <path class="ramme__jord-mark d-draw" style="--d:60ms" pathLength="100" d="M80 302 v8 M120 302 v8 M160 302 v8 M200 302 v8 M240 302 v8 M280 302 v8 M320 302 v8 M360 302 v8 M400 302 v8 M440 302 v8 M480 302 v8 M520 302 v8 M560 302 v8 M600 302 v8 M640 302 v8"/>
+                <text class="ramme__text ramme__text--micro ramme__text--muted d-fade" style="--d:220ms" x="80" y="334">norsk jord · Blix datasenter, Oslo</text>
+              </g>
+
+              <!-- Den omsluttende rammen — tegnes sist -->
+              <rect class="ramme__ramme d-draw" style="--d:940ms" pathLength="100" x="62" y="68" width="600" height="276" rx="10"/>
+
+              <!-- Rammen løser opp i merket: fire blader + navnet -->
+              <g>
+                <line class="ramme__over d-fade" style="--d:1280ms" x1="672" y1="206" x2="696" y2="206"/>
+                <path class="ramme__over-spiss d-fade" style="--d:1330ms" d="M698 200.5 L708 206 L698 211.5 Z"/>
+              </g>
+              <g transform="translate(724 142) scale(0.16)">
+                <path class="ramme__blad d-draw" style="--d:1400ms" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1450ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1490ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1530ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <text class="ramme__ord d-fade" style="--d:1660ms" x="788" y="332" text-anchor="middle">Zert</text>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett — sandbox øverst,
+                 endepunktet nederst på norsk jord, rammen uten om, merket under. -->
+            <svg class="ramme ramme--tall" viewBox="0 0 356 748" role="img" focusable="false"
+                 aria-labelledby="ramme-smal-t ramme-smal-d">
+              <title id="ramme-smal-t">Rammen er produktet: sandboxen på norsk jord blir til Zerts merke</title>
+              <desc id="ramme-smal-d">Øverst: en KI-sandbox står på norsk jord og har én utvei til KI-endepunktet i samme datasenter. Hele oppsettet står innenfor én ramme. Nederst løser rammen og innholdet seg opp i Zerts merke: fire blader i et rutenett, over navnet Zert.</desc>
+
+              <!-- Virtualisert: KI-sandboxen -->
+              <g>
+                <rect class="ramme__boks d-draw" pathLength="100" x="78" y="56" width="200" height="150" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:320ms" x="178" y="106" text-anchor="middle">KI-sandbox</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:370ms" x="178" y="128" text-anchor="middle">bygges opp og rives</text>
+                <text class="ramme__text ramme__text--micro ramme__text--strong d-fade" style="--d:420ms" x="178" y="172" text-anchor="middle">dataene blir inne</text>
+              </g>
+
+              <!-- Én utvei til endepunktet -->
+              <g>
+                <line class="ramme__utvei d-draw" style="--d:560ms" pathLength="100" x1="178" y1="206" x2="178" y2="250"/>
+                <path class="ramme__spiss d-fade" style="--d:880ms" d="M172.5 252 L178 262 L183.5 252 Z"/>
+                <text class="ramme__text ramme__text--exit d-fade" style="--d:830ms" x="190" y="234">én utvei</text>
+              </g>
+
+              <!-- KI-endepunktet, i samme datasenter -->
+              <g>
+                <rect class="ramme__node d-draw" style="--d:480ms" pathLength="100" x="78" y="264" width="200" height="118" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:700ms" x="178" y="312" text-anchor="middle">KI-endepunktet</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:745ms" x="178" y="336" text-anchor="middle">norsk datasenter</text>
+              </g>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="ramme__jord d-draw" pathLength="100" x1="40" y1="400" x2="316" y2="400"/>
+                <path class="ramme__jord-mark d-draw" style="--d:60ms" pathLength="100" d="M40 402 v8 M70 402 v8 M100 402 v8 M130 402 v8 M160 402 v8 M190 402 v8 M220 402 v8 M250 402 v8 M280 402 v8 M310 402 v8"/>
+                <text class="ramme__text ramme__text--micro ramme__text--muted d-fade" style="--d:220ms" x="40" y="434">norsk jord · Blix, Oslo</text>
+              </g>
+
+              <!-- Den omsluttende rammen — tegnes sist -->
+              <rect class="ramme__ramme d-draw" style="--d:940ms" pathLength="100" x="20" y="24" width="316" height="456" rx="10"/>
+
+              <!-- Rammen løser opp i merket: fire blader + navnet -->
+              <g>
+                <line class="ramme__over d-fade" style="--d:1280ms" x1="178" y1="492" x2="178" y2="520"/>
+                <path class="ramme__over-spiss d-fade" style="--d:1330ms" d="M172.5 522 L178 532 L183.5 522 Z"/>
+              </g>
+              <g transform="translate(113 546) scale(0.16)">
+                <path class="ramme__blad d-draw" style="--d:1400ms" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1450ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1490ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1530ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <text class="ramme__ord d-fade" style="--d:1660ms" x="177" y="724" text-anchor="middle">Zert</text>
+            </svg>
+
+          </div>
+
+          <div class="losningen__forklaring">
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Vi virtualiserer</p>
+              <p class="losningen__del-tekst">KI-en jobber på en egen, midlertidig maskin — ikke på virksomhetens. Skader den noe, skjer det på en maskin som bygges opp på nytt. Skaden blir stående i kassen.</p>
+            </div>
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Norsk jord</p>
+              <p class="losningen__del-tekst">Både sandboxen og KI-endepunktet står i Blix datasenter i Oslo. Datasenteret er norskeid. Inferensen skjer i samme bygget som sandboxen.</p>
+            </div>
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Én ramme</p>
+              <p class="losningen__del-tekst">Hele forløpet står innenfor én grense. Grensen er produktet. Den bærer Zerts navn.</p>
+            </div>
+          </div>
+        </figure>
+        <!-- /Avsluttende beat (ticket #21) -->
+
+        <p class="losningen__utvikler" data-reveal>Utviklere finner Zert på sin egen flate. <a class="losningen__utvikler-lenke" href="utvikler.html">Zert for utviklere</a></p>
       </div>
     </section>
     <!-- ===== /ACT:losningen ===== -->
