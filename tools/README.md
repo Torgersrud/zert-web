@@ -27,17 +27,20 @@ committed. Photo recipes (crops/desaturation) live in the script header.
 ## shot.py
 
 Screenshot harness (Seam 3 — the implementor's eyes). Serves the site on a
-random localhost port and captures it with headless Chromium: full page and
-one screenshot per section (`[data-act]`), at 1440px and 390px, plus a
-`prefers-reduced-motion: reduce` pass. It doubles as the page-health gate and
-fails the run on any console error, page error, failed request, HTTP >= 400
-response or third-party (non-localhost) request. Screenshots are only ever
-written under `/tmp` — never commit them. Read every screenshot as an image
-and verify against `DESIGN.md`; the loop is edit -> re-render -> re-look.
+random localhost port and captures every page in `PAGES` (the board page and
+the developer page) with headless Chromium: full page and one screenshot per
+section (`[data-act]`), at 1440px and 390px, plus a `prefers-reduced-motion:
+reduce` pass. Output is grouped per page: `<out>/<page>/<pass>/`. It doubles
+as the page-health gate and fails the run on any console error, page error,
+failed request, HTTP >= 400 response or third-party (non-localhost) request.
+Screenshots are only ever written under `/tmp` — never commit them. Read every
+screenshot as an image and verify against `DESIGN.md`; the loop is edit ->
+re-render -> re-look.
 
 ```sh
-tools/shot.py                  # all passes (desktop 1440, mobile 390, reduced-motion)
+tools/shot.py                  # all pages, all passes (desktop 1440, mobile 390, reduced-motion)
 tools/shot.py --only desktop   # single pass: desktop | mobile | reduced
+tools/shot.py --page utviklere # single page: forside | utviklere
 tools/shot.py --out /tmp/opencode/shots/t4
 ```
 

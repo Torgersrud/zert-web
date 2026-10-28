@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zert — Si ja til KI. Uten å slippe ut data.</title>
-  <meta name="description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <title>Zert — KI-agenten i virksomheten din. Karantene på norsk jord.</title>
+  <meta name="description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <link rel="canonical" href="https://zert.no/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zert">
   <meta property="og:locale" content="nb_NO">
   <meta property="og:url" content="https://zert.no/">
-  <meta property="og:title" content="Zert — Si ja til KI. Uten å slippe ut data.">
-  <meta property="og:description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <meta property="og:title" content="Zert — KI-agenten i virksomheten din. Karantene på norsk jord.">
+  <meta property="og:description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <meta property="og:image" content="https://zert.no/static/og-image.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Zert — si ja til KI uten å slippe ut data.">
+  <meta property="og:image:alt" content="Zert — kjennemerke over flyfoto av et norsk fiskevær i kveldslys.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Zert — Si ja til KI. Uten å slippe ut data.">
-  <meta name="twitter:description" content="Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet. Si ja til KI uten å slippe ut data.">
+  <meta name="twitter:title" content="Zert — KI-agenten i virksomheten din. Karantene på norsk jord.">
+  <meta name="twitter:description" content="KI-agenter jobber allerede på virksomhetens egne maskiner. Zert gir utviklerne en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
   <meta name="twitter:image" content="https://zert.no/static/og-image.webp">
   <meta name="theme-color" content="#191919">
   <link rel="icon" type="image/png" href="static/Zert_Kjennemerke_DempetHvit.png">
@@ -34,6 +34,7 @@
     <nav class="site-nav" aria-label="Sider på nettstedet">
       <ul>
         <li><a href="#problemet">Problemet</a></li>
+        <li><a href="#loven">Loven</a></li>
         <li><a href="#losningen">Løsningen</a></li>
         <li><a href="#slik-virker-det">Slik virker det</a></li>
         <li><a href="#infrastrukturen">Infrastrukturen</a></li>
@@ -42,6 +43,7 @@
         <li><a href="#kom-i-gang">Kom i gang</a></li>
       </ul>
     </nav>
+    <a class="site-header__flate" href="utviklere.html">Utvikler</a>
   </header>
 
   <noscript>
@@ -54,40 +56,488 @@
     <section id="hero" class="section section--hero" data-act="hero" aria-labelledby="hero-tittel">
       <div class="section__inner">
         <div class="hero__content" data-reveal-group>
-          <p class="kicker" data-reveal>Zert · Norsk KI-sandbox</p>
-          <h1 class="hero__title" id="hero-tittel" data-reveal>Si ja til KI. Uten å slippe ut data.</h1>
-          <p class="hero__ingress ingress" data-reveal>Zert gir utviklerne dine en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
-          <p class="hero__ctas" data-reveal>
-            <a class="btn btn--primary" href="#kom-i-gang">Skriv deg på liste</a>
-            <a class="btn btn--ghost" href="#slik-virker-det">Se hvordan det virker</a>
-          </p>
+          <p class="kicker" data-reveal>Hodet og hendene</p>
+          <h1 class="hero__title" id="hero-tittel" data-reveal>KI-agenten har allerede fått hender i virksomheten din.</h1>
+          <p class="hero__ingress ingress" data-reveal>Hodet kjører på en server et annet sted i verden. Hendene jobber på virksomhetens egen maskin. Mellom dem går én forbindelse.</p>
         </div>
 
-        <!-- PLACEHOLDER: replaced by ticket #5 containment diagram -->
-        <figure class="hero__figure" data-reveal-group>
-          <figcaption class="hero__figure-label" data-reveal>Karantene — sandboxen har én utvei</figcaption>
+        <!-- Hodet/hender-diagrammet (ticket #17): KI-agenten som scene. -->
+        <figure class="hero__figure hero__figure--scene" data-reveal-group>
+          <figcaption class="hero__figure-label" data-reveal>KI-agenten — hodet i verden, hendene på din maskin</figcaption>
 
-          <div class="hero__diagram" data-reveal>
+          <div class="hero__agendiagram" data-reveal>
+
+            <!-- Bred variant (desktop): hodet i verden til høyre, hender på
+                 virksomhetens maskin til venstre, én forbindelse over grensen. -->
+            <svg class="agent agent--wide" viewBox="0 0 940 500" role="img" focusable="false"
+                 aria-labelledby="agent-breed-t agent-breed-d">
+              <title id="agent-breed-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-breed-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:100ms" x="64" y="46">virksomheten</text>
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="914" y="46" text-anchor="end">resten av verden</text>
+              <line class="agent__grense d-fade" style="--d:550ms" x1="470" y1="64" x2="470" y2="452"/>
+
+              <!-- Hendene: på virksomhetens egen maskin -->
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="64" y="150" width="328" height="224" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="228" y="134" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="126" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="138" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="150" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="162" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="121" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="270" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="282" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="294" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="306" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="259" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="228" y="312" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="110" y="326" width="94" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="157" y="347" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="252" y="326" width="112" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="308" y="347" text-anchor="middle">systemer</text>
+              </g>
+
+              <!-- Hodet: designelementet et annet sted i verden -->
+              <g transform="translate(612 128) scale(0.245)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="710" cy="226" r="34"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="710" y="231" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="710" y="352" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="710" y="370" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <!-- Én forbindelse mellom hodet og hendene -->
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="398" y1="240" x2="604" y2="240"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M404 234.5 L392 240 L404 245.5 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="501" y="218" text-anchor="middle">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="501" y="264" text-anchor="middle">frem og tilbake</text>
+                <circle class="agent__puls" style="--px:-198px; --d:1300ms" cx="602" cy="240" r="3.5"/>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp —
+                 hodet øverst, grensen under, maskinen med hendene nederst. -->
+            <svg class="agent agent--tall" viewBox="-8 0 356 660" role="img" focusable="false"
+                 aria-labelledby="agent-smal-t agent-smal-d">
+              <title id="agent-smal-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-smal-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="170" y="30" text-anchor="middle">resten av verden</text>
+
+              <g transform="translate(90 48) scale(0.2)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="170" cy="128" r="30"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="170" y="133" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="170" y="232" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="170" y="250" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <line class="agent__grense d-fade" style="--d:550ms" x1="8" y1="280" x2="332" y2="280"/>
+
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="170" y1="292" x2="170" y2="374"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M164.5 376 L170 388 L175.5 376 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="184" y="326">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="184" y="344">frem og tilbake</text>
+                <circle class="agent__puls" style="--py:88px; --d:1300ms" cx="170" cy="294" r="3.5"/>
+              </g>
+
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="40" y="400" width="260" height="212" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="170" y="426" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="89" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="99" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="109" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="119" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="85" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="213" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="223" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="233" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="243" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="205" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="170" y="518" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="72" y="532" width="86" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="115" y="552" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="186" y="532" width="102" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="237" y="552" text-anchor="middle">systemer</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+        <!-- /Hodet/hender-diagrammet (ticket #17) -->
+
+      </div>
+    </section>
+    <!-- ===== /ACT:hero ===== -->
+
+    <!-- ===== ACT:problemet:start ===== -->
+    <section id="problemet" class="section section--problemet" data-act="problemet" aria-labelledby="problemet-tittel">
+      <div class="section__inner" data-reveal-group>
+        <p class="problemet__led" data-reveal>Utviklerne dine bruker KI allerede. Spørsmålet er hva de sender, og hvor.</p>
+
+        <div class="problemet__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen</p>
+          <h2 class="section__title" id="problemet-tittel" data-reveal>Én vane. To risikoer.</h2>
+          <p class="ingress" data-reveal>Du trenger ikke ta en KI-beslutning. Den er allerede tatt — på laptoper i virksomheten din. To risikoer følger med. Hver av dem står alene på en risikoliste.</p>
+        </div>
+
+        <figure class="problemet__ramme" data-reveal-group>
+          <div class="problemet__diagram" data-reveal>
+
+            <!-- Bred variant (desktop): ett bilde, to piler over virksomhetens
+                 grense. Data ut tegnes først (styrets egen bekymring leder),
+                 så agenter inn. -->
+            <svg class="pilediagram pilediagram--wide" viewBox="0 0 940 310" role="img" focusable="false"
+                 aria-labelledby="piler-breed-t piler-breed-d">
+              <title id="piler-breed-t">Den dobbelte risikoen: data ut og agenter inn</title>
+              <desc id="piler-breed-d">Mitt i bildet er virksomheten: egen data, egne maskiner, egne ansatte. Den første pilen, data ut, går fra virksomheten og ut til KI-tilbydere i andre land: følsomt innhold sendes ut. Den andre pilen, agenter inn, går inn i virksomheten fra KI-agenten, som kjører på bedriftens egne maskiner og utfører kommandoer med reelle tilganger.</desc>
+
+              <!-- Virksomheten: grensen begge pilene krysser -->
+              <g>
+                <rect class="pilediagram__node pilediagram__node--org d-draw" pathLength="100" x="350" y="50" width="240" height="210" rx="6"/>
+                <rect class="pilediagram__seam d-draw" style="--d:60ms" pathLength="100" x="360" y="60" width="220" height="190" rx="4"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:150ms" x="470" y="140" text-anchor="middle">virksomheten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:200ms" x="470" y="164" text-anchor="middle">data · maskiner</text>
+              </g>
+
+              <!-- Pil 1: data ut — virksomheten -> utenlandske tilbyder -->
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:150ms" pathLength="100" x="20" y="75" width="200" height="110" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:300ms" x="120" y="123" text-anchor="middle">KI-tilbydere</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:340ms" x="120" y="145" text-anchor="middle">i andre land</text>
+                <line class="pilediagram__pil d-draw" style="--d:300ms" pathLength="100" x1="346" y1="130" x2="242" y2="130"/>
+                <path class="pilediagram__spiss d-fade" style="--d:620ms" d="M240 124.5 L228 130 L240 135.5 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:560ms" x="289" y="114" text-anchor="middle">data ut</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:610ms" x="289" y="154" text-anchor="middle">følsomt innhold</text>
+              </g>
+
+              <!-- Pil 2: agenter inn — KI-agenten -> inn i virksomheten -->
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:800ms" pathLength="100" x="720" y="125" width="200" height="110" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:950ms" x="820" y="173" text-anchor="middle">KI-agenten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:990ms" x="820" y="195" text-anchor="middle">på bedriftens maskiner</text>
+                <line class="pilediagram__pil d-draw" style="--d:950ms" pathLength="100" x1="716" y1="180" x2="612" y2="180"/>
+                <path class="pilediagram__spiss d-fade" style="--d:1270ms" d="M610 174.5 L598 180 L610 185.5 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:1210ms" x="655" y="164" text-anchor="middle">agenter inn</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:1260ms" x="655" y="204" text-anchor="middle">reelle tilganger</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp —
+                 data ut øverst, agenter inn nederst -->
+            <svg class="pilediagram pilediagram--tall" viewBox="0 0 356 520" role="img" focusable="false"
+                 aria-labelledby="piler-smal-t piler-smal-d">
+              <title id="piler-smal-t">Den dobbelte risikoen: data ut og agenter inn</title>
+              <desc id="piler-smal-d">Mitt i bildet er virksomheten: egen data, egne maskiner, egne ansatte. Den første pilen, data ut, går fra virksomheten og ut til KI-tilbydere i andre land: følsomt innhold sendes ut. Den andre pilen, agenter inn, går inn i virksomheten fra KI-agenten, som kjører på bedriftens egne maskiner og utfører kommandoer med reelle tilganger.</desc>
+
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:150ms" pathLength="100" x="68" y="16" width="220" height="92" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:300ms" x="178" y="56" text-anchor="middle">KI-tilbydere</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:340ms" x="178" y="78" text-anchor="middle">i andre land</text>
+              </g>
+
+              <g>
+                <line class="pilediagram__pil d-draw" style="--d:300ms" pathLength="100" x1="178" y1="202" x2="178" y2="126"/>
+                <path class="pilediagram__spiss d-fade" style="--d:620ms" d="M172.5 124 L178 112 L183.5 124 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:560ms" x="192" y="152">data ut</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:610ms" x="192" y="168">følsomt innhold</text>
+              </g>
+
+              <g>
+                <rect class="pilediagram__node pilediagram__node--org d-draw" pathLength="100" x="68" y="206" width="220" height="124" rx="6"/>
+                <rect class="pilediagram__seam d-draw" style="--d:60ms" pathLength="100" x="78" y="216" width="200" height="104" rx="4"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:150ms" x="178" y="258" text-anchor="middle">virksomheten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:200ms" x="178" y="280" text-anchor="middle">data · maskiner</text>
+              </g>
+
+              <g>
+                <rect class="pilediagram__node d-draw" style="--d:800ms" pathLength="100" x="68" y="404" width="220" height="92" rx="6"/>
+                <text class="pilediagram__text pilediagram__text--node d-fade" style="--d:950ms" x="178" y="444" text-anchor="middle">KI-agenten</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:990ms" x="178" y="466" text-anchor="middle">på bedriftens maskiner</text>
+                <line class="pilediagram__pil d-draw" style="--d:950ms" pathLength="100" x1="178" y1="400" x2="178" y2="344"/>
+                <path class="pilediagram__spiss d-fade" style="--d:1270ms" d="M172.5 342 L178 330 L183.5 342 Z"/>
+                <text class="pilediagram__text pilediagram__text--pil d-fade" style="--d:1210ms" x="192" y="364">agenter inn</text>
+                <text class="pilediagram__text pilediagram__text--micro d-fade" style="--d:1260ms" x="192" y="380">reelle tilganger</text>
+              </g>
+            </svg>
+
+          </div>
+
+          <figcaption class="problemet__forklaring">
+            <div class="problemet__del" data-reveal>
+              <p class="problemet__merke">Data ut</p>
+              <p class="problemet__del-tekst">Det de ansatte skriver i KI-verktøy, forlater Norge. Følsomt arbeid blir sendt til selskaper i andre land. Hvem som kan be om dataene, og etter hvilke lover, vet dere ikke.</p>
+            </div>
+            <div class="problemet__del" data-reveal>
+              <p class="problemet__merke">Agenter inn</p>
+              <p class="problemet__del-tekst">KI-verktøy de ansatte allerede bruker, utfører virkelige kommandoer på bedriftens maskiner. De har nøyaktig de tilgangene den ansatte har. Ingen godkjenning. Ingen spor. Ingen bryter organisasjonen eier. Ikke noe av dette krever tro. Be IT-avdelingen sjekke det i egen organisasjon i morgen.</p>
+            </div>
+          </figcaption>
+        </figure>
+
+        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. Mønsteret gjentar seg.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:problemet ===== -->
+
+    <!-- ===== ACT:loven:start ===== -->
+    <!-- Implementasjonsnote (ticket #18): alle juridiske påstander i akten er
+         eksterne fakta, formulert tett på primærkildene:
+         CLOUD Act (2018, Pub. L. 115-141, div. V) og 18 U.S.C. § 2713 —
+         lovteksten er sitert ordrett fra uscode.house.gov; oversiktskilde
+         CRS R45173. USA PATRIOT Act (2001, Pub. L. 107-56) § 215 endret
+         FISA § 501; bulk-ordningen avviklet av USA FREEDOM Act (2015,
+         Pub. L. 114-23); § 215 utløp 15.03.2020 og ble ikke videreført —
+         CRS R40138. FISA § 702 fornyet i april 2024 — congress.gov.
+         Dataavtalen USA–UK (Data Access Agreement, den første CLOUD
+         Act-avtalen) — signert 03.10.2019, i kraft 03.10.2022 —
+         DOJ-pressemelding 03.10.2022 og gov.uk 21.07.2022; UK-sideens
+         implementasjon er COPOA 2019 — legislation.gov.uk.
+         «PCCC» er presentasjonens navn på avtalen og brukes ikke her.
+         Ingen setning i akten handler om Zert eller noen bestemt
+         leverandør; «alvorlig kriminalitet» gjengir avtalens «serious
+         crime». -->
+    <section id="loven" class="section section--loven" data-act="loven" aria-labelledby="loven-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="loven__hode">
+          <p class="kicker" data-reveal>Data ut — tre rettsakter</p>
+          <h2 class="section__title" id="loven-tittel" data-reveal>Amerikansk lov følger dataene.</h2>
+          <p class="ingress" data-reveal>Spørsmålet om data kan kreves utlevert, avgjøres ikke av hvor de ligger. Det avgjøres av hvilken stat som har jurisdiksjon over selskapet som kontrollerer dem. Jurisdiksjon — ikke IT.</p>
+        </div>
+
+        <figure class="loven__figure" data-reveal-group>
+          <figcaption class="loven__figure-label" data-reveal>Jurisdiksjon — ett krav krysser havet</figcaption>
+
+          <div class="lovdiagram" data-reveal>
+
+            <!-- Bred variant (desktop): norsk jord, dataene, én juridisk pil
+                 over havet. Engangsanimasjon — tilstandsmaskin i CSS,
+                 kontroller i BEHAVIOR:loven. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--wide" viewBox="0 214 940 186" role="img" focusable="false"
+                 aria-labelledby="lov-breed-t lov-breed-d">
+              <title id="lov-breed-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-breed-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="346" x2="360" y2="346"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 348 v8 M60 348 v8 M100 348 v8 M140 348 v8 M180 348 v8 M220 348 v8 M260 348 v8 M300 348 v8 M340 348 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="382">Norge</text>
+              </g>
+
+              <!-- Data på norsk jord -->
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="136" y="246" width="180" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="226" y="288" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="226" y="314" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <!-- Nord-Atlanterhavet -->
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="512" y="324" text-anchor="middle">Nord-Atlanterhavet</text>
+
+              <!-- USA -->
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="690" y="246" width="204" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="792" y="288" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="792" y="314" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <!-- Det ene juridiske kravet -->
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="682" y1="296" x2="348" y2="296"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M346 290 L334 296 L346 302 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="512" y="270" text-anchor="middle">CLOUD Act · utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="512" y="344" text-anchor="middle">uavhengig av lagringsstedet</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett — USA øverst,
+                 kravet ned, dataene på norsk jord nederst. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--tall" viewBox="0 0 340 500" role="img" focusable="false"
+                 aria-labelledby="lov-smal-t lov-smal-d">
+              <title id="lov-smal-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-smal-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="40" y="16" width="260" height="92" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="170" y="54" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="170" y="82" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="186" y="190">Nord-Atlanterhavet</text>
+
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="170" y1="118" x2="170" y2="318"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M164 320 L170 332 L176 320 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="186" y="232">CLOUD Act</text>
+                <text class="lovdiagram__text lovdiagram__text--law lovdiagram__text--micro d-fade" style="--d:1200ms" x="186" y="252">utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="186" y="276">uavhengig av lagringsstedet</text>
+              </g>
+
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="40" y="332" width="260" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="170" y="374" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="170" y="400" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="446" x2="320" y2="446"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 448 v8 M50 448 v8 M80 448 v8 M110 448 v8 M140 448 v8 M170 448 v8 M200 448 v8 M230 448 v8 M260 448 v8 M290 448 v8 M320 448 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="480">Norge</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+
+        <div class="loven__lover">
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 1 — CLOUD Act (2018)</p>
+            <h3 class="loven__lov-tittel">Plikten følger selskapet, ikke stedet.</h3>
+            <p class="loven__lov-tekst">CLOUD Act pålegger leverandører under amerikansk jurisdiksjon å utlevere data de har kontroll over, uavhengig av hvor i verden dataene er lagret. Kravet kommer fra domstol og gjelder straffeforfølgning.</p>
+            <blockquote class="loven__lov-sitat">
+              <p>«…regardless of whether such communication, record, or other information is located within or outside of the United States.»</p>
+              <cite>18 U.S.C. § 2713, tilføyd av CLOUD Act (2018)</cite>
+            </blockquote>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 2 — USA PATRIOT Act (2001)</p>
+            <h3 class="loven__lov-tittel">Etterretningstilgang via egen domstol.</h3>
+            <p class="loven__lov-tekst">Patriot Act ga etterretningen utvidet tilgang til forretningsmessige opplysninger, ved kjennelse fra FISA-domstolen. § 215 utløp i 2020 og ble ikke videreført. FISA består: § 702 gir fortsatt tilgang til kommunikasjonen til personer utenfor USA, og ble fornyet i 2024.</p>
+            <p class="loven__lov-note">Historie og nåtid holdt hver for seg: § 215 er opphørt, § 702 er i kraft.</p>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 3 — Dataavtalen USA–UK</p>
+            <h3 class="loven__lov-tittel">Kravet kan sendes direkte.</h3>
+            <p class="loven__lov-tekst">Dataavtalen mellom USA og Storbritannia trådte i kraft i 2022 som den første avtalen under CLOUD Act. Myndighetene i hvert land kan kreve utlevert data direkte fra leverandører i det andre landet ved alvorlig kriminalitet.</p>
+            <p class="loven__lov-note">Avtalen står mellom USA og Storbritannia. Det Norge angår, går den veien som rettsakt 1 beskriver.</p>
+          </article>
+        </div>
+
+        <p class="ingress loven__avslutning" data-reveal>De tre rettsaktene er amerikanske rettsakter, rettet mot selskaper under amerikansk jurisdiksjon. Det er underlaget for risikoen «data ut»: spørsmålet er jurisdiksjon, ikke IT.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:loven ===== -->
+
+    <!-- ===== ACT:hendelser:start ===== -->
+    <!-- De tre dokumenterte hendelsene (tidl. ticket #20, beat i problemets
+         agenter inn-halvdelen) står nå som eget agenter inn-beat rett etter
+         loven, i beslutningsrekkefølgen: loven for data ut, beviset for
+         agenter inn. Kopien følger primærkildene sak for sak: år + plattform
+         + hva som kunne skjedd + status. Kun href-er, ingen innbakte
+         ressurser. -->
+    <section id="hendelser" class="section section--hendelser" data-act="hendelser" aria-labelledby="hendelser-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="hendelser__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen — agenter inn</p>
+          <h2 class="section__title" id="hendelser-tittel" data-reveal>Agenter inn har hendt. Hos andre.</h2>
+          <p class="ingress" data-reveal>Hendelsene under er dokumenterte og varslet av andre: sikkerhetsforskere eller leverandørene selv. Ingen av dem har skjedd hos Zert.</p>
+        </div>
+
+        <ul class="hendelser__liste">
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="6" width="18" height="13" rx="2"/>
+              <path d="M3.8 7.4 12 13.2l8.2-5.8"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Microsoft 365 Copilot</p>
+              <p class="hendelser__tekst">Aim Security beskrev hvordan én e-post, uten noe klikk fra brukeren, fikk Microsoft 365 Copilot til å sende interne opplysninger til en angriper. Microsoft meldte hullet tettet (CVE-2025-32711).</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://www.aim.security/lp/aim-labs-echoleak-blogpost" rel="noopener">Aim Securitys rapport</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" rel="noopener">Microsofts sikkerhetsmelding</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="12" rx="2"/>
+              <path d="M8 17v4l4-4"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2024 · Slack AI</p>
+              <p class="hendelser__tekst">PromptArmor viste hvordan en skjult instruksjon i en offentlig Slack-kanal fikk Slack AI til å sende innhold fra private kanaler til en angriper — uten at angriperen hadde tilgang til de private kanalene.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport</a></p>
+            </div>
+          </li>
+          <li class="hendelser__kort" data-reveal>
+            <svg class="hendelser__piktogram" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <ellipse cx="12" cy="6.5" rx="8" ry="3"/>
+              <path d="M4 6.5v11c0 1.7 3.6 3 8 3s8-1.3 8-3v-11"/>
+              <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+            </svg>
+            <div class="hendelser__innhold">
+              <p class="hendelser__merke">2025 · Asana</p>
+              <p class="hendelser__tekst">Asana oppdaget selv og varslet at den nye KI-koblingen (MCP-tjeneren) kunne vise data fra én organisasjons Asana-miljø til brukere i en annen. Funksjonen ble skrudd av, feilen rettet og tilkoblingene nullstilt.</p>
+              <p class="hendelser__kilde">Kilde: <a href="https://status.asana.com/incidents/5b9hhtgs3mxs" rel="noopener">Asanas egen hendelsesrapport</a></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- ===== /ACT:hendelser ===== -->
+
+    <!-- ===== ACT:losningen:start ===== -->
+    <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
+      <div class="section__inner" data-reveal-group>
+        <header class="losningen__intro">
+          <p class="kicker" data-reveal>Løsningen</p>
+          <h2 class="section__title" id="losningen-tittel" data-reveal>Si ja til KI. Uten å slippe ut data.</h2>
+          <p class="ingress" data-reveal>Svaret er ikke et forbud. KI-en får jobbe i en egen KI-sandbox i norsk datasenter. Sandboxen har én utvei — KI-endepunktet — og ingenting annet.</p>
+        </header>
+
+        <!-- Karantene-diagrammet (ticket #21): flyttet hit fra hero. KI-sandboxen
+             når KI-endepunktet — og fysisk ingenting annet. Engangsanimasjon;
+             tilstandsmaskin i CSS (ACT: losningen), kontroll i BEHAVIOR:losningen. -->
+        <figure class="losningen__figure" data-reveal-group>
+          <figcaption class="losningen__figure-label" data-reveal>Karantene — sandboxen har én utvei</figcaption>
+
+          <div class="losningen__diagram" data-reveal>
 
             <!-- Bred variant (desktop). Én tegnforklaring, to hvelvformer:
                  firblad (standard) og rektangel (?vault=rect, kun dev). -->
             <svg class="diagram diagram--wide" viewBox="0 0 940 500" role="img" focusable="false"
                  aria-labelledby="karantene-breed-t karantene-breed-d">
               <title id="karantene-breed-t">Karantene: KI-sandboxen har én utvei</title>
-              <desc id="karantene-breed-d">Utvikleren og repoet arbeider i en KI-sandbox. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-serveren hos Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
+              <desc id="karantene-breed-d">Utvikleren arbeider i en KI-sandbox med koden sin. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-endepunktet i Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
 
-              <!-- Utvikler + repo -->
+              <!-- Utvikler + kode -->
               <g>
                 <rect class="diagram__node d-draw" pathLength="100" x="26" y="154" width="150" height="96" rx="6"/>
                 <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="101" y="196" text-anchor="middle">utvikler</text>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:200ms" x="101" y="216" text-anchor="middle">repo</text>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:200ms" x="101" y="216" text-anchor="middle">kode</text>
               </g>
 
-              <!-- Inn: repo -> hvelv -->
+              <!-- Inn: kode -> hvelv -->
               <g>
                 <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="176" y1="190" x2="242" y2="190"/>
                 <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M240 184.5 L252 190 L240 195.5 Z"/>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="209" y="176" text-anchor="middle">repo inn</text>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="209" y="176" text-anchor="middle">kode inn</text>
               </g>
 
               <!-- Hvelv, variant A: forseglet rektangel -->
@@ -114,7 +564,7 @@
                 <text class="diagram__text diagram__text--micro diagram__text--strong d-fade" style="--d:380ms" x="400" y="312" text-anchor="middle">data blir inne</text>
               </g>
 
-              <!-- Den ene utvegen: hvelv -> KI-server -->
+              <!-- Den ene utvegen: hvelv -> KI-endepunktet -->
               <g>
                 <line class="diagram__exit d-draw" style="--d:350ms" pathLength="100" x1="550" y1="310" x2="682" y2="310"/>
                 <path class="diagram__arrow--out d-fade" style="--d:680ms" d="M684 304 L696 310 L684 316 Z"/>
@@ -124,7 +574,7 @@
               </g>
               <g>
                 <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="700" y="245" width="216" height="130" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="808" y="300" text-anchor="middle">KI-server</text>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="808" y="300" text-anchor="middle">KI-endepunktet</text>
                 <text class="diagram__text d-fade" style="--d:420ms" x="808" y="324" text-anchor="middle">Blix datasenter, Oslo</text>
               </g>
 
@@ -163,17 +613,17 @@
             <svg class="diagram diagram--tall" viewBox="-8 0 356 660" role="img" focusable="false"
                  aria-labelledby="karantene-smal-t karantene-smal-d">
               <title id="karantene-smal-t">Karantene: KI-sandboxen har én utvei</title>
-              <desc id="karantene-smal-d">Utvikleren og repoet arbeider i en KI-sandbox. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-serveren hos Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
+              <desc id="karantene-smal-d">Utvikleren arbeider i en KI-sandbox med koden sin. Sandboxen står i karantene i norsk datasenter og har nøyaktig én merket utvei: linjen til KI-endepunktet i Blix datasenter i Oslo. Alle andre veier ut — til internetten, annen trafikk og ukjente adresser — er stengt. Partiklene som prøver seg, oppløses underveis og kommer ikke fram. Dataene blir inne.</desc>
 
               <g>
                 <rect class="diagram__node d-draw" pathLength="100" x="70" y="14" width="200" height="72" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="170" y="54" text-anchor="middle">utvikler · repo</text>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:150ms" x="170" y="54" text-anchor="middle">utvikler · kode</text>
               </g>
 
               <g>
                 <line class="diagram__entry d-draw" style="--d:150ms" pathLength="100" x1="170" y1="88" x2="170" y2="184"/>
                 <path class="diagram__arrow--in d-fade" style="--d:500ms" d="M164.5 186 L170 198 L175.5 186 Z"/>
-                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="180" y="150">repo inn</text>
+                <text class="diagram__text diagram__text--micro d-fade" style="--d:220ms" x="180" y="150">kode inn</text>
               </g>
 
               <g class="diagram__vault diagram__vault--rect">
@@ -205,7 +655,7 @@
               </g>
               <g>
                 <rect class="diagram__node d-draw" style="--d:120ms" pathLength="100" x="40" y="490" width="260" height="96" rx="6"/>
-                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="170" y="528" text-anchor="middle">KI-server</text>
+                <text class="diagram__text diagram__text--node d-fade" style="--d:350ms" x="170" y="528" text-anchor="middle">KI-endepunktet</text>
                 <text class="diagram__text d-fade" style="--d:420ms" x="170" y="552" text-anchor="middle">Blix datasenter, Oslo</text>
               </g>
 
@@ -234,105 +684,143 @@
 
           </div>
         </figure>
-        <!-- /PLACEHOLDER: ticket #5 containment diagram -->
-      </div>
-    </section>
-    <!-- ===== /ACT:hero ===== -->
+        <!-- /Karantene-diagrammet (ticket #21) -->
 
-    <!-- ===== ACT:problemet:start ===== -->
-    <section id="problemet" class="section section--problemet" data-act="problemet" aria-labelledby="problemet-tittel">
-      <div class="section__inner" data-reveal-group>
-        <p class="problemet__led" data-reveal>Utviklerne dine bruker KI allerede. Spørsmålet er hva de sender, og hvor.</p>
+        <!-- Avsluttende beat (ticket #21): virtualiseres -> norsk jord -> den
+             omsluttende rammen som løses opp i Zerts merke. Engangsanimasjon;
+             samme tilstandsmaskin som karantene-diagrammet. -->
+        <figure class="losningen__figure" data-reveal-group>
+          <figcaption class="losningen__figure-label" data-reveal>Rammen er produktet</figcaption>
 
-        <div class="problemet__hode">
-          <p class="kicker" data-reveal>Den dobbelte risikoen</p>
-          <h2 class="section__title" id="problemet-tittel" data-reveal>Én vane. To risikoer.</h2>
-          <p class="ingress" data-reveal>Du trenger ikke ta en KI-beslutning. Den er allerede tatt — på laptoper i virksomheten din. To risikoer følger med. Hver av dem står alene på en risikoliste.</p>
-        </div>
+          <div class="grensediagram" data-reveal>
 
-        <div class="problemet__kort">
-          <article class="problemet__risiko" data-reveal>
-            <p class="problemet__merke">Risiko 1 — Data ut</p>
-            <h3 class="problemet__risiko-tittel">Følsomt materiale drar ut.</h3>
-            <p class="problemet__risiko-tekst">Utviklerne har private KI-abonnement og bruker dem på jobbmaskiner. Følsom kode og kundedata limes inn hos amerikanske tilbydere. Hvor dataene ender opp, er ukjent. Ingen logger utvegen.</p>
-            <p class="problemet__risiko-note">Retningslinjene dine dekker e-post og filsystem. Ikke dette.</p>
-          </article>
+            <!-- Bred variant (desktop): sandboxen på norsk jord, én utvei til
+                 KI-endepunktet, alt innenfor én ramme — som til høyre blir
+                 Zerts merke: fire blader og navnet. -->
+            <svg class="ramme ramme--wide" viewBox="0 0 940 420" role="img" focusable="false"
+                 aria-labelledby="ramme-breed-t ramme-breed-d">
+              <title id="ramme-breed-t">Rammen er produktet: sandboxen på norsk jord blir til Zerts merke</title>
+              <desc id="ramme-breed-d">Til venstre: en KI-sandbox står på norsk jord og har én utvei til KI-endepunktet i samme datasenter. Hele oppsettet står innenfor én ramme. Til høyre løses rammen og innholdet opp i Zerts merke: fire blader i et rutenett, over navnet Zert.</desc>
 
-          <article class="problemet__risiko" data-reveal>
-            <p class="problemet__merke">Risiko 2 — Agenter inn</p>
-            <h3 class="problemet__risiko-tittel">Autoritet slipper inn.</h3>
-            <p class="problemet__risiko-tekst">Samme utviklere kjører KI-agenter som jobber selvstendig. Agentene har autoritet på bedriftens maskiner: de leser filer, endrer kode og utfører kommandoer. De kjenner ingen retningslinjer utover oppgaven de fikk.</p>
-            <p class="problemet__risiko-note">En agent arver maskinens tilganger. Ikke din vurderingsevne.</p>
-          </article>
-        </div>
+              <!-- Virtualisert: KI-sandboxen -->
+              <g>
+                <rect class="ramme__boks d-draw" pathLength="100" x="100" y="112" width="224" height="188" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:320ms" x="212" y="180" text-anchor="middle">KI-sandbox</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:370ms" x="212" y="204" text-anchor="middle">bygges opp og rives</text>
+                <text class="ramme__text ramme__text--micro ramme__text--strong d-fade" style="--d:420ms" x="212" y="256" text-anchor="middle">dataene blir inne</text>
+              </g>
 
-        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. De pågår i uken som gikk. Verken policy eller opplæring har stoppet dem så langt.</p>
-      </div>
-    </section>
-    <!-- ===== /ACT:problemet ===== -->
+              <!-- Én utvei til endepunktet -->
+              <g>
+                <line class="ramme__utvei d-draw" style="--d:560ms" pathLength="100" x1="324" y1="206" x2="442" y2="206"/>
+                <path class="ramme__spiss d-fade" style="--d:880ms" d="M446 200.5 L456 206 L446 211.5 Z"/>
+                <text class="ramme__text ramme__text--exit d-fade" style="--d:830ms" x="383" y="186" text-anchor="middle">én utvei</text>
+              </g>
 
-    <!-- ===== ACT:losningen:start ===== -->
-    <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
-      <div class="section__inner losningen__layout" data-reveal-group>
-        <header class="losningen__intro">
-          <p class="kicker" data-reveal>Løsningen — to dører</p>
-          <h2 class="section__title" id="losningen-tittel" data-reveal>To dører. Ett produkt.</h2>
-          <p class="ingress" data-reveal>Zert er to ting i én løsning: en KI-harness utviklerne faktisk vil bruke, og en runtime dere kan ansvarlig godkjenne.</p>
-        </header>
+              <!-- KI-endepunktet, i samme datasenter -->
+              <g>
+                <rect class="ramme__node d-draw" style="--d:480ms" pathLength="100" x="456" y="150" width="176" height="150" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:700ms" x="544" y="212" text-anchor="middle">KI-endepunktet</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:745ms" x="544" y="236" text-anchor="middle">norsk datasenter</text>
+              </g>
 
-        <figure class="losningen__figure" data-reveal>
-          <div class="designelement" role="img" aria-label="To utviklere sitter skulder ved skulder og ser på felles skjerm på en bærbar pc.">
-            <span class="designelement__leaf designelement__leaf--ov">
-              <img class="designelement__bilde" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
-            </span>
-            <span class="designelement__leaf designelement__leaf--oh">
-              <img class="designelement__bilde designelement__bilde--hoyre" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
-            </span>
-            <span class="designelement__leaf designelement__leaf--nv designelement__leaf--tone" aria-hidden="true"></span>
-            <span class="designelement__leaf designelement__leaf--nh designelement__leaf--tone" aria-hidden="true"></span>
+              <!-- Norsk jord -->
+              <g>
+                <line class="ramme__jord d-draw" pathLength="100" x1="80" y1="300" x2="644" y2="300"/>
+                <path class="ramme__jord-mark d-draw" style="--d:60ms" pathLength="100" d="M80 302 v8 M120 302 v8 M160 302 v8 M200 302 v8 M240 302 v8 M280 302 v8 M320 302 v8 M360 302 v8 M400 302 v8 M440 302 v8 M480 302 v8 M520 302 v8 M560 302 v8 M600 302 v8 M640 302 v8"/>
+                <text class="ramme__text ramme__text--micro ramme__text--muted d-fade" style="--d:220ms" x="80" y="334">norsk jord · Blix datasenter, Oslo</text>
+              </g>
+
+              <!-- Den omsluttende rammen — tegnes sist -->
+              <rect class="ramme__ramme d-draw" style="--d:940ms" pathLength="100" x="62" y="68" width="600" height="276" rx="10"/>
+
+              <!-- Rammen løser opp i merket: fire blader + navnet -->
+              <g>
+                <line class="ramme__over d-fade" style="--d:1280ms" x1="672" y1="206" x2="696" y2="206"/>
+                <path class="ramme__over-spiss d-fade" style="--d:1330ms" d="M698 200.5 L708 206 L698 211.5 Z"/>
+              </g>
+              <g transform="translate(724 142) scale(0.16)">
+                <path class="ramme__blad d-draw" style="--d:1400ms" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1450ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1490ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1530ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <text class="ramme__ord d-fade" style="--d:1660ms" x="788" y="332" text-anchor="middle">Zert</text>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett — sandbox øverst,
+                 endepunktet nederst på norsk jord, rammen uten om, merket under. -->
+            <svg class="ramme ramme--tall" viewBox="0 0 356 748" role="img" focusable="false"
+                 aria-labelledby="ramme-smal-t ramme-smal-d">
+              <title id="ramme-smal-t">Rammen er produktet: sandboxen på norsk jord blir til Zerts merke</title>
+              <desc id="ramme-smal-d">Øverst: en KI-sandbox står på norsk jord og har én utvei til KI-endepunktet i samme datasenter. Hele oppsettet står innenfor én ramme. Nederst løser rammen og innholdet seg opp i Zerts merke: fire blader i et rutenett, over navnet Zert.</desc>
+
+              <!-- Virtualisert: KI-sandboxen -->
+              <g>
+                <rect class="ramme__boks d-draw" pathLength="100" x="78" y="56" width="200" height="150" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:320ms" x="178" y="106" text-anchor="middle">KI-sandbox</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:370ms" x="178" y="128" text-anchor="middle">bygges opp og rives</text>
+                <text class="ramme__text ramme__text--micro ramme__text--strong d-fade" style="--d:420ms" x="178" y="172" text-anchor="middle">dataene blir inne</text>
+              </g>
+
+              <!-- Én utvei til endepunktet -->
+              <g>
+                <line class="ramme__utvei d-draw" style="--d:560ms" pathLength="100" x1="178" y1="206" x2="178" y2="250"/>
+                <path class="ramme__spiss d-fade" style="--d:880ms" d="M172.5 252 L178 262 L183.5 252 Z"/>
+                <text class="ramme__text ramme__text--exit d-fade" style="--d:830ms" x="190" y="234">én utvei</text>
+              </g>
+
+              <!-- KI-endepunktet, i samme datasenter -->
+              <g>
+                <rect class="ramme__node d-draw" style="--d:480ms" pathLength="100" x="78" y="264" width="200" height="118" rx="6"/>
+                <text class="ramme__text ramme__text--node d-fade" style="--d:700ms" x="178" y="312" text-anchor="middle">KI-endepunktet</text>
+                <text class="ramme__text ramme__text--micro d-fade" style="--d:745ms" x="178" y="336" text-anchor="middle">norsk datasenter</text>
+              </g>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="ramme__jord d-draw" pathLength="100" x1="40" y1="400" x2="316" y2="400"/>
+                <path class="ramme__jord-mark d-draw" style="--d:60ms" pathLength="100" d="M40 402 v8 M70 402 v8 M100 402 v8 M130 402 v8 M160 402 v8 M190 402 v8 M220 402 v8 M250 402 v8 M280 402 v8 M310 402 v8"/>
+                <text class="ramme__text ramme__text--micro ramme__text--muted d-fade" style="--d:220ms" x="40" y="434">norsk jord · Blix, Oslo</text>
+              </g>
+
+              <!-- Den omsluttende rammen — tegnes sist -->
+              <rect class="ramme__ramme d-draw" style="--d:940ms" pathLength="100" x="20" y="24" width="316" height="456" rx="10"/>
+
+              <!-- Rammen løser opp i merket: fire blader + navnet -->
+              <g>
+                <line class="ramme__over d-fade" style="--d:1280ms" x1="178" y1="492" x2="178" y2="520"/>
+                <path class="ramme__over-spiss d-fade" style="--d:1330ms" d="M172.5 522 L178 532 L183.5 522 Z"/>
+              </g>
+              <g transform="translate(113 546) scale(0.16)">
+                <path class="ramme__blad d-draw" style="--d:1400ms" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1450ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1490ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="ramme__blad d-draw" style="--d:1530ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <text class="ramme__ord d-fade" style="--d:1660ms" x="177" y="724" text-anchor="middle">Zert</text>
+            </svg>
+
           </div>
-          <figcaption class="losningen__figure-label">To utviklere. Én skjerm. Én sandbox.</figcaption>
+
+          <div class="losningen__forklaring">
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Vi virtualiserer</p>
+              <p class="losningen__del-tekst">KI-en jobber på en egen, midlertidig maskin — ikke på virksomhetens. Skader den noe, skjer det på en maskin som bygges opp på nytt. Skaden blir stående i kassen.</p>
+            </div>
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Norsk jord</p>
+              <p class="losningen__del-tekst">Både sandboxen og KI-endepunktet står i Blix datasenter i Oslo. Datasenteret er norskeid. Inferensen skjer i samme bygget som sandboxen.</p>
+            </div>
+            <div class="losningen__del" data-reveal>
+              <p class="losningen__merke">Én ramme</p>
+              <p class="losningen__del-tekst">Hele forløpet står innenfor én grense. Grensen er produktet. Den bærer Zerts navn.</p>
+            </div>
+          </div>
         </figure>
+        <!-- /Avsluttende beat (ticket #21) -->
 
-        <div class="losningen__doors">
-          <article class="door" data-reveal>
-            <p class="door__label">Dør én — Styret og CISO</p>
-            <h3 class="door__title">En runtime dere kan stå inne for</h3>
-            <dl class="door__points">
-              <div class="door__point">
-                <dt>Karantene</dt>
-                <dd>Sandboxen står i norsk datasenter. Eneste vei ut er KI-endepunktet. Alt annet er stengt.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Revisjon</dt>
-                <dd>Alle VM-hendelser og tilgangshandlinger logges per kunde — inkludert nektede forsøk.</dd>
-              </div>
-            </dl>
-            <p class="door__close">Dermed godkjenner dere KI basert på fakta, ikke blind tillit.</p>
-          </article>
-
-          <article class="door" data-reveal>
-            <p class="door__label">Dør to — Utvikleren</p>
-            <h3 class="door__title">En KI-harness utviklerne vil ha</h3>
-            <dl class="door__points">
-              <div class="door__point">
-                <dt>Åpen kildekode</dt>
-                <dd>Klienten er åpen. Du leser koden før du installerer den.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Rask CLI</dt>
-                <dd>Én kommando reiser sandboxen. Resten er terminalen du allerede bruker.</dd>
-              </div>
-              <div class="door__point">
-                <dt>Åpne vekter</dt>
-                <dd>Ekte åpne KI-modeller — ikke én snal åpen modell. Det du skriver, blir i datasenteret.</dd>
-              </div>
-            </dl>
-            <p class="door__close">Et verktøy utviklerne selv velger — ikke noe de blir påtvunget.</p>
-          </article>
-        </div>
-
-        <p class="losningen__creed" data-reveal>De to dørene er ikke to produkter. De er to sider av samme sandbox.</p>
+        <p class="losningen__utvikler" data-reveal>Utviklere finner Zert på sin egen flate. <a class="losningen__utvikler-lenke" href="utviklere.html">Zert for utviklere</a></p>
       </div>
     </section>
     <!-- ===== /ACT:losningen ===== -->
@@ -347,7 +835,7 @@
         <ol class="svd__flow">
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">01</p>
-            <h3 class="svd__step-title">Repo inn</h3>
+            <h3 class="svd__step-title">Koden inn</h3>
             <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
           </li>
           <li class="svd__step" data-reveal>
@@ -358,7 +846,7 @@
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">03</p>
             <h3 class="svd__step-title">Resultater ut</h3>
-            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med verktøyet og fører dem selv inn i bedriftens systemer fra din egen maskin. Bare resultatet forlater sandboxen.</p>
           </li>
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">04</p>
@@ -366,32 +854,6 @@
             <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
           </li>
         </ol>
-
-        <figure class="term" data-reveal>
-          <p class="term__label">Slik ser en økt ut i terminalen</p>
-          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
-<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
-<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
-<span class="term__line" data-pause="110">route out: KI endpoint only</span>
-<span class="term__line" data-pause="200">attached — you are inside the VM</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
-<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
-<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
-<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
-<span class="term__line" data-pause="300"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
-<span class="term__line" data-pause="170">connection to sandbox closed</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
-<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
-<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
-<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
-<span class="term__line" data-pause="340"> </span>
-<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
-<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
-          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
-        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
@@ -476,66 +938,102 @@
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Hendelsesspor</dt>
             <dd class="beviset__entry">
-              <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
-              <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
-              <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
-                <li>vm.create</li>
-                <li>vm.kill</li>
-                <li>vm.timeout_extend</li>
-                <li>tunnel.open</li>
-                <li>tunnel.close</li>
-                <li>auth.login</li>
-                <li>auth.key_use</li>
-                <li>quota.reject</li>
-                <li>byok.key_set</li>
-                <li>byok.key_delete</li>
-                <li>admin.user_add</li>
-                <li>admin.user_remove</li>
-              </ul>
-              <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+              <p class="beviset__setning">Zert loggfører oppstart, stopp, forlengelser, innlogging, nøkkelbruk og nektede handlinger rundt KI-sandboxen — i ett eget revisjonsspor for din virksomhet.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
+                    <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
+                    <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
+                      <li>vm.create</li>
+                      <li>vm.kill</li>
+                      <li>vm.timeout_extend</li>
+                      <li>tunnel.open</li>
+                      <li>tunnel.close</li>
+                      <li>auth.login</li>
+                      <li>auth.key_use</li>
+                      <li>quota.reject</li>
+                      <li>byok.key_set</li>
+                      <li>byok.key_delete</li>
+                      <li>admin.user_add</li>
+                      <li>admin.user_remove</li>
+                    </ul>
+                    <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Retensjon</dt>
             <dd class="beviset__entry">
-              <p class="beviset__tall">12 mnd</p>
-              <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
-              <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+              <p class="beviset__setning">Revisjonshistorikken er søkbar i de siste tolv månedene, og fristen håndheves i selve lagringen.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p class="beviset__tall">12 mnd</p>
+                    <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
+                    <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Tenantisolasjon</dt>
             <dd class="beviset__entry">
-              <p class="beviset__tall">36 sjekker</p>
-              <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
-              <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+              <p class="beviset__setning">Ingen kunde kan se dataene til en annen: isolasjonen ligger i selve lagringen og kontrolleres automatisk av 36 tester mot det levende systemet.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p class="beviset__tall">36 sjekker</p>
+                    <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
+                    <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Hull i recorden</dt>
             <dd class="beviset__entry">
-              <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
-              <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+              <p class="beviset__setning">Mangler noe i hendelsesrecorden, utløses en alarm i stedet for at hullet passerer stille; gap-tall oppgir vi som en nedre grense, ikke som en garanti.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
+                    <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Gap Policy</dt>
             <dd class="beviset__entry">
-              <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
-              <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
-              <p class="beviset__micro">Ærlige grenser (ADR-0001): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+              <p class="beviset__setning">Gap Policy er den skriftlige policyen for hva som skjer med revisjonsdata under et avbrudd — den siteres ordrett nedenfor.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
+                    <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
+                    <p class="beviset__micro">Ærlige grenser (ADR-0001): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+                </div>
+              </details>
             </dd>
           </div>
 
           <div class="beviset__row" data-reveal>
             <dt class="beviset__field">Revisjonsdata ut</dt>
             <dd class="beviset__entry">
-              <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
-              <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+              <p class="beviset__setning">Revisorer får et avgrenset utsnitt levert av Zert, ikke en portal med egeninnlogging — og revisjonsdataene går kun én vei ut fra produksjonsverten.</p>
+              <details class="beviset__detaljer">
+                <summary class="beviset__oppslag">Detaljer for revisor</summary>
+                <div class="beviset__utvidelse">
+                    <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
+                    <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+                </div>
+              </details>
             </dd>
           </div>
         </dl>
@@ -561,21 +1059,42 @@
         <ol class="roadmap">
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">01</p>
-            <h3 class="roadmap__tittel">Nettkutt i switch-laget</h3>
+            <h3 class="roadmap__tittel">Karantenen i maskinvaren</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+            <p class="roadmap__plain">Planen er at karantenen skal håndheves av selve nettverksutstyret i datasenteret — ikke av en innstilling som kan skrus av.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">Nettkutt i switch-laget</p>
+                <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+              </div>
+            </details>
           </li>
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">02</p>
-            <h3 class="roadmap__tittel">DMZ for prompt injection</h3>
+            <h3 class="roadmap__tittel">Sperrezone for KI-trafikken</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+            <p class="roadmap__plain">Planen er en egen sperrezone foran KI-endepunktet som skal stoppe forsøk på å styre KI-en med skjulte instruksjoner.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">DMZ for prompt injection</p>
+                <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+              </div>
+            </details>
           </li>
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">03</p>
-            <h3 class="roadmap__tittel">Eksport av signerte bevis</h3>
+            <h3 class="roadmap__tittel">Signerte bevis til egen kontroll</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+            <p class="roadmap__plain">Planen er at dere skal kunne hente ut revisjonsbevis med digital signatur og selv kontrollere at de er ekte — uten å be oss om tillit.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">Eksport av signerte bevis</p>
+                <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+              </div>
+            </details>
           </li>
         </ol>
         <p class="veien-videre__avslutning" data-reveal>Hva som er i drift i dag, står <a href="#beviset">i Beviset</a>.</p>
@@ -587,29 +1106,17 @@
     <section id="kom-i-gang" class="section section--kom-i-gang" data-act="kom-i-gang" aria-labelledby="kom-i-gang-tittel">
       <div class="section__inner">
         <div class="kig__intro" data-reveal-group>
-          <p class="kicker" data-reveal>Venteliste · to dører</p>
+          <p class="kicker" data-reveal>Venteliste · få om gangen</p>
           <h2 class="section__title" id="kom-i-gang-tittel" data-reveal>Kom i gang</h2>
-          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Vi setter opp zert sammen — fra installasjon til første KI-svar i deres egen sandbox.</p>
+          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Dette er en invitasjon, ikke en nedlasting.</p>
         </div>
 
         <div class="kig__grid" data-reveal-group>
           <div class="kig__formside" data-reveal>
             <form class="kig__form" id="venteliste">
-              <fieldset class="kig__doors">
-                <legend class="kig__legend">Kommer du som utvikler eller leder?</legend>
-                <div class="kig__doorvalg">
-                  <input class="kig__door-input" type="radio" name="door" id="door-utvikler" value="utvikler" required>
-                  <label class="kig__door" for="door-utvikler">
-                    <span class="kig__door-tittel">Utvikler</span>
-                    <span class="kig__door-tekst">Jeg vil bruke zert selv</span>
-                  </label>
-                  <input class="kig__door-input" type="radio" name="door" id="door-leder" value="leder" required>
-                  <label class="kig__door" for="door-leder">
-                    <span class="kig__door-tittel">Leder</span>
-                    <span class="kig__door-tekst">Jeg vurderer en runtime for organisasjonen</span>
-                  </label>
-                </div>
-              </fieldset>
+              <!-- Døren er ikke et valg på styreflaten: verdien «leder»
+                   følger med skjult, slik utviklerflaten bærer sin. -->
+              <input type="hidden" name="door" value="leder">
 
               <p class="kig__felt">
                 <label class="kig__merkelapp" for="felt-navn">Navn</label>
@@ -628,12 +1135,12 @@
               <p class="kig__personvern">E-posten brukes bare til å svare dere.</p>
 
               <noscript>
-                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap, e-post og om du kommer som utvikler eller leder.</p>
+                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap og e-post.</p>
               </noscript>
             </form>
 
             <div class="kig__takk" id="venteliste-takk" role="status" hidden>
-              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi installerer sammen.</p>
+              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi tar oppstarten sammen.</p>
             </div>
 
             <div class="kig__feil" id="venteliste-feil" role="alert" hidden>
@@ -642,13 +1149,9 @@
             </div>
           </div>
 
-          <aside class="kig__bevis" data-reveal aria-labelledby="kig-bevis-tittel">
-            <p class="kicker" id="kig-bevis-tittel">Veien inn</p>
-            <p class="kig__bevis-tekst">Klienten er et lite CLI-verktøy. Du installerer den med:</p>
-            <p class="kig__install"><span class="kig__install-prompt" aria-hidden="true">$</span> <code class="kig__install-kode">brew install zert</code></p>
-            <p class="kig__bevis-tekst">Kilden er åpen og MIT-lisensiert. Les koden selv, før dere skriver dere på.</p>
-            <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-            <p class="kig__repo"><a href="https://github.com/zert" rel="noopener">github.com/zert</a></p>
+          <aside class="kig__invitasjon" data-reveal aria-labelledby="kig-invitasjon-tittel">
+            <p class="kicker" id="kig-invitasjon-tittel">Plassen ved bordet</p>
+            <p class="kig__invitasjon-tekst">Vi setter opp zert sammen — fra første samtale til første KI-svar i deres egen KI-sandbox.</p>
             <p class="kig__guidet">Ingen selvbetjening ennå. De første brukerne onboarder vi selv, sammen med dere. Derfor tar vi imot få om gangen.</p>
           </aside>
         </div>
@@ -673,8 +1176,6 @@
       <p class="site-footer__tagline">Zert gir utviklere en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
       <ul class="site-footer__lenker">
         <li><a href="mailto:jp@zert.no">jp@zert.no</a></li>
-        <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-        <li><a href="https://github.com/zert" rel="noopener">GitHub</a></li>
         <li><a href="#kom-i-gang">Ventelisten</a></li>
       </ul>
       <p class="site-footer__meta">Zert · Norge · © 2026. Alle rettigheter reservert.</p>

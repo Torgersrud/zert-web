@@ -67,6 +67,45 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     el.className = (' ' + el.className + ' ').replace(' ' + name + ' ', ' ').replace(/^ | $/g, '');
   }
 
+  // Delt diagramaktivering — brukt av BEHAVIOR:hero-scene, :problemet, :loven
+  // og :losningen. Legg på is-drawn, og bytt til den statiske slutttilstanden
+  // is-done når animasjonstidslinjen er spilt ferdig (passMs). Ett eneste
+  // pass: animasjonen verken looper eller starter på ny (f.eks. ved at
+  // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
+  //
+  //   - Redusert bevegelse: CSS viser den fulle statiske komposisjonen uten
+  //     animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+  //   - Ingen IntersectionObserver (gammel nettleser): vis den ferdige
+  //     komposisjonen med en gang.
+  //   - Ellers: første sikt aktiverer animationen — og observatoren slås av
+  //     for godt.
+  var DRAWN_CLASS = 'is-drawn';
+  var DONE_CLASS = 'is-done';
+
+  function aktiverDiagram(el, passMs) {
+    function arm() {
+      addClass(el, DRAWN_CLASS);
+      window.setTimeout(function () {
+        removeClass(el, DRAWN_CLASS);
+        addClass(el, DONE_CLASS);
+      }, passMs);
+    }
+
+    if (reducedMotion()) { return; }
+    if (!('IntersectionObserver' in window)) { arm(); return; }
+
+    var observer = new IntersectionObserver(function (entries) {
+      var i;
+      for (i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          observer.unobserve(entries[i].target);
+          arm();
+        }
+      }
+    }, { threshold: 0.2 });
+    observer.observe(el);
+  }
+
   /* ===== BEHAVIOR:scroll-reveal ===== */
 
   (function () {
@@ -175,92 +214,108 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     });
   }());
 
-  /* ===== BEHAVIOR:hero-diagram ===== */
+  /* ===== BEHAVIOR:hero-scene ===== */
 
-  /* Karantene-diagrammet: starter engangsanimasjonen første gang diagrammet
-     er i visningen (og aldri igjen), og velger hvelvform via ?vault=rect|leaf
-     (dev-parameter; standard: firblad). Formvalget venter på endelig
-     gjennomgang hos brukeren; tapervarianten fjernes ved den endelige
-     poleringen. All styling og hele animasjonstidslinjen ligger i CSS;
+  /* Hodet/hender-diagrammet (ticket #17): starter engangsanimasjonen første
+     gang diagrammet er i visningen (og aldri igjen) via den delte
+     aktiverDiagram(). Ingen dev-variantbytter; ellers samme klokkemønster som
+     BEHAVIOR:losningen. All styling og hele animasjonstidslinjen ligger i CSS;
      denne blokken legger bare på klasser én gang. */
 
   (function () {
-    var diagrams = doc.querySelectorAll('.hero__diagram');
-    if (!diagrams.length) { return; }
-
-    var DRAWN_CLASS = 'is-drawn';
-    var DONE_CLASS = 'is-done';
-    var LEAF_CLASS = 'hero__diagram--leaf';
-    var PASS_MS = 1700; // hele einepasseringen; + margin for bytte til sluttstate
-
-    // Dev-only hvelvvalg: firblad er standard; ?vault=rect bytter tilbake.
-    // Formvalget venter på endelig gjennomgang hos brukeren; tapervarianten
-    // fjernes ved den endelige poleringen. Variant byttes kun på classen.
-    var search = window.location && window.location.search ? window.location.search : '';
-    var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
-
-    each(diagrams, function (el) {
-      if (vault && vault[1] === 'rect') { removeClass(el, LEAF_CLASS); }
-      else { addClass(el, LEAF_CLASS); }
-
-      function arm() {
-        addClass(el, DRAWN_CLASS);
-        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
-        // bytter vi til den statiske slutttilstanden (is-done). Da kan
-        // animasjonen verken loope eller starte på ny (f.eks. ved at
-        // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
-        window.setTimeout(function () {
-          removeClass(el, DRAWN_CLASS);
-          addClass(el, DONE_CLASS);
-        }, PASS_MS);
-      }
-
-      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
-      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
-      if (reducedMotion()) { return; }
-
-      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
-      if (!('IntersectionObserver' in window)) { arm(); return; }
-
-      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
-      var observer = new IntersectionObserver(function (entries) {
-        var i;
-        for (i = 0; i < entries.length; i++) {
-          if (entries[i].isIntersecting) {
-            observer.unobserve(entries[i].target);
-            arm();
-          }
-        }
-      }, { threshold: 0.2 });
-      observer.observe(el);
+    each(doc.querySelectorAll('.hero__agendiagram'), function (el) {
+      aktiverDiagram(el, 2000); // hele einepasseringen (~1,8 s) + margin for sluttstate
     });
   }());
 
-  /* ===== /BEHAVIOR:hero-diagram ===== */
+  /* ===== /BEHAVIOR:hero-scene ===== */
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
-     avslutningen er statisk innhold, og revealene håndteres av
-     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
+  /* To-piler-diagrammet (ticket #19): starter engangsanimasjonen første
+     gang diagrammet er i visningen, og aldri igjen, via den delte
+     aktiverDiagram(). Data ut tegnes først (styrets egen bekymring leder),
+     så agenter inn. All styling og hele animasjonstidslinjen ligger i CSS;
+     denne blokken legger bare på klasser én gang. Resten av akten er statisk
+     innhold, og revealene håndteres av BEHAVIOR:scroll-reveal. */
+
+  (function () {
+    each(doc.querySelectorAll('.problemet__diagram'), function (el) {
+      aktiverDiagram(el, 1900); // hele einepasseringen; + margin for bytte til sluttstate
+    });
+  }());
 
   /* ===== /BEHAVIOR:problemet ===== */
 
+  /* ===== BEHAVIOR:loven ===== */
+
+  /* Jurisdiksjonsdiagrammet (ticket #18): starter engangsanimasjonen første
+     gang diagrammet er i visningen, og aldri igjen, via den delte
+     aktiverDiagram(). Klon av BEHAVIOR:losningen (karantene-diagrammet) uten
+     dev-varianten. All styling og hele animasjonstidslinjen ligger i CSS
+     (ACT: loven); denne blokken legger bare på klasser én gang. */
+
+  (function () {
+    each(doc.querySelectorAll('.lovdiagram'), function (el) {
+      // hele einepasseringen (siste --d 1320 ms + fade); + margin for bytte til sluttstate
+      aktiverDiagram(el, 1750);
+    });
+  }());
+
+  /* ===== /BEHAVIOR:loven ===== */
+
+  /* ===== BEHAVIOR:hendelser ===== */
+
+  /* Agenter inn-beatet (de tre dokumenterte hendelseskortene, flyttet ut av
+     problemet-akten i review av spec #15) er statisk innhold: bare lenker
+     til primærkildene, og revealene håndteres av BEHAVIOR:scroll-reveal.
+     Ingen egen atferd. */
+
+  /* ===== /BEHAVIOR:hendelser ===== */
+
   /* ===== BEHAVIOR:losningen ===== */
 
-  /* Losningen eier denne blokken. Akten er bevisst uten egen atferd:
-     budskapet er statisk, og avdukingen håndteres av BEHAVIOR:scroll-reveal
-     via data-reveal / data-reveal-group i HTML. Ingen terminal i denne akten. */
+  /* Losningen eier denne blokken. To engangsanimasjoner: karantene-diagrammet
+     (flyttet hit fra hero, ticket #21) og ramme-figuren som avslutter akten.
+     Begge starter første gang de er i visningen, og aldri igjen, via den
+     delte aktiverDiagram(). Karantene-diagrammet beholder dev-variantvalget
+     ?vault=rect|leaf (standard: firblad; formvalget venter på endelig
+     gjennomgang, tapervarianten fjernes ved den endelige poleringen). All
+     styling og hele animasjonstidslinjen ligger i CSS (ACT: losningen);
+     denne blokken legger bare på klasser én gang. Resten av akten er statisk,
+     og revealene håndteres av BEHAVIOR:scroll-reveal. */
+
+  (function () {
+    // Karantene-diagrammet: dev-only hvelvvalg — firblad er standard;
+    // ?vault=rect bytter tilbake. Klokkemønsteret er det arvede (1,7 s pass).
+    var search = window.location && window.location.search ? window.location.search : '';
+    var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
+    each(doc.querySelectorAll('.losningen__diagram'), function (el) {
+      if (vault && vault[1] === 'rect') { removeClass(el, 'losningen__diagram--leaf'); }
+      else { addClass(el, 'losningen__diagram--leaf'); }
+      aktiverDiagram(el, 1700);
+    });
+
+    // Ramme-figuren: avslutningsbeatet virtualiseres -> norsk jord -> rammen
+    // blir Zerts merke. Samme klokkemønster, egen tidslinje (~1,9 s pass).
+    each(doc.querySelectorAll('.grensediagram'), function (el) {
+      aktiverDiagram(el, 2000);
+    });
+  }());
 
   /* ===== /BEHAVIOR:losningen ===== */
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Iscenesatt autoplay-terminal. Scrollutløst, skriver seg selv én gang
-     og blir så stående på den komplette sesjonen. Aldri løkke, aldri
-     interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
-     JavaScript: den komplette terminaltranskripsjonen står statisk i
-     HTML-en, og denne blokken blander seg ikke inn. */
+  /* Iscenesatt autoplay-terminal. Flyttet ut av slik-virker-det på
+     styreflaten og inn i dev-karantene på utviklerflaten (review av
+     spec #15): blokken er værende per akt-mønsteret og vender hjem
+     tidlig når [data-term] mangler — som på styreflaten nå.
+     Scrollutløst, skriver seg selv én gang og blir så stående på den
+     komplette sesjonen. Aldri løkke, aldri interaktiv. Redusert bevegelse,
+     ingen IntersectionObserver eller ingen JavaScript: den komplette
+     terminaltranskripsjonen står statisk i HTML-en, og denne blokken
+     blander seg ikke inn. */
 
   (function () {
     var term = doc.querySelector('[data-term]');
@@ -367,22 +422,25 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== /BEHAVIOR:veien-videre ===== */
 
-  /* ===== BEHAVIOR:kom-i-gang ===== */
+  /* ===== Venteliste — delt skjemahåndter for begge flatene ===== */
 
-  /* Venteliste med dual-dør. Plain fetch POST-er JSON {name, company,
-     email, door} til WAITLIST_ENDPOINT. Ingen optimistisk kvittering:
-     takkemeldingen vises bare når endepunktet svarer 2xx. Nettverksfeil
-     eller ikke-2xx avslører mailto-fallbacken med feltene ferdig utfylt —
-     interessen skal aldri forsvinne stille. Dobbelsending er blokkert av
-     en sending-flagg, og knappen er deaktivert mens sendinga pågår. */
+  /* Venteliste(form, takk, feil, knappSel) — brukt av BEHAVIOR:kom-i-gang
+     (styreflaten) og BEHAVIOR:dev-venteliste (utviklerflaten). Plain fetch
+     POST-er JSON {name, company, email, door} til WAITLIST_ENDPOINT. Døren
+     er skjult innhold, ikke et valg: hver flate bærer sin verdi («leder»
+     henholdsvis «utvikler») i det skjulte feltet i HTML — besøkende på en
+     flate er publikummet dit, og spørsmålet er allerede besvart. Ingen
+     optimistisk kvittering: takkemeldingen vises bare når endepunktet
+     svarer 2xx. Nettverksfeil eller ikke-2xx avslører mailto-fallbacken
+     med feltene ferdig utfylt — interessen skal aldri forsvinne stille.
+     Dobbelsending er blokkert av en sending-flagg, og knappen er deaktivert
+     mens sendinga pågår. Uten JavaScript viser noscript-teksten i HTML veien
+     til mailto. */
 
-  (function () {
-    var form = doc.getElementById('venteliste');
-    var takk = doc.getElementById('venteliste-takk');
-    var feil = doc.getElementById('venteliste-feil');
+  function venteliste(form, takk, feil, knappSel) {
     if (!form || !takk || !feil) { return; }
 
-    var knapp = form.querySelector('.kig__send');
+    var knapp = form.querySelector(knappSel);
     var feilLenke = feil.querySelector('a');
     var knappetekst = knapp ? knapp.textContent : '';
     var sender = false;
@@ -392,10 +450,8 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       return el ? el.value.replace(/^\s+|\s+$/, '') : '';
     }
 
-    function dør() {
-      var el = form.querySelector('[name="door"]:checked');
-      return el ? el.value : '';
-    }
+    // Døren er skjult innhold, ikke et valg: verdien (leder/utvikler) står i HTML.
+    function dør() { return verdi('door'); }
 
     function settSending(på) {
       sender = på;
@@ -409,8 +465,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     function mailtoLenke() {
       var tekst = 'Navn: ' + verdi('name') +
         '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email') +
-        '\nKommer som: ' + dør();
+        '\nE-post: ' + verdi('email');
       return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
         '&body=' + encodeURIComponent(tekst);
     }
@@ -454,6 +509,24 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
         visFeil();
       });
     });
+  }
+
+  /* ===== /Venteliste — delt skjemahåndter ===== */
+
+  /* ===== BEHAVIOR:kom-i-gang ===== */
+
+  /* Venteliste for styreflaten. Hele atferden ligger i den delte
+     venteliste()-funksjonen; denne blokken binder bare skjemaets elementer.
+     Døren «leder» følger med skjult i HTML — styreflatens besøkende er
+     ledelsen. */
+
+  (function () {
+    venteliste(
+      doc.getElementById('venteliste'),
+      doc.getElementById('venteliste-takk'),
+      doc.getElementById('venteliste-feil'),
+      '.kig__send'
+    );
   }());
 
   /* ===== /BEHAVIOR:kom-i-gang ===== */
@@ -463,5 +536,24 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
   /* Footer-ticketen eier denne blokken. */
 
   /* ===== /BEHAVIOR:footer ===== */
+
+  /* ===== BEHAVIOR:dev-venteliste ===== */
+
+  /* Venteliste for utviklerflaten (utviklere.html). Hele atferden ligger i
+     den delte venteliste()-funksjonen — kom-i-gangs mønster ord for ord —
+     med egne id-er; døren «utvikler» leses fra det skjulte feltet i HTML:
+     besøkende på utviklerflaten er utviklere, og spørsmålet er allerede
+     besvart. */
+
+  (function () {
+    venteliste(
+      doc.getElementById('venteliste-utvikler'),
+      doc.getElementById('venteliste-utvikler-takk'),
+      doc.getElementById('venteliste-utvikler-feil'),
+      '.dev-liste__send'
+    );
+  }());
+
+  /* ===== /BEHAVIOR:dev-venteliste ===== */
 
 }());

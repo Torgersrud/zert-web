@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zert for utviklere — harness i karantene, på norsk jord.</title>
+  <meta name="description" content="Et harness er programmet som gir en KI-modell direkte tilgang til en terminal. zert kjører harnessen din i en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
+  <link rel="canonical" href="https://zert.no/utviklere.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zert">
+  <meta property="og:locale" content="nb_NO">
+  <meta property="og:url" content="https://zert.no/utviklere.html">
+  <meta property="og:title" content="Zert for utviklere — harness i karantene, på norsk jord.">
+  <meta property="og:description" content="Et harness er programmet som gir en KI-modell direkte tilgang til en terminal. zert kjører harnessen din i en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
+  <meta property="og:image" content="https://zert.no/static/og-image.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Zert — si ja til KI uten å slippe ut data.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zert for utviklere — harness i karantene, på norsk jord.">
+  <meta name="twitter:description" content="Et harness er programmet som gir en KI-modell direkte tilgang til en terminal. zert kjører harnessen din i en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.">
+  <meta name="twitter:image" content="https://zert.no/static/og-image.webp">
+  <meta name="theme-color" content="#191919">
+  <link rel="icon" type="image/png" href="static/Zert_Kjennemerke_DempetHvit.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#hovedinnhold">Hopp til hovedinnhold</a>
+
+  <header class="site-header">
+    <a class="site-header__logo" href="#dev-hero" aria-label="Zert — til toppen">
+      <img src="static/Zert_Kjennemerke_DempetHvit.png" alt="Zert" width="44" height="44">
+    </a>
+    <nav class="site-nav" aria-label="Sider på nettstedet">
+      <ul>
+        <li><a href="#dev-karantene">Karantenen</a></li>
+        <li><a href="#dev-kode">Koden</a></li>
+        <li><a href="#dev-venteliste">Venteliste</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__flate" href="index.html">For ledelsen</a>
+  </header>
+
+  <noscript>
+    <p class="noscript-note">Nettstedet er bygget for å leses uten JavaScript. Alle seksjoner og lenker fungerer som de er.</p>
+  </noscript>
+
+  <main id="hovedinnhold">
+
+    <!-- ===== ACT:dev-hero:start ===== -->
+    <section id="dev-hero" class="section section--dev-hero" data-act="dev-hero" aria-labelledby="dev-hero-tittel">
+      <div class="section__inner">
+        <div class="dev-hero__content" data-reveal-group>
+          <p class="kicker" data-reveal>Zert · Utviklerflate</p>
+          <h1 class="dev-hero__title" id="dev-hero-tittel" data-reveal><span class="dev-hero__linje">Full terminal inni.</span><span class="dev-hero__linje">Én utvei ut.</span></h1>
+          <p class="dev-hero__ingress ingress" data-reveal>Et harness er programmet som gir en KI-modell direkte tilgang til en terminal. zert kjører harnessen din i en KI-sandbox i norsk datasenter. Sandboxen når KI-endepunktet — og ingenting annet.</p>
+          <p class="dev-hero__ctas" data-reveal>
+            <a class="btn btn--primary" href="#dev-venteliste">Skriv meg på venteliste</a>
+            <a class="btn btn--ghost" href="#dev-karantene">Se karantenen</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- ===== /ACT:dev-hero ===== -->
+
+    <!-- ===== ACT:dev-karantene:start ===== -->
+    <section id="dev-karantene" class="section section--dev-karantene" data-act="dev-karantene" aria-labelledby="dev-karantene-tittel">
+      <div class="section__inner" data-reveal-group>
+        <p class="kicker" data-reveal>Innsiden · Én økt, fire steg</p>
+        <h2 class="section__title" id="dev-karantene-tittel" data-reveal>Slik er sandboxen inni</h2>
+        <p class="dev-karantene__ingress ingress" data-reveal>Inni sandboxen er terminalen din helt vanlig. Ut finnes én rute: KI-endepunktet. Alt annet er fysisk umulig.</p>
+
+        <ol class="dev-steg__flow">
+          <li class="dev-steg__steg" data-reveal>
+            <p class="dev-steg__nummer" aria-hidden="true">01</p>
+            <h3 class="dev-steg__tittel">Start</h3>
+            <p class="dev-steg__tekst">Du skriver <code>zert vm --repo betaling</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
+          </li>
+          <li class="dev-steg__steg" data-reveal>
+            <p class="dev-steg__nummer" aria-hidden="true">02</p>
+            <h3 class="dev-steg__tittel">Harness inni</h3>
+            <p class="dev-steg__tekst">Du jobber med en ledende åpen KI-modell. VM-en når bare KI-endepunktet — ingenting annet.</p>
+          </li>
+          <li class="dev-steg__steg" data-reveal>
+            <p class="dev-steg__nummer" aria-hidden="true">03</p>
+            <h3 class="dev-steg__tittel">Resultater ut</h3>
+            <p class="dev-steg__tekst">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+          </li>
+          <li class="dev-steg__steg" data-reveal>
+            <p class="dev-steg__nummer" aria-hidden="true">04</p>
+            <h3 class="dev-steg__tittel">VM-en dør</h3>
+            <p class="dev-steg__tekst">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
+          </li>
+        </ol>
+
+        <figure class="term" data-reveal>
+          <p class="term__label">Slik ser en økt ut i terminalen</p>
+          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
+<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
+<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
+<span class="term__line" data-pause="110">route out: KI endpoint only</span>
+<span class="term__line" data-pause="200">attached — you are inside the VM</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
+<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
+<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
+<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
+<span class="term__line" data-pause="300"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
+<span class="term__line" data-pause="170">connection to sandbox closed</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
+<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
+<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
+<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
+<span class="term__line" data-pause="340"> </span>
+<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
+<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
+          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
+        </figure>
+
+        <aside class="dev-karantene__skjult" data-reveal aria-labelledby="dev-skjult-tittel">
+          <p class="kicker">Publisert industrimønster — dokumentert av andre</p>
+          <h3 class="dev-karantene__skjult-tittel" id="dev-skjult-tittel">Skjulte instruksjoner i teksten agenten leser</h3>
+          <p class="dev-karantene__skjult-tekst">Andre har dokumentert at en KI-agent adlyder instruksjoner som er skjult i teksten den leser. PromptArmor viste i 2024 hvordan én skjult linje i en offentlig Slack-kanal fikk Slack AI til å sende hemmeligheter fra private kanaler til en angriper. I sandboxen blir en slik skade stående i kassen — ut finnes bare KI-endepunktet.</p>
+          <p class="dev-karantene__skjult-kilde">Kilde: <a href="https://promptarmor.substack.com/p/slack-ai-data-exfiltration-from-private" rel="noopener">PromptArmors rapport om Slack AI (2024)</a></p>
+        </aside>
+
+        <p class="dev-karantene__tro" data-reveal>Karantene er fysikk, ikke policy. Det sandboxen ikke kan nå, kan den ikke lekke.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:dev-karantene ===== -->
+
+    <!-- ===== ACT:dev-kode:start ===== -->
+    <section id="dev-kode" class="section section--dev-kode" data-act="dev-kode" aria-labelledby="dev-kode-tittel">
+      <div class="section__inner">
+        <div class="dev-kode__intro" data-reveal-group>
+          <p class="kicker" data-reveal>Verktøyet</p>
+          <h2 class="section__title" id="dev-kode-tittel" data-reveal>Installer. Les koden. Kom så.</h2>
+          <p class="ingress" data-reveal>Veien inn er kort: installer klienten, les kilden, skriv deg på.</p>
+        </div>
+
+        <div class="dev-kode__grid" data-reveal-group>
+          <div class="dev-kode__boks" data-reveal>
+            <p class="kicker">Klienten</p>
+            <p class="dev-kode__tekst">Klienten er et lite CLI-verktøy. Du installerer den med:</p>
+            <p class="dev-kode__install"><span class="dev-kode__prompt" aria-hidden="true">$</span> <code class="dev-kode__install-kode">brew install zert</code></p>
+          </div>
+          <div class="dev-kode__boks" data-reveal>
+            <p class="kicker">Åpen kildekode</p>
+            <p class="dev-kode__tekst">Kilden er åpen og MIT-lisensiert. Les koden selv, før du skriver deg på.</p>
+            <p class="dev-kode__repo"><a href="https://github.com/Torgersrud/zert-cli" rel="noopener">github.com/Torgersrud/zert-cli</a></p>
+          </div>
+        </div>
+
+        <p class="dev-kode__guidet" data-reveal>Ingen selvbetjening ennå. De første brukerne onboarder vi selv, sammen med deg. Derfor tar vi imot få om gangen.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:dev-kode ===== -->
+
+    <!-- ===== ACT:dev-venteliste:start ===== -->
+    <section id="dev-venteliste" class="section section--dev-venteliste" data-act="dev-venteliste" aria-labelledby="dev-venteliste-tittel">
+      <div class="section__inner">
+        <div class="dev-liste__intro" data-reveal-group>
+          <p class="kicker" data-reveal>Venteliste</p>
+          <h2 class="section__title" id="dev-venteliste-tittel" data-reveal>Skriv deg på</h2>
+          <p class="ingress" data-reveal>Vi setter opp zert sammen — fra installasjon til første KI-svar i din egen sandbox. Vi tar imot få om gangen.</p>
+        </div>
+
+        <div class="dev-liste__side" data-reveal>
+          <form class="dev-liste__form" id="venteliste-utvikler">
+            <input type="hidden" name="door" value="utvikler">
+
+            <p class="dev-liste__felt">
+              <label class="dev-liste__merkelapp" for="dev-felt-navn">Navn</label>
+              <input class="dev-liste__input" id="dev-felt-navn" name="name" type="text" autocomplete="name" required>
+            </p>
+            <p class="dev-liste__felt">
+              <label class="dev-liste__merkelapp" for="dev-felt-selskap">Selskap</label>
+              <input class="dev-liste__input" id="dev-felt-selskap" name="company" type="text" autocomplete="organization" required>
+            </p>
+            <p class="dev-liste__felt">
+              <label class="dev-liste__merkelapp" for="dev-felt-epost">E-post</label>
+              <input class="dev-liste__input" id="dev-felt-epost" name="email" type="email" autocomplete="email" inputmode="email" required>
+            </p>
+
+            <button class="btn btn--primary dev-liste__send" type="submit">Skriv meg på</button>
+            <p class="dev-liste__personvern">E-posten brukes bare til å svare deg.</p>
+
+            <noscript>
+              <p class="dev-liste__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap og e-post.</p>
+            </noscript>
+          </form>
+
+          <div class="dev-liste__takk" id="venteliste-utvikler-takk" role="status" hidden>
+            <p class="dev-liste__takk-tekst">Takk. Vi kontakter deg personlig — vi installerer sammen.</p>
+          </div>
+
+          <div class="dev-liste__feil" id="venteliste-utvikler-feil" role="alert" hidden>
+            <p>Noe gikk galt med påmeldingen. Interessen skal ikke forsvinne.</p>
+            <p><a href="mailto:jp@zert.no?subject=Venteliste%20Zert">Send til jp@zert.no</a> — beskjeden står ferdig utfylt, og vi svarer personlig.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="dev-liste__band" data-reveal>
+        <img class="dev-liste__band-bilde" src="static/kontor-utvikler-1600.webp"
+             srcset="static/kontor-utvikler-800.webp 800w, static/kontor-utvikler-1600.webp 1600w, static/kontor-utvikler-2400.webp 2400w"
+             sizes="100vw" width="2400" height="1266" loading="lazy" decoding="async"
+             alt="Utvikler med laptopen framme for seg i et lyst kontor.">
+        <figcaption class="dev-liste__band-tekst">Verktøyet er laget for den som står i terminalen.</figcaption>
+      </figure>
+    </section>
+    <!-- ===== /ACT:dev-venteliste ===== -->
+
+  </main>
+
+  <!-- ===== ACT:dev-footer:start ===== -->
+  <footer id="dev-footer" class="site-footer" data-act="dev-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__logo"><img src="static/Zert_Kjennemerke_DempetHvit.png" alt="Zert" width="44" height="44"></p>
+      <p class="site-footer__tagline">Zert gir utviklere en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
+      <ul class="site-footer__lenker">
+        <li><a href="mailto:jp@zert.no">jp@zert.no</a></li>
+        <li><a href="https://github.com/Torgersrud/zert-cli" rel="noopener">GitHub</a></li>
+        <li><a href="#dev-venteliste">Ventelisten</a></li>
+        <li><a href="index.html">For ledelsen</a></li>
+      </ul>
+      <p class="site-footer__meta">Zert · Norge · © 2026. Alle rettigheter reservert.</p>
+    </div>
+  </footer>
+  <!-- ===== /ACT:dev-footer ===== -->
+
+  <script src="scripts.js"></script>
+</body>
+</html>

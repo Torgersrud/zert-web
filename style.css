@@ -394,8 +394,6 @@ html.js [data-reveal].is-revealed {
 
 .hero__ingress { margin-bottom: 34px; max-width: 46ch; }
 
-.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
-
 .hero__figure { max-width: 920px; }
 
 .hero__figure-label {
@@ -407,112 +405,6 @@ html.js [data-reveal].is-revealed {
   color: var(--fg-muted);
   margin-bottom: 12px;
 }
-
-/* --- Karantene-diagram (ticket #5): inline SVG, engangsanimasjon. --- */
-
-.hero__diagram { position: relative; }
-
-.hero__diagram svg { display: block; width: 100%; height: auto; }
-
-/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
-   Valgene må være spesifikke nok til å overstyre size-regelen over,
-   som også treffer svg-elementene. */
-.hero__diagram .diagram--tall { display: none; }
-@media (max-width: 720px) {
-  .hero__diagram .diagram--wide { display: none; }
-  .hero__diagram .diagram--tall { display: block; }
-}
-
-/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
-   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
-.diagram__vault--leaf { display: none; }
-.hero__diagram--leaf .diagram__vault--rect { display: none; }
-.hero__diagram--leaf .diagram__vault--leaf { display: block; }
-
-/* Mikroetiketter — Plex Mono, alle farger via tokens */
-.diagram__text {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 11px;
-  fill: var(--fg-muted);
-}
-.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
-.diagram__text--strong { fill: var(--fg); }
-.diagram__text--micro { font-size: 10px; }
-.diagram__text--muted { fill: var(--gray-600); }
-.diagram__text--exit { fill: var(--blue-300); }
-.diagram__text--strike { text-decoration: line-through; }
-
-/* Streker og flater — tokens alene, tynn streg */
-.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
-.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
-.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
-.diagram__leaf-shape {
-  fill: var(--blue-500);
-  fill-opacity: 0.05;
-  stroke: var(--interactive);
-  stroke-opacity: 0.85;
-  stroke-width: 1.4;
-  vector-effect: non-scaling-stroke;
-}
-.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
-.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
-.diagram__arrow--in { fill: var(--line-strong); }
-.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
-.diagram__arrow--out { fill: var(--interactive); }
-.diagram__pulse { fill: var(--blue-300); opacity: 0; }
-.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
-.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
-.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
-
-/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
-   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
-   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
-   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
-   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
-   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
-   den ferdige komposisjonen direkte. */
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
-
-html.js .hero__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
-html.js .hero__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
-html.js .hero__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
-html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
-
-@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
-
-/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
-   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
-   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
-@keyframes d-probe {
-  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
-  18% { opacity: 0.9; }
-  55% { transform: translate(0, 0); opacity: 0.5; }
-  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
-}
-
-@keyframes d-pulse {
-  0% { transform: translate(0, 0); opacity: 0; }
-  25% { opacity: 1; }
-  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
-}
-
-/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
-   alle etiketter synlige, partiklene frosset midt i oplosningen. */
-@media (prefers-reduced-motion: reduce) {
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
-  html.js .hero__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
-  html.js .hero__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
-  html.js .hero__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
-  html.js .hero__diagram.is-drawn .diagram__pulse { animation: none; }
-}
-
-/* --- /Karantene-diagram (ticket #5) --- */
 
 /* ===== ACT: problemet ===== */
 
@@ -596,135 +488,18 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 
 /* ===== ACT: losningen ===== */
 
-/* Den doble losningen: to dører til ett produkt. Styret presenteres først,
-   utvikleren er publikummet som må overbevises. Blå er aktens eneste
-   aksent (--action-color er ikke override her — standarden holder).
-   Fotoet vises i designelementet: fire blad fra kjennemerket, så den mørke
-   bakgrunnen skjærer seg inn mellom bildeflatene. */
-
-.losningen__layout {
-  display: grid;
-  gap: clamp(36px, 5vw, 56px);
-  align-items: start;
-}
+/* Løsningen i én stemme: det flyttede utsagnet ankommer som svar på den
+   dokumenterte frykten, karantene-diagrammet følger (flyttet hit fra hero,
+   ticket #21), og akten avsluttes av ramme-figuren der rammen blir Zerts
+   merke. Blå er aktens eneste aksent (--action-color er ikke override her —
+   standarden holder). Ingen utviklerregister i akten: eneste bro til
+   utviklerflaten er den rolige lenken til slutt. */
 
 .losningen__intro { max-width: 68ch; }
 
-/* --- Dørene: to paneler, samme kasse, én aksent --- */
-
-.losningen__doors {
-  display: grid;
-  gap: 18px;
-}
-
-.door {
-  border: 1px solid var(--line);
-  border-left: 2px solid var(--interactive);
-  border-radius: 6px;
-  padding: clamp(20px, 2.6vw, 30px);
-}
-
-.door__label {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--interactive-hover);
-  margin-bottom: 12px;
-}
-
-.door__title {
-  font-weight: 600;
-  font-size: clamp(20px, 1.7vw, 25px);
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.door__points {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-}
-
-.door__point dt {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 4px;
-}
-
-.door__point dd {
-  margin: 0;
-  max-width: 48ch;
-  line-height: 1.45;
-}
-
-.door__close {
-  margin-top: 16px;
-  font-weight: 500;
-  color: var(--fg-muted);
-}
-
-/* --- Designelementet: foto i kjennemerkets fire blad ---
-   2x2-blad etter nordstjerne-formen: de to øvre fylt med fotoet (hvert blad
-   er et portrettsnitt av hver sin utvikler), de to nedre tone-i-tone —
-   autoriserte varianter fra DESIGN.md. Den mørke bakgrunnen skjærer seg inn
-   mellom bildeflatene. Fotoet er beskåret slik at ansiktene faller i
-   bladene, ikke i merkevarens negative rom. */
-
-.losningen__figure { width: 100%; }
-
-.designelement {
-  --leaf-gap: clamp(9px, 0.9vw, 13px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* Øvre bladerekke er høyere: portrettsnittene gir hver utvikler et blad
-     der ansiktet faller trygt innenfor buen. */
-  grid-template-rows: 1.75fr 1fr;
-  gap: var(--leaf-gap);
-  aspect-ratio: 0.97;
-}
-
-.designelement__leaf {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Kvartsirkel-blad forankret i elementets ytterhjørne (DESIGN.md: to par
-   bueformer i 2x2-rutenett). Radius 100% gir buen fra cellehjørne til
-   cellehjørne — det negative rommet i midten blir nordstjernen. */
-.designelement__leaf--ov { border-radius: 0 0 100% 0; }
-.designelement__leaf--oh { border-radius: 0 0 0 100%; }
-.designelement__leaf--nv { border-radius: 0 100% 0 0; }
-.designelement__leaf--nh { border-radius: 100% 0 0 0; }
-
-.designelement__leaf--tone {
-  background: color-mix(in srgb, var(--fg) 5%, transparent);
-}
-
-/* Hvert øvre blad er sin egen bildeflate — merkevarens kollasjgrep: «den
-   mørke bakgrunnen skjærer seg inn mellom bildeflatene». Beskjæringene
-   plasserer den ene utvikleren i hvert sitt blad: ansiktene faller i
-   bladenes fulle flate, aldri i buen eller den smale spissen. */
-.designelement__bilde {
-  position: absolute;
-  top: -11%;
-  left: -45%;
-  width: 300%;
-  height: auto;
-  max-width: none;
-  /* Beskjæringen er kalkulert: bildet er 1600x1067. Mannens ansikt dekker
-     ca. 27–41 % av bredden, kvinnens 49–63 %. Bladet viser en tredjedel av
-     bredden; forskyvningen legger hvert ansikt midt i bladets fulle flate,
-     langt fra buen og den smale spissen. */
-}
-
-.designelement__bilde--hoyre {
-  left: -126%;
+.losningen__figure {
+  max-width: 920px;
+  margin-top: clamp(56px, 9vh, 96px);
 }
 
 .losningen__figure-label {
@@ -734,44 +509,244 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fg-muted);
-  margin-top: 14px;
+  margin-bottom: 12px;
 }
 
-/* --- Erklæringen under begge dørene --- */
+/* --- Karantene-diagrammet (flyttet fra hero, ticket #21): inline SVG,
+       engangsanimasjon. --- */
 
-.losningen__creed {
+.losningen__diagram { position: relative; }
+
+.losningen__diagram svg { display: block; width: 100%; height: auto; }
+
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
+   Valgene må være spesifikke nok til å overstyre size-regelen over,
+   som også treffer svg-elementene. */
+.losningen__diagram .diagram--tall { display: none; }
+@media (max-width: 720px) {
+  .losningen__diagram .diagram--wide { display: none; }
+  .losningen__diagram .diagram--tall { display: block; }
+}
+
+/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
+   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
+.diagram__vault--leaf { display: none; }
+.losningen__diagram--leaf .diagram__vault--rect { display: none; }
+.losningen__diagram--leaf .diagram__vault--leaf { display: block; }
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.diagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.diagram__text--strong { fill: var(--fg); }
+.diagram__text--micro { font-size: 10px; }
+.diagram__text--muted { fill: var(--gray-600); }
+.diagram__text--exit { fill: var(--blue-300); }
+.diagram__text--strike { text-decoration: line-through; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.diagram__leaf-shape {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__arrow--in { fill: var(--line-strong); }
+.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__arrow--out { fill: var(--interactive); }
+.diagram__pulse { fill: var(--blue-300); opacity: 0; }
+.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
+.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
+.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
+
+/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
+   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
+   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
+   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
+   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
+   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
+
+html.js .losningen__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .losningen__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .losningen__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
+html.js .losningen__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+/* Globalt keyframe-vokabular (d-draw/d-fade pluss partikkel- og
+   puls-nøklene): delt av alle diagrammene med d- klasser (hero-scene,
+   to piler, karantene). Bor her sammen med diagrammet de ble født for. */
+@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
+   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
+   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
+@keyframes d-probe {
+  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
+  18% { opacity: 0.9; }
+  55% { transform: translate(0, 0); opacity: 0.5; }
+  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
+}
+
+@keyframes d-pulse {
+  0% { transform: translate(0, 0); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
+}
+
+/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
+   alle etiketter synlige, partiklene frosset midt i oppløsningen. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
+  html.js .losningen__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .losningen__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .losningen__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
+  html.js .losningen__diagram.is-drawn .diagram__pulse { animation: none; }
+}
+
+/* --- /Karantene-diagrammet (ticket #21) --- */
+
+/* --- Ramme-figuren (ticket #21): virtualiseres -> norsk jord -> den
+       omsluttende rammen som løses opp i Zerts merke. --- */
+
+.grensediagram { position: relative; }
+
+.grensediagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett på mobil. */
+.grensediagram .ramme--tall { display: none; }
+@media (max-width: 720px) {
+  .grensediagram .ramme--wide { display: none; }
+  .grensediagram .ramme--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono; ordmerket er det eneste som står i Plex Sans
+   (nivåer skilles med vekt, ikke font — DESIGN.md). */
+.ramme__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.ramme__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.ramme__text--strong { fill: var(--fg); }
+.ramme__text--micro { font-size: 10px; }
+.ramme__text--muted { fill: var(--gray-600); }
+.ramme__text--exit { fill: var(--blue-300); }
+.ramme__ord { font-family: var(--font-sans); font-weight: 600; font-size: 34px; fill: var(--fg); }
+
+/* Streker og flater — tokens alene, tynn streg; blå er eneste sekundærfarge. */
+.ramme__jord { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__jord-mark { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1.2; }
+.ramme__boks { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__utvei { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.ramme__spiss { fill: var(--interactive); }
+.ramme__ramme { fill: var(--blue-500); fill-opacity: 0.04; stroke: var(--interactive); stroke-width: 1.6; }
+.ramme__over { stroke: var(--interactive); stroke-opacity: 0.5; stroke-dasharray: 3 5; stroke-width: 1.2; }
+.ramme__over-spiss { fill: var(--interactive); }
+.ramme__blad {
+  fill: var(--blue-500);
+  fill-opacity: 0.07;
+  stroke: var(--interactive);
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Engangsanimasjon i samme tilstandsmaskin som karantene-diagrammet: jord ->
+   boks -> endepunkt -> utvei -> rammen tegnes sist -> rammen løses opp i
+   merket (blad tegnes, navnet toner fram). Eget navngitte keyframes, slik at
+   blokken er selvstendig. Rammen får lengre tegnetid — den er poenget.
+   JS bytter is-drawn -> is-done; slutttilstanden er basen i CSS og kan ikke
+   starte på ny. Uten JS og under redusert bevegelse vises den ferdige
+   komposisjonen direkte. */
+html.js .grensediagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .grensediagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .grensediagram.is-drawn .d-draw { animation: grense-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .grensediagram.is-drawn .d-fade { animation: grense-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .grensediagram.is-drawn .ramme__ramme { animation: grense-draw 700ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes grense-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes grense-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — alt tegnet, rammen på
+   plass, merke og navn synlige. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .grensediagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .grensediagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .grensediagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .grensediagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .grensediagram.is-drawn .ramme__ramme { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Forklaringen under ramme-figuren: tre trinn i leserekkefølge — virtualisere,
+   norsk jord, én ramme. Etiketten i aktens blå, aldri på brødtekst. */
+.losningen__forklaring {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(24px, 3vh, 36px);
   border-top: 1px solid var(--line);
-  padding-top: 26px;
-  max-width: 56ch;
-  font-weight: 500;
-  font-size: clamp(19px, 1.5vw, 22px);
-  line-height: 1.4;
+  padding-top: clamp(20px, 3vh, 32px);
 }
 
-@media (min-width: 900px) {
-  .losningen__layout {
-    grid-template-columns: minmax(0, 10fr) minmax(0, 11fr);
-    grid-template-areas:
-      "intro intro"
-      "doors element"
-      "creed creed";
-    column-gap: clamp(48px, 6vw, 88px);
-    row-gap: clamp(40px, 5vh, 60px);
-  }
-  .losningen__intro { grid-area: intro; }
-  .losningen__figure { grid-area: element; }
-  .losningen__doors { grid-area: doors; }
-  .losningen__creed { grid-area: creed; }
+.losningen__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive-hover);
+  margin-bottom: 14px;
+}
+
+.losningen__del-tekst {
+  max-width: 46ch;
+  line-height: 1.45;
+}
+
+/* --- Den rolige lenken til utviklerflaten: aktens eneste bro. --- */
+
+.losningen__utvikler {
+  margin-top: clamp(56px, 9vh, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  max-width: 62ch;
+  color: var(--fg-muted);
+  font-size: 15px;
+}
+
+@media (max-width: 720px) {
+  .losningen__forklaring { grid-template-columns: 1fr; }
 }
 
 /* ===== /ACT: losningen ===== */
 
 /* ===== ACT: slik-virker-det ===== */
 
-/* Forløpet repo inn -> KI-arbeid inne -> resultater ut -> VM-en dør, som fire
-   steg på rad, pluss den iscenesatte autoplay-terminalen som først viser seg
-   i denne handlingen. Blå er handlingens eneste aksent (standard interaktiv).
-   Terminalinnholdet er på engelsk; rundteksten er bokmål. */
+/* Fire steg i leserekkefølge — inn, arbeid, ut, død — som leses som én
+   setning. Blå er handlingens eneste aksent (standard interaktiv).
+   Den iscenesatte autoplay-terminalen bør ikke lenger i denne akten: den
+   følger utviklerflatens dev-karantene-akt, og .term-stilene eies der. */
 
 .section--slik-virker-det .kicker { margin-bottom: 14px; }
 
@@ -821,80 +796,12 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   color: var(--fg);
 }
 
-/* Terminalen — en ekte terminalrute: ingen vinduskrom, ingen glød, ingen
-   skygger. Hele sesjonen står statisk i HTML-en; når scripts.js er aktiv
-   (og bevegelse er tillatt) legges .term--replay på og trinnene spilles av
-   én gang. Redusert bevegelse og uten JavaScript: statisk fulltilstand. */
-
-.term { max-width: 880px; }
-
-.term__label {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 12px;
-}
-
-.term__screen {
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--fg) 3%, transparent);
-  padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: clamp(11px, 1vw + 8px, 13px);
-  line-height: 1.7;
-  color: var(--fg);
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-}
-
-.term__prompt { color: var(--blue-300); }
-
-/* Linjene er på plass fra starten (lesbart for skjermlesere) — replay
-   skjuler dem med gjennomsiktighet, ikke display, slik at innholdet blir
-   værende i tilgjengelighetstreet. */
-.term--replay .term__line { opacity: 0; }
-.term--replay .term__line.is-shown { opacity: 1; }
-
-/* Blokkmarkøren hører til i en ekte terminal. Den blinker bare mens
-   sesjonen skrives; på fullført tilstand står den stille (ingen løkke). */
-.term__caret { display: none; }
-.term--replay .term__caret {
-  display: inline-block;
-  width: 0.6em;
-  height: 1.05em;
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  background: var(--blue-300);
-  animation: term-caret 1.1s step-end infinite;
-}
-.term--replay.term--done .term__caret { animation: none; }
-
-@keyframes term-caret { 50% { opacity: 0; } }
-
-.term__caption {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--fg-muted);
-  margin-top: 12px;
-}
-
 @media (max-width: 880px) {
   .svd__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
   .svd__flow { grid-template-columns: 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .term__caret { display: none; }
 }
 
 /* ===== /ACT: slik-virker-det ===== */
@@ -1402,10 +1309,12 @@ p.beviset__micro { margin-top: 12px; }
 
 /* ===== ACT: kom-i-gang ===== */
 
-/* Dual-dør venteliste (utvikler|leder) + bevis for ernst + bluetime-band.
-   Den tonale aktøren er blå — sidens standard for interaktivt, ingen
-   --action-color-override trengs. Endepunktskonstanten ligger øverst i
-   scripts.js; feil avslører alltid mailto-fallbacken (ingen stille tap). */
+/* Styre-flatens venteliste: navn, selskap, e-post — døren («leder») følger
+   med i et skjult felt og nevnes aldri i tekst. Invitasjonen bærer akten;
+   guidet-linja er den load-bearing-ærligheten, ordrett. Den tonale aktøren
+   er blå — sidens standard for interaktivt, ingen --action-color-override
+   trengs. Endepunktskonstanten ligger øverst i scripts.js; feil avslører
+   alltid mailto-fallbacken (ingen stille tap). */
 
 .kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
 
@@ -1425,66 +1334,6 @@ p.beviset__micro { margin-top: 12px; }
 .kig__form[hidden],
 .kig__takk[hidden],
 .kig__feil[hidden] { display: none; }
-
-.kig__doors { border: 0; margin: 0; padding: 0; min-width: 0; }
-
-.kig__legend {
-  padding: 0;
-  font-weight: 600;
-  font-size: 17px;
-  color: var(--fg);
-}
-
-.kig__doorvalg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-/* Radioknappen er visuelt skjult, men fokusbar — selve døra er knappen. */
-.kig__door-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  border: 0;
-}
-
-.kig__door {
-  display: block;
-  height: 100%;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 16px;
-  cursor: pointer;
-}
-.kig__door:hover { border-color: var(--line-strong); }
-
-.kig__door-input:checked + .kig__door {
-  border-color: var(--interactive);
-  background: color-mix(in srgb, var(--interactive) 10%, transparent);
-}
-.kig__door-input:focus-visible + .kig__door {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
-.kig__door-tittel {
-  display: block;
-  font-weight: 600;
-  font-size: 17px;
-  margin-bottom: 4px;
-}
-.kig__door-tekst {
-  display: block;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--fg-muted);
-}
 
 .kig__felt { display: grid; gap: 8px; }
 
@@ -1556,9 +1405,9 @@ p.beviset__micro { margin-top: 12px; }
   line-height: 1.5;
 }
 
-/* --- Bevis for ernst: brew-linja og det opne repoet --- */
+/* --- Pilotinvitasjonen: plassen ved det korte bordet --- */
 
-.kig__bevis {
+.kig__invitasjon {
   display: grid;
   gap: 16px;
   align-content: start;
@@ -1568,22 +1417,7 @@ p.beviset__micro { margin-top: 12px; }
   padding: clamp(22px, 3vw, 34px);
 }
 
-.kig__bevis-tekst { color: var(--fg-muted); }
-
-.kig__install {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  padding: 14px 16px;
-  font-family: var(--font-mono);
-  font-size: 15px;
-}
-.kig__install-prompt { color: var(--interactive-hover); }
-.kig__install-kode { color: var(--fg); }
-
-.kig__repo a { font-family: var(--font-mono); font-size: 15px; }
+.kig__invitasjon-tekst { color: var(--fg-muted); }
 
 .kig__guidet {
   border-top: 1px solid var(--line);
@@ -1641,3 +1475,965 @@ p.beviset__micro { margin-top: 12px; }
 }
 
 /* ===== /ACT: footer ===== */
+
+/* ===== ACT: hero scene — hodet/hender (ticket #17) ===== */
+
+/* Ny hero: scenen (overskrift + ingress) og hodet/hender-diagrammet.
+   Delte hero-regler ligger i ACT:hero; alt nytt står i denne blokken.
+   Én sekundærfarge: blå (samme familie som det parkerte karantene-
+   diagrammet) — brukt på grafikk, aldri på brødtekst (DESIGN.md). */
+
+.section--hero .hero__content { max-width: 900px; }
+
+.section--hero .hero__title {
+  font-size: clamp(36px, 4vw, 56px);
+  max-width: 30ch;
+}
+
+.section--hero .hero__figure--scene { max-width: 880px; }
+
+.hero__agendiagram { position: relative; }
+
+.hero__agendiagram svg { display: block; width: 100%; height: auto; }
+
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil —
+   samme kryssbytte som karantene-diagrammet. */
+.hero__agendiagram .agent--tall { display: none; }
+@media (max-width: 720px) {
+  .hero__agendiagram .agent--wide { display: none; }
+  .hero__agendiagram .agent--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.agent__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.agent__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.agent__text--strong { fill: var(--fg); }
+.agent__text--micro { font-size: 10px; }
+.agent__text--muted { fill: var(--gray-600); }
+.agent__text--led { fill: var(--blue-300); }
+
+/* Streker og flater — tokens alene, tynn streg */
+.agent__grense { stroke: var(--gray-600); stroke-opacity: 0.45; stroke-width: 1; stroke-dasharray: 3 6; }
+.agent__maskin { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.agent__hand rect { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.agent__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.agent__blad {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.agent__kjerne { fill: var(--bg); stroke: var(--interactive); stroke-width: 1.4; }
+.agent__linje { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.agent__pil { fill: var(--interactive); }
+.agent__puls { fill: var(--blue-300); opacity: 0; }
+
+/* Engangsanimasjon, samme tilstandsmaskin som losningen__diagram (js-patterns):
+   første sikt gir .is-drawn (linjene tegnes -> tekst toner fram -> hodet
+   tegnes -> forbindelse + puls), deretter bytter JS til .is-done — da er den
+   fulle komposisjonen basen i CSS. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .hero__agendiagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .hero__agendiagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .hero__agendiagram.is-drawn .agent__puls { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — alt tegnet, alle
+   etiketter synlige, pulsen skjult. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .hero__agendiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .hero__agendiagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .hero__agendiagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .hero__agendiagram.is-drawn .agent__puls { animation: none; }
+}
+
+/* ===== /ACT: hero scene — hodet/hender (ticket #17) ===== */
+
+/* ===== ACT: problemet — to piler (ticket #19) ===== */
+
+/* Egen blokk for ticket #19: ett rammefigur med begge pilene
+   (data ut -> agenter inn) erstatter de to tekstkortene i blokken
+   «ACT: problemet» over. Kun nye klasser her; de gamle kortklassene
+   (problemet__kort, problemet__risiko ...) er forlatt markup og står
+   urørt. Akten holder én sekundærfargefamilie: oransje/rød via
+   --action-color (satt i ACT-blokken over), brukt bare på piler og
+   etiketter — aldri på brødtekst (DESIGN.md). */
+
+/* Rammen: ett diagram, to piler, én forklaring under. */
+.problemet__ramme {
+  margin: clamp(48px, 7vh, 72px) 0 0;
+  border: 1px solid var(--line);
+  padding: clamp(20px, 3vw, 36px);
+}
+
+.problemet__diagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett visning på mobil. */
+.problemet__diagram .pilediagram--tall { display: none; }
+@media (max-width: 720px) {
+  .problemet__diagram .pilediagram--wide { display: none; }
+  .problemet__diagram .pilediagram--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.pilediagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.pilediagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.pilediagram__text--micro { font-size: 10px; }
+.pilediagram__text--pil { font-size: 12px; font-weight: 500; fill: var(--action-color); letter-spacing: 0.04em; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.pilediagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.pilediagram__node--org { stroke-width: 1.6; }
+.pilediagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.pilediagram__pil { fill: none; stroke: var(--action-color); stroke-width: 1.6; }
+.pilediagram__spiss { fill: var(--action-color); }
+
+/* Engangsanimasjon i samme tilstandsmaskin som karantene-diagrammet:
+   data ut tegnes først (styrets egen bekymring leder), så agenter inn
+   (--d-forsinkelser fra 800 ms). Alt i ett pass på omtrent 1,4 sekunder;
+   JS bytter is-drawn -> is-done, slik at slutttilstanden er basen i CSS
+   og ikke kan starte på ny. Redusert bevegelse: fullstendig statisk
+   tilstand — begge pilene tegnet, alle etiketter synlige. */
+html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .problemet__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .problemet__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .problemet__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .problemet__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .problemet__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+}
+
+/* Forklaringen under diagrammet: to halvdeler i leserekkefølge — data ut
+   først, så agenter inn. Etiketten gjenbruker .problemet__merke fra
+   ACT-blokken over (mono, oransje, ingen ny stil nødvendig). */
+.problemet__forklaring {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(24px, 3vh, 36px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(20px, 3vh, 32px);
+}
+
+.problemet__del-tekst { max-width: 46ch; }
+
+@media (max-width: 720px) {
+  .problemet__forklaring { grid-template-columns: 1fr; }
+}
+
+/* ===== /ACT: problemet — to piler (ticket #19) ===== */
+
+/* ===== ACT: loven ===== */
+
+/* Akten står i sidens rekkefølge mellom problemet og losningen, men blokken
+   er lagt på filenden slik at samtidige tickets kun får egne avgrensede
+   blokker (konfliktfri appending). Akten er beviset bak «data ut»-pila og
+   bruker derfor samme tonale familie som Problemet: oransje/rød, ene
+   sekundærfarge i akten, kun på etiketter og grafikk (DESIGN.md: ikke på
+   brødtekst). Innholdet er utelukkende eksterne rettsfakta — ingen setning
+   handler om Zert. */
+
+.section--loven {
+  --action-color: var(--orange-500);
+}
+
+.loven__hode .ingress { margin-top: 18px; }
+
+/* Diagrammet bærer akten — samme figurformat som hero. */
+.loven__figure {
+  max-width: 920px;
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.loven__figure-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.lovdiagram { position: relative; }
+
+.lovdiagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett på mobil. */
+.lovdiagram .lovdiagram__svg--tall { display: none; }
+@media (max-width: 720px) {
+  .lovdiagram .lovdiagram__svg--wide { display: none; }
+  .lovdiagram .lovdiagram__svg--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens. */
+.lovdiagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.lovdiagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.lovdiagram__text--micro { font-size: 10px; }
+.lovdiagram__text--muted { fill: var(--gray-600); }
+.lovdiagram__text--law { fill: var(--orange-300); }
+
+/* Streker og flater — tokens alene, tynn streg. */
+.lovdiagram__ground { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__ground-mark { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1.2; }
+.lovdiagram__data { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__state { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.lovdiagram__reach { fill: none; stroke: var(--action-color); stroke-width: 1.6; }
+.lovdiagram__arrow { fill: var(--action-color); }
+
+/* Engangsanimasjon — klon av karantene-diagrammets tilstandsmaskin
+   (forsinkelse via --d på elementene, ett pass på omtrent 1,6 sekunder):
+   jord -> data -> USA -> havetikett -> kravet tegnes over havet ->
+   overskrift og presisering toner fram. Eget navngitte keyframes, så blokken
+   er selvstendig. Tilstandsmaskin: første sikt gir .is-drawn (spilles én
+   gang), deretter bytter JS til .is-done — da er den fulle komposisjonen
+   basen i CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse
+   vises den ferdige komposisjonen direkte. */
+html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .lovdiagram.is-drawn .d-draw { animation: lov-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .lovdiagram.is-drawn .d-fade { animation: lov-fade 250ms ease var(--d, 0ms) 1 both; }
+/* Selve kravet får lengre tegnetid — det er poenget i komposisjonen. */
+html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes lov-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes lov-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — kravet tegnet, alle
+   etiketter synlige. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .lovdiagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .lovdiagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .lovdiagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: none; stroke-dashoffset: 0; }
+}
+
+/* De tre rettsaktene — redaksjonelt snitt i samme lag som problemet-kortene:
+   hairline toppregel i aktens farge, ingen kortflate, ingen effekter. */
+.loven__lover {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.loven__lov {
+  border-top: 2px solid var(--action-color);
+  padding-top: 26px;
+}
+
+.loven__lov-merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+
+.loven__lov-tittel {
+  font-weight: 500;
+  font-size: clamp(20px, 1.8vw, 25px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.loven__lov-tekst { max-width: 46ch; }
+
+/* Sitatet — engelsk lovordning gjengis verbatim, i Plex Mono (husregel:
+   lovordninger sitter i mono), dempet grå og hairline-venstrestripe. */
+.loven__lov-sitat {
+  margin: 18px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: 44ch;
+}
+
+.loven__lov-sitat cite {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.loven__lov-note {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* Avslutning — board-takeaway; løsningen eier neste akt, denne løfter ingenting. */
+.loven__avslutning { margin-top: clamp(48px, 7vh, 72px); }
+
+@media (max-width: 980px) {
+  .loven__lover { grid-template-columns: 1fr; }
+}
+
+/* ===== /ACT: loven ===== */
+/* ===== ACT: beviset-to-lags ===== */
+
+/* Beviset i to lag. Det synlige laget er én hverdagssetning per bevis
+   (beviset__setning), avløst av revisjonsordlyden — urørt — i et native
+   <details>/<summary> som virker uten JavaScript. Aktøren er samme grønn
+   som i ACT: beviset, arvet via --action-color. Utvidelsen er et
+   dokumentutdrag med hairline-vensterkant, mikrolabelen i samme mono-snitt
+   som feltmerkene. Kun tokens — ingen nye farger eller fonter. */
+
+.beviset__setning {
+  max-width: 60ch;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.beviset__detaljer {
+  margin-top: 14px;
+}
+
+/* Mikrolabelen som åpner: blå er sidens eneste interaktive farge. */
+.beviset__oppslag {
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive);
+}
+
+.beviset__oppslag::-webkit-details-marker { display: none; }
+
+/* Grønt firkantmerke — samme aktørmärke som i feltspalten, her som klikk-antydning. */
+.beviset__oppslag::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 4px;
+  background: var(--action-color);
+}
+
+.beviset__oppslag:hover { text-decoration: underline; }
+
+/* Fokusmarkøren i den lyse akten: den mørke blåtonen, blue-300 mot
+   --zert-white gir for lav kontrast. */
+.beviset__oppslag:focus-visible {
+  outline: 2px solid var(--interactive);
+  outline-offset: 3px;
+}
+
+/* Utvidelsen: dokumentutdrag i samme hairline-språk som radreglene. */
+.beviset__utvidelse {
+  margin-top: 16px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line-strong);
+  max-width: 66ch;
+}
+
+@media (max-width: 720px) {
+  .beviset__oppslag { padding: 6px 0; } /* større klikkflate på telefon */
+}
+
+/* ===== /ACT: beviset-to-lags ===== */
+
+/* ===== ACT: veien-videre to-lag ===== */
+
+/* To-lagsavduking i roadmap-akten (samme mønster som Beviset): den flate
+   setningen ligger synlig på kortet, den presise ordlyden ligger urørt i en
+   <details>-utvidelse — kjerne-mekanisme, ingen JS. Den tonale aktøren
+   forblir gul, brukt på ærlighetsmerket og åpningsmarkøren. */
+
+/* Den flate setningen: lesbar brødtekst i --fg, ikke dempet. */
+.roadmap__plain {
+  color: var(--fg);
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+/* Presislaget: atskilt med hairline, åpnet av en mono-mikroetikett. */
+.roadmap__presis {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.roadmap__oppsummering {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.roadmap__oppsummering::-webkit-details-marker { display: none; }
+
+/* Åpningsmarkør: kvadrat i samme geometri som ærlighetsmerket —
+   tom når utvidelsen er lukket, fylt når den er åpen. */
+.roadmap__oppsummering::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering::before {
+  background: var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering { color: var(--fg); }
+
+/* Utvidelsen: vensterkant i aktens gul, presistitel som mono-etikett. */
+.roadmap__presis-innhold {
+  margin-top: 12px;
+  padding-left: 16px;
+  border-left: 3px solid var(--action-color);
+}
+
+.roadmap__presistittel {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .roadmap__plain { max-width: none; }
+}
+
+/* ===== /ACT: veien-videre to-lag ===== */
+
+/* ===== ACT: port (utviklerdøren i headern) ===== */
+
+/* Døren mellom de to flatene (GLOSSARY: dual-dør). På styre-flaten heter
+   lenken «Utvikler», på utvikler-flaten «For ledelsen». Hairline-kontur
+   holder den diskret og skiller den fra seksjonsankrene i navigasjonen.
+   flex: 0 0 auto sikrer at den er synlig i alle visninger — det er .site-nav
+   som krympes og horisontalscrolles når plassen blir knapp. */
+
+.site-header__flate {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.site-header__flate:hover {
+  color: var(--blue-300);
+  border-color: var(--interactive-hover);
+  text-decoration: none;
+}
+
+/* ===== /ACT: port (utviklerdøren i headern) ===== */
+
+/* ===== ACT: dev-hero ===== */
+
+/* Utvikler-flatens åpning: kort forretningsgang, ingen diagram. Blå er
+   fortsatt sidens eneste interaktive farge — ingen --action-color-override. */
+
+.section--dev-hero {
+  padding-top: calc(var(--header-h) + clamp(56px, 10vh, 120px));
+  padding-bottom: clamp(56px, 9vh, 100px);
+}
+
+.dev-hero__content { max-width: 900px; }
+
+.dev-hero__title {
+  font-weight: 600;
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 26px;
+}
+
+/* Overskriften settes i to faste linjer — to korte setninger, én idé per
+   linje, aldri hengekøye-ord på egen linje (DESIGN.md: to linjer max). */
+.dev-hero__linje { display: block; }
+
+.dev-hero__ingress { margin-bottom: 34px; max-width: 56ch; }
+
+.dev-hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ===== /ACT: dev-hero ===== */
+
+/* ===== ACT: dev-karantene ===== */
+
+/* Sandboxen innenfra: fire steg på rad (samme leselogikk som svd-flowen på
+   styre-flaten) og en summerende setning. Tonal aktor er blå — standard
+   interaktiv, ingen override. Redusert bevegelse dekkes av kjerne-CSS for
+   reveal; ingen egen animasjon i denne akten. */
+
+.dev-karantene__ingress { margin-bottom: clamp(44px, 6vh, 64px); }
+
+.dev-steg__flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px clamp(16px, 2.4vw, 32px);
+}
+
+.dev-steg__steg {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+}
+
+.dev-steg__nummer {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--interactive);
+  margin-bottom: 10px;
+}
+
+.dev-steg__tittel {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.dev-steg__tekst {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  max-width: 34ch;
+}
+
+.dev-steg__tekst code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--fg);
+}
+
+.dev-karantene__tro {
+  margin-top: clamp(44px, 6vh, 64px);
+  font-weight: 500;
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.4;
+  max-width: 46ch;
+}
+
+/* --- Iscenesatt autoplay-terminal (flyttet hit fra slik-virker-det på
+       styreflaten, review av spec #15): utviklerflaten eier
+       terminalhistorien. En ekte terminalrute: ingen vinduskrom, ingen
+       glød, ingen skygger. Hele sesjonen står statisk i HTML-en; når
+       scripts.js er aktiv (og bevegelse er tillatt) legges .term--replay
+       på og trinnene spilles av én gang. Redusert bevegelse og uten
+       JavaScript: statisk fulltilstand. Innholdet er på engelsk;
+       rundteksten er bokmål. --- */
+
+/* Stegflyten på utviklerflaten har ingen egen margin — terminalen tar
+   pusten med egen toppmargin her, ikke i de delte .term-reglene. */
+.section--dev-karantene .term { margin-top: clamp(44px, 6vh, 64px); }
+
+.term { max-width: 880px; }
+
+.term__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.term__screen {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+  padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 1vw + 8px, 13px);
+  line-height: 1.7;
+  color: var(--fg);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.term__prompt { color: var(--blue-300); }
+
+/* Linjene er på plass fra starten (lesbart for skjermlesere) — replay
+   skjuler dem med gjennomsiktighet, ikke display, slik at innholdet blir
+   værende i tilgjengelighetstreet. */
+.term--replay .term__line { opacity: 0; }
+.term--replay .term__line.is-shown { opacity: 1; }
+
+/* Blokkmarkøren hører til i en ekte terminal. Den blinker bare mens
+   sesjonen skrives; på fullført tilstand står den stille (ingen løkke). */
+.term__caret { display: none; }
+.term--replay .term__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--blue-300);
+  animation: term-caret 1.1s step-end infinite;
+}
+.term--replay.term--done .term__caret { animation: none; }
+
+@keyframes term-caret { 50% { opacity: 0; } }
+
+.term__caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term__caret { display: none; }
+}
+
+/* --- Publisert industrimønster (spec #15, story 20): skjulte instruksjoner
+       i teksten agenten leser. Både etikett og tekst markerer blokken som
+       eksternt dokumentert — dette er ikke en Zert-hendelse. Kartongen
+       følger sidens rolige språk: hairline, ingen flater eller effekter. --- */
+
+.dev-karantene__skjult {
+  margin-top: clamp(44px, 6vh, 64px);
+  max-width: 62ch;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.dev-karantene__skjult .kicker { margin-bottom: 12px; }
+
+.dev-karantene__skjult-tittel {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.dev-karantene__skjult-tekst { color: var(--fg-muted); }
+
+.dev-karantene__skjult-kilde {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 880px) {
+  .dev-steg__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .dev-steg__flow { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== /ACT: dev-karantene ===== */
+
+/* ===== ACT: dev-kode ===== */
+
+/* To hairline-bokser — installasjon og åpen kildekode — og en ærlighetssetning
+   under. Innholdet er flyttet hit fra kom-i-gang-sidestolpen på styre-flaten
+   (den fjernes der i en senere ticket). Blå som resten av siden; ingen ny
+   fargefamilie. */
+
+.dev-kode__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+
+.dev-kode__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.dev-kode__boks {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.dev-kode__tekst { color: var(--fg-muted); }
+
+.dev-kode__install {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+.dev-kode__prompt { color: var(--interactive-hover); }
+.dev-kode__install-kode { color: var(--fg); }
+
+.dev-kode__repo a { font-family: var(--font-mono); font-size: 15px; }
+
+.dev-kode__guidet {
+  margin-top: clamp(28px, 4vh, 40px);
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--fg-muted);
+  font-size: 15px;
+  max-width: 62ch;
+}
+
+@media (max-width: 720px) {
+  .dev-kode__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== /ACT: dev-kode ===== */
+
+/* ===== ACT: dev-venteliste ===== */
+
+/* Venteliste uten dørspørsmål: døren kommer som et skjult felt (value
+   utvikler) og følger med i payloaden — se BEHAVIOR:dev-venteliste. Skjema,
+   takk- og feilblokk og mailto-fallback følger kom-i-gangs mønster nøyaktig
+   (aldri stille tap); egne id-er slik at begge skjemaene kan eksistere per
+   nettside. */
+
+.dev-liste__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+
+.dev-liste__form { display: grid; gap: 22px; max-width: 540px; }
+
+/* Egne display-regler overskrider UA-stilarkets [hidden] — samme felle som
+   i kom-i-gang: ellers staar skjemaet og feilboksen framme alltid. */
+.dev-liste__form[hidden],
+.dev-liste__takk[hidden],
+.dev-liste__feil[hidden] { display: none; }
+
+.dev-liste__felt { display: grid; gap: 8px; }
+
+.dev-liste__merkelapp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.dev-liste__input {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+}
+.dev-liste__input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--interactive);
+}
+
+.dev-liste__send { width: 100%; }
+.dev-liste__send[disabled] { opacity: 0.6; cursor: default; }
+
+.dev-liste__personvern {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.dev-liste__noscript {
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.dev-liste__takk {
+  max-width: 540px;
+  border: 1px solid var(--interactive);
+  border-radius: 6px;
+  padding: 28px 26px;
+}
+.dev-liste__takk-tekst {
+  font-weight: 600;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.35;
+}
+
+.dev-liste__feil {
+  display: grid;
+  gap: 10px;
+  max-width: 540px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 22px 22px;
+  line-height: 1.5;
+}
+
+/* --- Sluttband: utvikler ved laptopen — personer i arbeid (DESIGN.md) --- */
+
+.dev-liste__band { margin-top: clamp(56px, 9vh, 96px); }
+
+.dev-liste__band-bilde { width: 100%; height: auto; }
+
+.dev-liste__band-tekst {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 12px var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+/* ===== /ACT: dev-venteliste ===== */
+
+/* ===== ACT: hendelser — agenter inn (tidl. ticket #20) ===== */
+
+/* De tre hendelseskortene ble flyttet ut av problemets agenter inn-halvdel
+   og står nå som eget beat med primærbevis rett etter loven (review av
+   spec #15). Akten viderefører risikohistoriens familie: oransje/rød som
+   --action-color her, brukt bare på piktogram og etiketter — aldri på
+   brødtekst (DESIGN.md). Etikett- og teksttypografien er gjort selvstendig
+   i denne blokken (tidl. gjenbruk av .problemet__merke og
+   .problemet__del-tekst). Lenkene følger den globalt blå interaktive
+   fargen. Ingen egne animasjoner: kortene følger avdukingen til det
+   eksisterende globale reveal-mønsteret (data-reveal i en
+   data-reveal-gruppe). */
+
+.section--hendelser {
+  --action-color: var(--orange-500);
+}
+
+.hendelser__hode .kicker { margin-bottom: 14px; }
+.hendelser__hode .ingress { margin-top: 18px; }
+
+/* År- og plattformetiketten: mono mikroversal i aktens farge. */
+.hendelser__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+
+.hendelser__tekst { max-width: 46ch; }
+
+.hendelser__liste {
+  list-style: none;
+  padding: 0;
+  margin-top: clamp(28px, 4vh, 40px);
+  display: grid;
+  gap: clamp(18px, 2.5vh, 26px);
+}
+
+/* Kortet: piktogram til venstre, tekst til høyre. Hairline toppregel,
+   ingen flater eller effekter — samme rolige språk som pilrammen i
+   problemet-akten. */
+.hendelser__kort {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.hendelser__kort .hendelser__merke { margin-bottom: 8px; }
+
+/* Piktogrammene: ett minimalt, enhetlig sett (konvolutt, pratboble,
+   database) i 24x24-rutenett, én tykkelse, én farge (--action-color). */
+.hendelser__piktogram {
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  color: var(--action-color);
+}
+
+.hendelser__piktogram rect,
+.hendelser__piktogram path,
+.hendelser__piktogram ellipse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Kildelinjen: mono mikroletikke, blå lenker mot mørk bakgrunn. */
+.hendelser__kilde {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 720px) {
+  .hendelser__kort { gap: 12px; }
+}
+
+/* ===== /ACT: hendelser — agenter inn (tidl. ticket #20) ===== */
