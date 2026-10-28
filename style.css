@@ -95,8 +95,8 @@
   --interactive-ink: var(--zert-white);
   --focus: var(--blue-300);
 
-  /* Handlingens tonale aktør — overrides kun i ACT-blokk som behoerer den:
-     orange/roed i Problemet, stoenn (gronn) i Beviset. Aldri to i én akt. */
+  /* Handlingens tonale aktør — overrides kun i ACT-blokk som tilhører den:
+     orange/rød i Problemet, grønn i Beviset. Aldri to i én akt. */
   --action-color: transparent;
 
   /* Layout og bevegelse */
@@ -174,7 +174,7 @@ a:hover { text-decoration: underline; }
   color: var(--fg-muted);
 }
 
-/* Typografi — nivaer skilles med vekt, aldri med font (DESIGN.md) */
+/* Typografi — nivåer skilles med vekt, aldri med font (DESIGN.md) */
 .kicker {
   font-family: var(--font-mono);
   font-weight: 500;
@@ -414,9 +414,9 @@ html.js [data-reveal].is-revealed {
 
 .hero__diagram svg { display: block; width: 100%; height: auto; }
 
-/* Layout: bred visning i viewport-bredde, loddrett visning pa mobil.
-   Valgene matte vaere spesifikke nok til a overstyre size-regelen over,
-   som ogsa treffer svg-elementene. */
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
+   Valgene må være spesifikke nok til å overstyre size-regelen over,
+   som også treffer svg-elementene. */
 .hero__diagram .diagram--tall { display: none; }
 @media (max-width: 720px) {
   .hero__diagram .diagram--wide { display: none; }
@@ -465,12 +465,12 @@ html.js [data-reveal].is-revealed {
 .diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
 .diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
 
-/* Engangsanimasjon (forsinkelse via --d pa elementene, alt i ett pass pa
+/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
    omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
-   -> partikler prover seg. Alt med iteration-count 1 — ingenting looper.
-   Tilstandsmaskin: forste sikt gir .is-drawn (animasjonen spilles én gang),
+   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
+   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
    deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
-   CSS og kan ikke starte pa ny. Uten JS og under redusert bevegelse vises
+   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
    den ferdige komposisjonen direkte. */
 html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
 html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
@@ -484,9 +484,9 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 @keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
 @keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
 
-/* Partikkelen starter ved hvelvet, prover utover og oploses — basetilstanden
-   (geitet midt pa stummen, lav bakgrunns-opacity) er det statiske bildet av
-   en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
+/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
+   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
+   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
 @keyframes d-probe {
   0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
   18% { opacity: 0.9; }
@@ -842,7 +842,7 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   margin: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: rgba(252, 252, 252, 0.03);
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
   padding: clamp(16px, 2.4vw, 26px) clamp(14px, 2.2vw, 24px);
   font-family: var(--font-mono);
   font-weight: 400;
@@ -940,10 +940,10 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   inset: 0;
   z-index: 1;
   background: linear-gradient(180deg,
-    rgba(25, 25, 25, 0.88) 0%,
-    rgba(25, 25, 25, 0.72) 46%,
-    rgba(25, 25, 25, 0.18) 72%,
-    rgba(25, 25, 25, 0.36) 100%);
+    color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 72%, transparent) 46%,
+    color-mix(in srgb, var(--bg) 18%, transparent) 72%,
+    color-mix(in srgb, var(--bg) 36%, transparent) 100%);
 }
 
 .infra__band-copy {
@@ -1045,7 +1045,7 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 .infra__model {
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: rgba(252, 252, 252, 0.02);
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
   padding: 24px 22px;
 }
 
@@ -1092,9 +1092,9 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   }
   .infra__band::before {
     background: linear-gradient(180deg,
-      rgba(25, 25, 25, 0.88) 0%,
-      rgba(25, 25, 25, 0.74) 55%,
-      rgba(25, 25, 25, 0.58) 100%);
+      color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 74%, transparent) 55%,
+      color-mix(in srgb, var(--bg) 58%, transparent) 100%);
   }
   .infra__band-copy {
     padding-top: clamp(44px, 12vh, 72px);
@@ -1118,7 +1118,7 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 }
 
 /* Lenker i den lyse akten: samme interaktive familie, den mørke tonen —
-   blue-300 mot #fcfcfc gir for lav kontrast. */
+   blue-300 mot --zert-white gir for lav kontrast. */
 .section--beviset a { color: var(--interactive); }
 
 /* --- Dagslysbandet: panoramafoto i full bredde, anslag mot mørket --- */
@@ -1308,20 +1308,20 @@ p.beviset__micro { margin-top: 12px; }
   content: "";
   position: absolute;
   inset: 0;
-  /* Skjær i --zert-black med alfa, slik headeren og --line-tokenene gør:
+  /* Skjær i --bg med alfa via color-mix, slik headeren og --line-tokenene gjør:
      tett oppe der teksten står, lettest midt på fjellet, og igjen i
      bunnen slik fjellet toner ut som tåke mot slutten av akten. */
   background: linear-gradient(
     180deg,
     var(--bg) 0%,
-    rgba(25, 25, 25, 0.82) 30%,
-    rgba(25, 25, 25, 0.45) 62%,
-    rgba(25, 25, 25, 0.9) 92%,
+    color-mix(in srgb, var(--bg) 82%, transparent) 30%,
+    color-mix(in srgb, var(--bg) 45%, transparent) 62%,
+    color-mix(in srgb, var(--bg) 90%, transparent) 92%,
     var(--bg) 100%
   );
 }
 
-/* Roadmap-listen: nivaer skilles med vekt, rekkefolge med mono-tall. */
+/* Roadmap-listen: nivåer skilles med vekt, rekkefølge med mono-tall. */
 .roadmap {
   list-style: none;
   margin: clamp(40px, 6vh, 64px) 0 0;
@@ -1335,7 +1335,7 @@ p.beviset__micro { margin-top: 12px; }
   border: 1px solid var(--line);
   border-top: 2px solid var(--line-strong);
   border-radius: 4px;
-  background: rgba(25, 25, 25, 0.55);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
   padding: 24px 24px 28px;
 }
 
@@ -1466,7 +1466,7 @@ p.beviset__micro { margin-top: 12px; }
 
 .kig__door-input:checked + .kig__door {
   border-color: var(--interactive);
-  background: rgba(0, 117, 231, 0.10);
+  background: color-mix(in srgb, var(--interactive) 10%, transparent);
 }
 .kig__door-input:focus-visible + .kig__door {
   outline: 2px solid var(--focus);
@@ -1564,7 +1564,7 @@ p.beviset__micro { margin-top: 12px; }
   align-content: start;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(252, 252, 252, 0.02);
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
   padding: clamp(22px, 3vw, 34px);
 }
 
@@ -1620,7 +1620,7 @@ p.beviset__micro { margin-top: 12px; }
    Innholdet: dempet-hvit-logo, ett slagord, kontaktlenker og organisasjons-
    linje. Dette er en fotnote — aldri en team-seksjon. */
 
-.site-footer__skrav {
+.site-footer__tagline {
   max-width: 58ch;
   font-size: 16px;
   color: var(--fg-muted);

@@ -59,6 +59,14 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
 
+  function hasClass(el, name) { return el.className.indexOf(name) !== -1; }
+  function addClass(el, name) {
+    if (!hasClass(el, name)) { el.className += (el.className ? ' ' : '') + name; }
+  }
+  function removeClass(el, name) {
+    el.className = (' ' + el.className + ' ').replace(' ' + name + ' ', ' ').replace(/^ | $/g, '');
+  }
+
   /* ===== BEHAVIOR:scroll-reveal ===== */
 
   (function () {
@@ -72,9 +80,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
     function reveal(el, delayMs) {
       if (delayMs > 0) { el.style.transitionDelay = delayMs + 'ms'; }
-      if (el.className.indexOf(REVEALED_CLASS) === -1) {
-        el.className += (el.className ? ' ' : '') + REVEALED_CLASS;
-      }
+      addClass(el, REVEALED_CLASS);
     }
 
     // Redusert bevegelse: CSS holder alt statisk fullstendig. Ingen klasser nødvendig.
@@ -187,14 +193,6 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     var LEAF_CLASS = 'hero__diagram--leaf';
     var PASS_MS = 1700; // hele einepasseringen; + margin for bytte til sluttstate
 
-    function hasClass(el, name) { return el.className.indexOf(name) !== -1; }
-    function addClass(el, name) {
-      if (!hasClass(el, name)) { el.className += (el.className ? ' ' : '') + name; }
-    }
-    function removeClass(el, name) {
-      el.className = (' ' + el.className + ' ').replace(' ' + name + ' ', ' ').replace(/^ | $/g, '');
-    }
-
     // Dev-only hvelvvalg: firblad er standard; ?vault=rect bytter tilbake.
     // Formvalget venter på endelig gjennomgang hos brukeren; tapervarianten
     // fjernes ved den endelige poleringen. Variant byttes kun på classen.
@@ -209,7 +207,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
         addClass(el, DRAWN_CLASS);
         // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
         // bytter vi til den statiske slutttilstanden (is-done). Da kan
-        // animasjonen verken loope eller starte pa ny (f.eks. ved at
+        // animasjonen verken loope eller starte på ny (f.eks. ved at
         // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
         window.setTimeout(function () {
           removeClass(el, DRAWN_CLASS);
@@ -258,8 +256,8 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Iscenesatt autoplay-terminal. Scrollutloest, skriver seg selv én gang
-     og blir så stående på den komplette sesjonen. Aldri loekke, aldri
+  /* Iscenesatt autoplay-terminal. Scrollutløst, skriver seg selv én gang
+     og blir så stående på den komplette sesjonen. Aldri løkke, aldri
      interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
      JavaScript: den komplette terminaltranskripsjonen står statisk i
      HTML-en, og denne blokken blander seg ikke inn. */
