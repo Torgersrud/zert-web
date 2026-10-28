@@ -688,21 +688,42 @@
         <ol class="roadmap">
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">01</p>
-            <h3 class="roadmap__tittel">Nettkutt i switch-laget</h3>
+            <h3 class="roadmap__tittel">Karantenen i maskinvaren</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+            <p class="roadmap__plain">Planen er at karantenen skal håndheves av selve nettverksutstyret i datasenteret — ikke av en innstilling som kan skrus av.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">Nettkutt i switch-laget</p>
+                <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+              </div>
+            </details>
           </li>
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">02</p>
-            <h3 class="roadmap__tittel">DMZ for prompt injection</h3>
+            <h3 class="roadmap__tittel">Sperrezone for KI-trafikken</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+            <p class="roadmap__plain">Planen er en egen sperrezone foran KI-endepunktet som skal stoppe forsøk på å styre KI-en med skjulte instruksjoner.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">DMZ for prompt injection</p>
+                <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+              </div>
+            </details>
           </li>
           <li class="roadmap__item" data-reveal>
             <p class="roadmap__nummer" aria-hidden="true">03</p>
-            <h3 class="roadmap__tittel">Eksport av signerte bevis</h3>
+            <h3 class="roadmap__tittel">Signerte bevis til egen kontroll</h3>
             <p class="roadmap__status">Ikke i produksjon ennå</p>
-            <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+            <p class="roadmap__plain">Planen er at dere skal kunne hente ut revisjonsbevis med digital signatur og selv kontrollere at de er ekte — uten å be oss om tillit.</p>
+            <details class="roadmap__presis">
+              <summary class="roadmap__oppsummering">Nøyaktig formulering</summary>
+              <div class="roadmap__presis-innhold">
+                <p class="roadmap__presistittel">Eksport av signerte bevis</p>
+                <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+              </div>
+            </details>
           </li>
         </ol>
         <p class="veien-videre__avslutning" data-reveal>Hva som er i drift i dag, står <a href="#beviset">i Beviset</a>.</p>
