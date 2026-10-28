@@ -203,7 +203,7 @@ a:hover { text-decoration: underline; }
 
 .prose { max-width: 62ch; }
 
-/* Knapper — mono-mikroetikette paa blaa (interaktiv familie) */
+/* Knapper — mono-mikroetiketter på blå (interaktiv familie) */
 .btn {
   display: inline-block;
   font-family: var(--font-mono);
