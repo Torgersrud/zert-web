@@ -2150,7 +2150,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
        eksternt dokumentert — dette er ikke en Zert-hendelse. Kartongen
        følger sidens rolige språk: hairline, ingen flater eller effekter. --- */
 
-.dev-karantene__monster {
+.dev-karantene__skjult {
   margin-top: clamp(44px, 6vh, 64px);
   max-width: 62ch;
   border: 1px solid var(--line);
@@ -2158,18 +2158,18 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   padding: clamp(20px, 3vw, 30px);
 }
 
-.dev-karantene__monster .kicker { margin-bottom: 12px; }
+.dev-karantene__skjult .kicker { margin-bottom: 12px; }
 
-.dev-karantene__monster-tittel {
+.dev-karantene__skjult-tittel {
   font-weight: 600;
   font-size: 19px;
   line-height: 1.25;
   margin-bottom: 10px;
 }
 
-.dev-karantene__monster-tekst { color: var(--fg-muted); }
+.dev-karantene__skjult-tekst { color: var(--fg-muted); }
 
-.dev-karantene__monster-kilde {
+.dev-karantene__skjult-kilde {
   margin-top: 14px;
   font-family: var(--font-mono);
   font-size: 12.5px;
