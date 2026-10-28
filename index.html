@@ -1037,29 +1037,17 @@
     <section id="kom-i-gang" class="section section--kom-i-gang" data-act="kom-i-gang" aria-labelledby="kom-i-gang-tittel">
       <div class="section__inner">
         <div class="kig__intro" data-reveal-group>
-          <p class="kicker" data-reveal>Venteliste · to dører</p>
+          <p class="kicker" data-reveal>Venteliste · få om gangen</p>
           <h2 class="section__title" id="kom-i-gang-tittel" data-reveal>Kom i gang</h2>
-          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Vi setter opp zert sammen — fra installasjon til første KI-svar i deres egen sandbox.</p>
+          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Dette er en invitasjon, ikke en nedlasting.</p>
         </div>
 
         <div class="kig__grid" data-reveal-group>
           <div class="kig__formside" data-reveal>
             <form class="kig__form" id="venteliste">
-              <fieldset class="kig__doors">
-                <legend class="kig__legend">Kommer du som utvikler eller leder?</legend>
-                <div class="kig__doorvalg">
-                  <input class="kig__door-input" type="radio" name="door" id="door-utvikler" value="utvikler" required>
-                  <label class="kig__door" for="door-utvikler">
-                    <span class="kig__door-tittel">Utvikler</span>
-                    <span class="kig__door-tekst">Jeg vil bruke zert selv</span>
-                  </label>
-                  <input class="kig__door-input" type="radio" name="door" id="door-leder" value="leder" required>
-                  <label class="kig__door" for="door-leder">
-                    <span class="kig__door-tittel">Leder</span>
-                    <span class="kig__door-tekst">Jeg vurderer en runtime for organisasjonen</span>
-                  </label>
-                </div>
-              </fieldset>
+              <!-- Døren er ikke et valg på styreflaten: verdien «leder»
+                   følger med skjult, slik utviklerflaten bærer sin. -->
+              <input type="hidden" name="door" value="leder">
 
               <p class="kig__felt">
                 <label class="kig__merkelapp" for="felt-navn">Navn</label>
@@ -1078,12 +1066,12 @@
               <p class="kig__personvern">E-posten brukes bare til å svare dere.</p>
 
               <noscript>
-                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap, e-post og om du kommer som utvikler eller leder.</p>
+                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap og e-post.</p>
               </noscript>
             </form>
 
             <div class="kig__takk" id="venteliste-takk" role="status" hidden>
-              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi installerer sammen.</p>
+              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi tar oppstarten sammen.</p>
             </div>
 
             <div class="kig__feil" id="venteliste-feil" role="alert" hidden>
@@ -1092,13 +1080,9 @@
             </div>
           </div>
 
-          <aside class="kig__bevis" data-reveal aria-labelledby="kig-bevis-tittel">
-            <p class="kicker" id="kig-bevis-tittel">Veien inn</p>
-            <p class="kig__bevis-tekst">Klienten er et lite CLI-verktøy. Du installerer den med:</p>
-            <p class="kig__install"><span class="kig__install-prompt" aria-hidden="true">$</span> <code class="kig__install-kode">brew install zert</code></p>
-            <p class="kig__bevis-tekst">Kilden er åpen og MIT-lisensiert. Les koden selv, før dere skriver dere på.</p>
-            <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-            <p class="kig__repo"><a href="https://github.com/zert" rel="noopener">github.com/zert</a></p>
+          <aside class="kig__invitasjon" data-reveal aria-labelledby="kig-invitasjon-tittel">
+            <p class="kicker" id="kig-invitasjon-tittel">Plassen ved bordet</p>
+            <p class="kig__invitasjon-tekst">Vi setter opp zert sammen — fra første samtale til første KI-svar i deres egen KI-sandbox.</p>
             <p class="kig__guidet">Ingen selvbetjening ennå. De første brukerne onboarder vi selv, sammen med dere. Derfor tar vi imot få om gangen.</p>
           </aside>
         </div>
