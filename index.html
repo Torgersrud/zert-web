@@ -34,6 +34,7 @@
     <nav class="site-nav" aria-label="Sider på nettstedet">
       <ul>
         <li><a href="#problemet">Problemet</a></li>
+        <li><a href="#loven">Loven</a></li>
         <li><a href="#losningen">Løsningen</a></li>
         <li><a href="#slik-virker-det">Slik virker det</a></li>
         <li><a href="#infrastrukturen">Infrastrukturen</a></li>
@@ -55,14 +56,141 @@
     <section id="hero" class="section section--hero" data-act="hero" aria-labelledby="hero-tittel">
       <div class="section__inner">
         <div class="hero__content" data-reveal-group>
-          <p class="kicker" data-reveal>Zert · Norsk KI-sandbox</p>
-          <h1 class="hero__title" id="hero-tittel" data-reveal>Si ja til KI. Uten å slippe ut data.</h1>
-          <p class="hero__ingress ingress" data-reveal>Zert gir utviklerne dine en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
-          <p class="hero__ctas" data-reveal>
-            <a class="btn btn--primary" href="#kom-i-gang">Skriv deg på liste</a>
-            <a class="btn btn--ghost" href="#slik-virker-det">Se hvordan det virker</a>
-          </p>
+          <p class="kicker" data-reveal>Hodet og hendene</p>
+          <h1 class="hero__title" id="hero-tittel" data-reveal>KI-agenten har allerede fått hender i virksomheten din.</h1>
+          <p class="hero__ingress ingress" data-reveal>Hodet kjører på en server et annet sted i verden. Hendene jobber på virksomhetens egen maskin. Mellom dem går én forbindelse.</p>
         </div>
+
+        <!-- Hodet/hender-diagrammet (ticket #17): KI-agenten som scene. -->
+        <figure class="hero__figure hero__figure--scene" data-reveal-group>
+          <figcaption class="hero__figure-label" data-reveal>KI-agenten — hodet i verden, hendene på din maskin</figcaption>
+
+          <div class="hero__agendiagram" data-reveal>
+
+            <!-- Bred variant (desktop): hodet i verden til høyre, hender på
+                 virksomhetens maskin til venstre, én forbindelse over grensen. -->
+            <svg class="agent agent--wide" viewBox="0 0 940 500" role="img" focusable="false"
+                 aria-labelledby="agent-breed-t agent-breed-d">
+              <title id="agent-breed-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-breed-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:100ms" x="64" y="46">virksomheten</text>
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="914" y="46" text-anchor="end">resten av verden</text>
+              <line class="agent__grense d-fade" style="--d:550ms" x1="470" y1="64" x2="470" y2="452"/>
+
+              <!-- Hendene: på virksomhetens egen maskin -->
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="64" y="150" width="328" height="224" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="228" y="134" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="126" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="138" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="150" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="162" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="121" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="270" y="226" width="8" height="28" rx="4"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="282" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="294" y="222" width="8" height="32" rx="4"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="306" y="228" width="8" height="26" rx="4"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="259" y="252" width="58" height="32" rx="10"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="228" y="312" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="110" y="326" width="94" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="157" y="347" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="252" y="326" width="112" height="32" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="308" y="347" text-anchor="middle">systemer</text>
+              </g>
+
+              <!-- Hodet: designelementet et annet sted i verden -->
+              <g transform="translate(612 128) scale(0.245)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="710" cy="226" r="34"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="710" y="231" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="710" y="352" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="710" y="370" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <!-- Én forbindelse mellom hodet og hendene -->
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="398" y1="240" x2="604" y2="240"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M404 234.5 L392 240 L404 245.5 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="501" y="218" text-anchor="middle">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="501" y="264" text-anchor="middle">frem og tilbake</text>
+                <circle class="agent__puls" style="--px:-198px; --d:1300ms" cx="602" cy="240" r="3.5"/>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett forløp —
+                 hodet øverst, grensen under, maskinen med hendene nederst. -->
+            <svg class="agent agent--tall" viewBox="-8 0 356 660" role="img" focusable="false"
+                 aria-labelledby="agent-smal-t agent-smal-d">
+              <title id="agent-smal-t">KI-agenten: hodet et annet sted i verden, hendene på din maskin</title>
+              <desc id="agent-smal-d">En KI-agent er hodet — selve KI-modellen — som kjører på en server et annet sted i verden, og programmet som gir den hender på virksomhetens egen maskin. Hendene arbeider i filer og systemer der. Mellom hodet og hendene går én eneste forbindelse, frem og tilbake.</desc>
+
+              <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:600ms" x="170" y="30" text-anchor="middle">resten av verden</text>
+
+              <g transform="translate(90 48) scale(0.2)">
+                <path class="agent__blad d-draw" pathLength="100" d="M0 0 H400 A400 400 0 0 1 0 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:60ms" pathLength="100" d="M400 0 H800 A400 400 0 0 1 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:100ms" pathLength="100" d="M400 400 V800 H0 A400 400 0 0 0 400 400 Z"/>
+                <path class="agent__blad d-draw" style="--d:140ms" pathLength="100" d="M800 400 V800 H400 A400 400 0 0 0 800 400 Z"/>
+              </g>
+              <g>
+                <circle class="agent__kjerne d-draw" style="--d:760ms" pathLength="100" cx="170" cy="128" r="30"/>
+                <text class="agent__text agent__text--node d-fade" style="--d:880ms" x="170" y="133" text-anchor="middle">hodet</text>
+                <text class="agent__text agent__text--micro d-fade" style="--d:920ms" x="170" y="232" text-anchor="middle">KI-modellen</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:960ms" x="170" y="250" text-anchor="middle">et annet sted i verden</text>
+              </g>
+
+              <line class="agent__grense d-fade" style="--d:550ms" x1="8" y1="280" x2="332" y2="280"/>
+
+              <g>
+                <line class="agent__linje d-draw" style="--d:1020ms" pathLength="100" x1="170" y1="292" x2="170" y2="374"/>
+                <path class="agent__pil d-fade" style="--d:1280ms" d="M164.5 376 L170 388 L175.5 376 Z"/>
+                <text class="agent__text agent__text--led d-fade" style="--d:1240ms" x="184" y="326">én forbindelse</text>
+                <text class="agent__text agent__text--micro agent__text--muted d-fade" style="--d:1280ms" x="184" y="344">frem og tilbake</text>
+                <circle class="agent__puls" style="--py:88px; --d:1300ms" cx="170" cy="294" r="3.5"/>
+              </g>
+
+              <g>
+                <rect class="agent__maskin d-draw" pathLength="100" x="40" y="400" width="260" height="212" rx="6"/>
+                <text class="agent__text agent__text--micro agent__text--strong d-fade" style="--d:150ms" x="170" y="426" text-anchor="middle">din maskin</text>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" pathLength="100" x="89" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:40ms" pathLength="100" x="99" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:80ms" pathLength="100" x="109" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:120ms" pathLength="100" x="119" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:160ms" pathLength="100" x="85" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <g class="agent__hand">
+                <rect class="d-draw" style="--d:140ms" pathLength="100" x="213" y="444" width="7" height="24" rx="3.5"/>
+                <rect class="d-draw" style="--d:180ms" pathLength="100" x="223" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:220ms" pathLength="100" x="233" y="441" width="7" height="27" rx="3.5"/>
+                <rect class="d-draw" style="--d:260ms" pathLength="100" x="243" y="446" width="7" height="22" rx="3.5"/>
+                <rect class="d-draw" style="--d:300ms" pathLength="100" x="205" y="466" width="50" height="28" rx="9"/>
+              </g>
+              <text class="agent__text agent__text--node d-fade" style="--d:480ms" x="170" y="518" text-anchor="middle">hender</text>
+              <g>
+                <rect class="agent__chip d-draw" style="--d:420ms" pathLength="100" x="72" y="532" width="86" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:560ms" x="115" y="552" text-anchor="middle">filer</text>
+                <rect class="agent__chip d-draw" style="--d:460ms" pathLength="100" x="186" y="532" width="102" height="30" rx="5"/>
+                <text class="agent__text agent__text--micro d-fade" style="--d:600ms" x="237" y="552" text-anchor="middle">systemer</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+        <!-- /Hodet/hender-diagrammet (ticket #17) -->
 
         <!-- PLACEHOLDER: replaced by ticket #5 containment diagram -->
         <figure class="hero__figure" data-reveal-group>
@@ -271,6 +399,147 @@
       </div>
     </section>
     <!-- ===== /ACT:problemet ===== -->
+
+    <!-- ===== ACT:loven:start ===== -->
+    <!-- Implementasjonsnote (ticket #18): alle juridiske påstander i akten er
+         eksterne fakta, formulert tett på primærkildene:
+         CLOUD Act (2018, Pub. L. 115-141, div. V) og 18 U.S.C. § 2713 —
+         lovteksten er sitert ordrett fra uscode.house.gov; oversiktskilde
+         CRS R45173. USA PATRIOT Act (2001, Pub. L. 107-56) § 215 endret
+         FISA § 501; bulk-ordningen avviklet av USA FREEDOM Act (2015,
+         Pub. L. 114-23); § 215 utløp 15.03.2020 og ble ikke videreført —
+         CRS R40138. FISA § 702 fornyet i april 2024 — congress.gov.
+         Dataavtalen USA–UK (Data Access Agreement, den første CLOUD
+         Act-avtalen) — signert 03.10.2019, i kraft 03.10.2022 —
+         DOJ-pressemelding 03.10.2022 og gov.uk 21.07.2022; UK-sideens
+         implementasjon er COPOA 2019 — legislation.gov.uk.
+         «PCCC» er presentasjonens navn på avtalen og brukes ikke her.
+         Ingen setning i akten handler om Zert eller noen bestemt
+         leverandør; «alvorlig kriminalitet» gjengir avtalens «serious
+         crime». -->
+    <section id="loven" class="section section--loven" data-act="loven" aria-labelledby="loven-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="loven__hode">
+          <p class="kicker" data-reveal>Data ut — tre rettsakter</p>
+          <h2 class="section__title" id="loven-tittel" data-reveal>Amerikansk lov følger dataene.</h2>
+          <p class="ingress" data-reveal>Spørsmålet om data kan kreves utlevert, avgjøres ikke av hvor de ligger. Det avgjøres av hvilken stat som har jurisdiksjon over selskapet som kontrollerer dem. Jurisdiksjon — ikke IT.</p>
+        </div>
+
+        <figure class="loven__figure" data-reveal-group>
+          <figcaption class="loven__figure-label" data-reveal>Jurisdiksjon — ett krav krysser havet</figcaption>
+
+          <div class="lovdiagram" data-reveal>
+
+            <!-- Bred variant (desktop): norsk jord, dataene, én juridisk pil
+                 over havet. Engangsanimasjon — tilstandsmaskin i CSS,
+                 kontroller i BEHAVIOR:loven. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--wide" viewBox="0 214 940 186" role="img" focusable="false"
+                 aria-labelledby="lov-breed-t lov-breed-d">
+              <title id="lov-breed-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-breed-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="346" x2="360" y2="346"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 348 v8 M60 348 v8 M100 348 v8 M140 348 v8 M180 348 v8 M220 348 v8 M260 348 v8 M300 348 v8 M340 348 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="382">Norge</text>
+              </g>
+
+              <!-- Data på norsk jord -->
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="136" y="246" width="180" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="226" y="288" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="226" y="314" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <!-- Nord-Atlanterhavet -->
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="512" y="324" text-anchor="middle">Nord-Atlanterhavet</text>
+
+              <!-- USA -->
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="690" y="246" width="204" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="792" y="288" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="792" y="314" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <!-- Det ene juridiske kravet -->
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="682" y1="296" x2="348" y2="296"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M346 290 L334 296 L346 302 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="512" y="270" text-anchor="middle">CLOUD Act · utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="512" y="344" text-anchor="middle">uavhengig av lagringsstedet</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett — USA øverst,
+                 kravet ned, dataene på norsk jord nederst. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--tall" viewBox="0 0 340 500" role="img" focusable="false"
+                 aria-labelledby="lov-smal-t lov-smal-d">
+              <title id="lov-smal-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-smal-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="40" y="16" width="260" height="92" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="170" y="54" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="170" y="82" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="186" y="190">Nord-Atlanterhavet</text>
+
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="170" y1="118" x2="170" y2="318"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M164 320 L170 332 L176 320 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="186" y="232">CLOUD Act</text>
+                <text class="lovdiagram__text lovdiagram__text--law lovdiagram__text--micro d-fade" style="--d:1200ms" x="186" y="252">utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="186" y="276">uavhengig av lagringsstedet</text>
+              </g>
+
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="40" y="332" width="260" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="170" y="374" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="170" y="400" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="446" x2="320" y2="446"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 448 v8 M50 448 v8 M80 448 v8 M110 448 v8 M140 448 v8 M170 448 v8 M200 448 v8 M230 448 v8 M260 448 v8 M290 448 v8 M320 448 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="480">Norge</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+
+        <div class="loven__lover">
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 1 — CLOUD Act (2018)</p>
+            <h3 class="loven__lov-tittel">Plikten følger selskapet, ikke stedet.</h3>
+            <p class="loven__lov-tekst">CLOUD Act pålegger leverandører under amerikansk jurisdiksjon å utlevere data de har kontroll over, uavhengig av hvor i verden dataene er lagret. Kravet kommer fra domstol og gjelder straffeforfølgning.</p>
+            <blockquote class="loven__lov-sitat">
+              <p>«…regardless of whether such communication, record, or other information is located within or outside of the United States.»</p>
+              <cite>18 U.S.C. § 2713, tilføyd av CLOUD Act (2018)</cite>
+            </blockquote>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 2 — USA PATRIOT Act (2001)</p>
+            <h3 class="loven__lov-tittel">Etterretningstilgang via egen domstol.</h3>
+            <p class="loven__lov-tekst">Patriot Act ga etterretningen utvidet tilgang til forretningsmessige opplysninger, ved kjennelse fra FISA-domstolen. § 215 utløp i 2020 og ble ikke videreført. FISA består: § 702 gir fortsatt tilgang til kommunikasjonen til personer utenfor USA, og ble fornyet i 2024.</p>
+            <p class="loven__lov-note">Historie og nåtid holdt hver for seg: § 215 er opphørt, § 702 er i kraft.</p>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 3 — Dataavtalen USA–UK</p>
+            <h3 class="loven__lov-tittel">Kravet kan sendes direkte.</h3>
+            <p class="loven__lov-tekst">Dataavtalen mellom USA og Storbritannia trådte i kraft i 2022 som den første avtalen under CLOUD Act. Myndighetene i hvert land kan kreve utlevert data direkte fra leverandører i det andre landet ved alvorlig kriminalitet.</p>
+            <p class="loven__lov-note">Avtalen står mellom USA og Storbritannia. Det Norge angår, går den veien som rettsakt 1 beskriver.</p>
+          </article>
+        </div>
+
+        <p class="ingress loven__avslutning" data-reveal>De tre rettsaktene er amerikanske rettsakter, rettet mot selskaper under amerikansk jurisdiksjon. Det er underlaget for risikoen «data ut»: spørsmålet er jurisdiksjon, ikke IT.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:loven ===== -->
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
