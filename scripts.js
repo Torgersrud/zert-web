@@ -180,7 +180,10 @@
 
   /* ===== BEHAVIOR:beviset ===== */
 
-  /* Beviset-ticketen eier denne blokken. */
+  /* Beviset er statisk: dokumentet trenger ingen egen atferd. Avduking
+     skjer via BEHAVIOR:scroll-reveal, og prefers-reduced-motion dekkes av
+     kjerne-CSS. Ingen hendelsesdata genereres i nettleseren — radene er
+     faktatekst, ikke simulering. */
 
   /* ===== /BEHAVIOR:beviset ===== */
 
