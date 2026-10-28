@@ -555,8 +555,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     function mailtoLenke() {
       var tekst = 'Navn: ' + verdi('name') +
         '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email') +
-        '\nKommer som: ' + dør();
+        '\nE-post: ' + verdi('email');
       return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
         '&body=' + encodeURIComponent(tekst);
     }
@@ -655,12 +654,12 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       knapp.textContent = på ? 'Sender …' : knappetekst;
     }
 
-    // Fallbacklenka bærer med alt brukeren har skrevet inn, døren inkludert.
+    // Fallbacklenka bærer med alt brukeren har skrevet inn, slik at
+    // e-posten er ferdig utfylt når den åpnes.
     function mailtoLenke() {
       var tekst = 'Navn: ' + verdi('name') +
         '\nSelskap: ' + verdi('company') +
-        '\nE-post: ' + verdi('email') +
-        '\nKommer som: ' + dør();
+        '\nE-post: ' + verdi('email');
       return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
         '&body=' + encodeURIComponent(tekst);
     }
