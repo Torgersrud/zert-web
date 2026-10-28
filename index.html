@@ -34,6 +34,7 @@
     <nav class="site-nav" aria-label="Sider på nettstedet">
       <ul>
         <li><a href="#problemet">Problemet</a></li>
+        <li><a href="#loven">Loven</a></li>
         <li><a href="#losningen">Løsningen</a></li>
         <li><a href="#slik-virker-det">Slik virker det</a></li>
         <li><a href="#infrastrukturen">Infrastrukturen</a></li>
@@ -270,6 +271,147 @@
       </div>
     </section>
     <!-- ===== /ACT:problemet ===== -->
+
+    <!-- ===== ACT:loven:start ===== -->
+    <!-- Implementasjonsnote (ticket #18): alle juridiske påstander i akten er
+         eksterne fakta, formulert tett på primærkildene:
+         CLOUD Act (2018, Pub. L. 115-141, div. V) og 18 U.S.C. § 2713 —
+         lovteksten er sitert ordrett fra uscode.house.gov; oversiktskilde
+         CRS R45173. USA PATRIOT Act (2001, Pub. L. 107-56) § 215 endret
+         FISA § 501; bulk-ordningen avviklet av USA FREEDOM Act (2015,
+         Pub. L. 114-23); § 215 utløp 15.03.2020 og ble ikke videreført —
+         CRS R40138. FISA § 702 fornyet i april 2024 — congress.gov.
+         Dataavtalen USA–UK (Data Access Agreement, den første CLOUD
+         Act-avtalen) — signert 03.10.2019, i kraft 03.10.2022 —
+         DOJ-pressemelding 03.10.2022 og gov.uk 21.07.2022; UK-sideens
+         implementasjon er COPOA 2019 — legislation.gov.uk.
+         «PCCC» er presentasjonens navn på avtalen og brukes ikke her.
+         Ingen setning i akten handler om Zert eller noen bestemt
+         leverandør; «alvorlig kriminalitet» gjengir avtalens «serious
+         crime». -->
+    <section id="loven" class="section section--loven" data-act="loven" aria-labelledby="loven-tittel">
+      <div class="section__inner" data-reveal-group>
+        <div class="loven__hode">
+          <p class="kicker" data-reveal>Data ut — tre rettsakter</p>
+          <h2 class="section__title" id="loven-tittel" data-reveal>Amerikansk lov følger dataene.</h2>
+          <p class="ingress" data-reveal>Spørsmålet om data kan kreves utlevert, avgjøres ikke av hvor de ligger. Det avgjøres av hvilken stat som har jurisdiksjon over selskapet som kontrollerer dem. Jurisdiksjon — ikke IT.</p>
+        </div>
+
+        <figure class="loven__figure" data-reveal-group>
+          <figcaption class="loven__figure-label" data-reveal>Jurisdiksjon — ett krav krysser havet</figcaption>
+
+          <div class="lovdiagram" data-reveal>
+
+            <!-- Bred variant (desktop): norsk jord, dataene, én juridisk pil
+                 over havet. Engangsanimasjon — tilstandsmaskin i CSS,
+                 kontroller i BEHAVIOR:loven. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--wide" viewBox="0 214 940 186" role="img" focusable="false"
+                 aria-labelledby="lov-breed-t lov-breed-d">
+              <title id="lov-breed-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-breed-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <!-- Norsk jord -->
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="346" x2="360" y2="346"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 348 v8 M60 348 v8 M100 348 v8 M140 348 v8 M180 348 v8 M220 348 v8 M260 348 v8 M300 348 v8 M340 348 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="382">Norge</text>
+              </g>
+
+              <!-- Data på norsk jord -->
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="136" y="246" width="180" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="226" y="288" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="226" y="314" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <!-- Nord-Atlanterhavet -->
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="512" y="324" text-anchor="middle">Nord-Atlanterhavet</text>
+
+              <!-- USA -->
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="690" y="246" width="204" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="792" y="288" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="792" y="314" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <!-- Det ene juridiske kravet -->
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="682" y1="296" x2="348" y2="296"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M346 290 L334 296 L346 302 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="512" y="270" text-anchor="middle">CLOUD Act · utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="512" y="344" text-anchor="middle">uavhengig av lagringsstedet</text>
+              </g>
+            </svg>
+
+            <!-- Smal variant (mobil): samme historie, loddrett — USA øverst,
+                 kravet ned, dataene på norsk jord nederst. -->
+            <svg class="lovdiagram__svg lovdiagram__svg--tall" viewBox="0 0 340 500" role="img" focusable="false"
+                 aria-labelledby="lov-smal-t lov-smal-d">
+              <title id="lov-smal-t">Amerikansk lov følger dataene</title>
+              <desc id="lov-smal-d">Data er lagret i Norge og kontrolleres av en amerikansk leverandør. Ett utleveringskrav krysser Nord-Atlanterhavet fra en amerikansk domstol til dataene. Kravet gjelder uavhengig av lagringsstedet.</desc>
+
+              <g>
+                <rect class="lovdiagram__state d-draw" style="--d:260ms" pathLength="100" x="40" y="16" width="260" height="92" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:430ms" x="170" y="54" text-anchor="middle">USA</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:480ms" x="170" y="82" text-anchor="middle">domstol · påtalemyndighet</text>
+              </g>
+
+              <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:540ms" x="186" y="190">Nord-Atlanterhavet</text>
+
+              <g>
+                <line class="lovdiagram__reach d-draw" style="--d:560ms" pathLength="100" x1="170" y1="118" x2="170" y2="318"/>
+                <path class="lovdiagram__arrow d-fade" style="--d:1240ms" d="M164 320 L170 332 L176 320 Z"/>
+                <text class="lovdiagram__text lovdiagram__text--law d-fade" style="--d:1140ms" x="186" y="232">CLOUD Act</text>
+                <text class="lovdiagram__text lovdiagram__text--law lovdiagram__text--micro d-fade" style="--d:1200ms" x="186" y="252">utleveringskrav</text>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:1320ms" x="186" y="276">uavhengig av lagringsstedet</text>
+              </g>
+
+              <g>
+                <rect class="lovdiagram__data d-draw" style="--d:160ms" pathLength="100" x="40" y="332" width="260" height="100" rx="6"/>
+                <text class="lovdiagram__text lovdiagram__text--node d-fade" style="--d:320ms" x="170" y="374" text-anchor="middle">data</text>
+                <text class="lovdiagram__text lovdiagram__text--micro d-fade" style="--d:370ms" x="170" y="400" text-anchor="middle">amerikansk leverandør</text>
+              </g>
+
+              <g>
+                <line class="lovdiagram__ground d-draw" pathLength="100" x1="20" y1="446" x2="320" y2="446"/>
+                <path class="lovdiagram__ground-mark d-draw" style="--d:60ms" pathLength="100" d="M20 448 v8 M50 448 v8 M80 448 v8 M110 448 v8 M140 448 v8 M170 448 v8 M200 448 v8 M230 448 v8 M260 448 v8 M290 448 v8 M320 448 v8"/>
+                <text class="lovdiagram__text lovdiagram__text--micro lovdiagram__text--muted d-fade" style="--d:200ms" x="20" y="480">Norge</text>
+              </g>
+            </svg>
+
+          </div>
+        </figure>
+
+        <div class="loven__lover">
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 1 — CLOUD Act (2018)</p>
+            <h3 class="loven__lov-tittel">Plikten følger selskapet, ikke stedet.</h3>
+            <p class="loven__lov-tekst">CLOUD Act pålegger leverandører under amerikansk jurisdiksjon å utlevere data de har kontroll over, uavhengig av hvor i verden dataene er lagret. Kravet kommer fra domstol og gjelder straffeforfølgning.</p>
+            <blockquote class="loven__lov-sitat">
+              <p>«…regardless of whether such communication, record, or other information is located within or outside of the United States.»</p>
+              <cite>18 U.S.C. § 2713, tilføyd av CLOUD Act (2018)</cite>
+            </blockquote>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 2 — USA PATRIOT Act (2001)</p>
+            <h3 class="loven__lov-tittel">Etterretningstilgang via egen domstol.</h3>
+            <p class="loven__lov-tekst">Patriot Act ga etterretningen utvidet tilgang til forretningsmessige opplysninger, ved kjennelse fra FISA-domstolen. § 215 utløp i 2020 og ble ikke videreført. FISA består: § 702 gir fortsatt tilgang til kommunikasjonen til personer utenfor USA, og ble fornyet i 2024.</p>
+            <p class="loven__lov-note">Historie og nåtid holdt hver for seg: § 215 er opphørt, § 702 er i kraft.</p>
+          </article>
+
+          <article class="loven__lov" data-reveal>
+            <p class="loven__lov-merke">Rettsakt 3 — Dataavtalen USA–UK</p>
+            <h3 class="loven__lov-tittel">Kravet kan sendes direkte.</h3>
+            <p class="loven__lov-tekst">Dataavtalen mellom USA og Storbritannia trådte i kraft i 2022 som den første avtalen under CLOUD Act. Myndighetene i hvert land kan kreve utlevert data direkte fra leverandører i det andre landet ved alvorlig kriminalitet.</p>
+            <p class="loven__lov-note">Avtalen står mellom USA og Storbritannia. Det Norge angår, går den veien som rettsakt 1 beskriver.</p>
+          </article>
+        </div>
+
+        <p class="ingress loven__avslutning" data-reveal>De tre rettsaktene er amerikanske rettsakter, rettet mot selskaper under amerikansk jurisdiksjon. Det er underlaget for risikoen «data ut»: spørsmålet er jurisdiksjon, ikke IT.</p>
+      </div>
+    </section>
+    <!-- ===== /ACT:loven ===== -->
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
