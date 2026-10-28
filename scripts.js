@@ -41,6 +41,20 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     for (i = 0; i < list.length; i++) { fn(list[i], i); }
   }
 
+  // Hold --header-h i takt med den faktiske headerhøyden (headeren wrapper
+  // på smale bredder). [id] sin scroll-margin-top leses via tokenen, slik
+  // at ankerlandlinger ikke lander under headeren — heller ikke over den
+  // lyse Beviset-seksjonen.
+  function syncHeaderHeight() {
+    var header = doc.querySelector('.site-header');
+    if (!header || !header.getBoundingClientRect || !rootEl.style.setProperty) { return; }
+    var height = Math.ceil(header.getBoundingClientRect().height);
+    if (height > 0) { rootEl.style.setProperty('--header-h', height + 'px'); }
+  }
+  syncHeaderHeight();
+  if (window.addEventListener) { window.addEventListener('resize', syncHeaderHeight, false); }
+  if (doc.fonts && doc.fonts.ready && doc.fonts.ready.then) { doc.fonts.ready.then(syncHeaderHeight); }
+
   function reducedMotion() {
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
