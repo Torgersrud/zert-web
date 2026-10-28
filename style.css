@@ -2145,6 +2145,38 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   .term__caret { display: none; }
 }
 
+/* --- Publisert industrimønster (spec #15, story 20): skjulte instruksjoner
+       i teksten agenten leser. Både etikett og tekst markerer blokken som
+       eksternt dokumentert — dette er ikke en Zert-hendelse. Kartongen
+       følger sidens rolige språk: hairline, ingen flater eller effekter. --- */
+
+.dev-karantene__monster {
+  margin-top: clamp(44px, 6vh, 64px);
+  max-width: 62ch;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.dev-karantene__monster .kicker { margin-bottom: 12px; }
+
+.dev-karantene__monster-tittel {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.dev-karantene__monster-tekst { color: var(--fg-muted); }
+
+.dev-karantene__monster-kilde {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
 @media (max-width: 880px) {
   .dev-steg__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
