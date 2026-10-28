@@ -470,10 +470,77 @@ html.js [data-reveal].is-revealed {
 
 /* ===== ACT: problemet ===== */
 
-/* Innhold og stiler eies av Problemets ticket. Den tonale aktøren her er
-   oransje/rød: sett --action-color: var(--orange-500) i denne blokken.
-   Seksjonen åpner med: «Utviklerne dine bruker KI allerede. Spørsmålet er
-   hva de sender, og hvor.» (handling 2). */
+/* Akten åpner med den låste setningen, nevner den dobbelte risikoen — data
+   ut og agenter inn — og avslutter rett. Den tonale aktøren er oransje/rød,
+   ene sekundærfarge i denne akten, brukt bare på etiketter og grafikk
+   (DESIGN.md: ikke på brødtekst). Familjetokens (--orange-*) finnes allerede
+   i :root. Ingen interaktive elementer her; sidenav og knapper holder blå. */
+
+.section--problemet {
+  --action-color: var(--orange-500);
+}
+
+/* Åpning — første synlige tekst i akten er den faste setningen. */
+.problemet__led {
+  font-weight: 500;
+  font-size: clamp(26px, 2.9vw, 38px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  max-width: 30ch;
+  margin-bottom: clamp(56px, 9vh, 96px);
+}
+
+.problemet__hode .ingress { margin-top: 18px; }
+
+/* De to risikoene — ett bilde på samme problem (GLOSSARY: Data ut /
+   agenter inn). Redaksjonelt: hairline toppregel i aktens farge, ingen
+   kortflate, ingen effekter. */
+.problemet__kort {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(48px, 7vh, 72px);
+}
+
+.problemet__risiko {
+  border-top: 2px solid var(--action-color);
+  padding-top: 26px;
+}
+
+.problemet__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--action-color);
+  margin-bottom: 14px;
+}
+
+.problemet__risiko-tittel {
+  font-weight: 500;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.problemet__risiko-tekst { max-width: 46ch; }
+
+.problemet__risiko-note {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* Avslutning — board-takeaway, uten løfte om løsningen (neste akt eier den). */
+.problemet__avslutning { margin-top: clamp(48px, 7vh, 72px); }
+
+@media (max-width: 720px) {
+  .problemet__kort { grid-template-columns: 1fr; }
+}
 
 /* ===== /ACT: problemet ===== */
 
@@ -505,11 +572,162 @@ html.js [data-reveal].is-revealed {
 
 /* ===== ACT: beviset ===== */
 
-/* Innhold og stiler eies av Bevisets ticket. Siden bruker den reserverte
-   lyse inversjonen via .section-light-style (definert ett sted over — ikke
-   omkjor den her). Den tonale aktoren her er gronn: sett
-   --action-color: var(--green-500) i denne blokken. Bare paastander med
-   presens-dom fra GRC-forskningen; Gap Policy siteres verbatim (handling 6). */
+/* Den lyse inversjonen kommer fra .section-light-style (definert ett sted av
+   skeleton — gjeninnføres ikke her). Den tonale aktøren er grønn, brukt
+   som aktør — markør, tall, venstrekanter, brikkefelt — aldri som brødtekst.
+   Akten leser som et revisjonsdokument: platåband mot mørket, felta (dt/dd)
+   med hairline-regler, mono-mikroetiketter. Ingen JS: avdukinga kjører på
+   kjerne-mekanismen. */
+
+.section--beviset {
+  --action-color: var(--green-500);
+  padding-top: 0; /* dagslysbandet ligger inntil mørket over */
+}
+
+/* Lenker i den lyse akten: samme interaktive familie, den mørke tonen —
+   blue-300 mot #fcfcfc gir for lav kontrast. */
+.section--beviset a { color: var(--interactive); }
+
+/* --- Dagslysbandet: panoramafoto i full bredde, anslag mot mørket --- */
+
+.beviset__band img {
+  width: 100%;
+  height: clamp(220px, 34vw, 440px);
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.beviset__band figcaption {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 12px var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* --- Dokumentdelen: luft mellom band og overskrift --- */
+
+.section--beviset .section__inner {
+  padding-top: clamp(48px, 8vh, 96px);
+}
+
+/* --- Bevisloggen: feltrader som i et revisjonsdokument --- */
+
+.beviset__log {
+  margin: clamp(40px, 6vh, 64px) 0 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.beviset__row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 6px 40px;
+  padding: clamp(24px, 3.5vh, 34px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.beviset__field {
+  display: flex;
+  gap: 10px;
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* Grønn feltnyansert markør — aktørens faste plass i marginen */
+.beviset__field::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 3px;
+  background: var(--action-color);
+}
+
+.beviset__entry {
+  margin: 0;
+  max-width: 66ch;
+}
+
+.beviset__entry p + p { margin-top: 14px; }
+
+/* Mono-tallet — akten ene store-grønn-tekst (stor nok til AA-large) */
+.beviset__tall {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.15;
+  color: var(--action-color);
+}
+
+.beviset__micro {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+p.beviset__micro { margin-top: 12px; }
+
+/* --- Hendelsestypene som verifiserte brikker (grønt bakteppe, svart tekst) --- */
+
+.beviset__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beviset__chips li {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--green-100);
+  color: var(--zert-black);
+}
+
+/* --- Gap Policy-sitatet: dokumentutdrag med grønn vensterkant --- */
+
+.beviset__quote {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  border-left: 3px solid var(--action-color);
+  font-family: var(--font-mono);
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--fg);
+}
+
+/* --- Avsluttende presenslinje --- */
+
+.beviset__closing {
+  margin-top: clamp(28px, 4vh, 40px);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 720px) {
+  .beviset__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .beviset__band img { height: clamp(180px, 46vw, 260px); }
+}
 
 /* ===== /ACT: beviset ===== */
 
