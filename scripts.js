@@ -174,7 +174,9 @@
 
   /* ===== BEHAVIOR:infrastrukturen ===== */
 
-  /* Infrastrukturen-ticketen eier denne blokken. */
+  /* Infrastrukturen-ticketen eier denne blokken. Handlingen trenger ingen
+     egen JS: fotoet er et stillbilde, og tekst og modellkort rises inn av
+     BEHAVIOR:scroll-reveal via data-reveal / data-reveal-group. */
 
   /* ===== /BEHAVIOR:infrastrukturen ===== */
 
