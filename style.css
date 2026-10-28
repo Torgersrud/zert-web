@@ -1954,3 +1954,77 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* ===== /ACT: beviset-to-lags ===== */
+
+/* ===== ACT: veien-videre to-lag ===== */
+
+/* To-lagsavduking i roadmap-akten (samme mønster som Beviset): den flate
+   setningen ligger synlig på kortet, den presise ordlyden ligger urørt i en
+   <details>-utvidelse — kjerne-mekanisme, ingen JS. Den tonale aktøren
+   forblir gul, brukt på ærlighetsmerket og åpningsmarkøren. */
+
+/* Den flate setningen: lesbar brødtekst i --fg, ikke dempet. */
+.roadmap__plain {
+  color: var(--fg);
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+/* Presislaget: atskilt med hairline, åpnet av en mono-mikroetikett. */
+.roadmap__presis {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.roadmap__oppsummering {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.roadmap__oppsummering::-webkit-details-marker { display: none; }
+
+/* Åpningsmarkør: kvadrat i samme geometri som ærlighetsmerket —
+   tom når utvidelsen er lukket, fylt når den er åpen. */
+.roadmap__oppsummering::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering::before {
+  background: var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering { color: var(--fg); }
+
+/* Utvidelsen: vensterkant i aktens gul, presistitel som mono-etikett. */
+.roadmap__presis-innhold {
+  margin-top: 12px;
+  padding-left: 16px;
+  border-left: 3px solid var(--action-color);
+}
+
+.roadmap__presistittel {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .roadmap__plain { max-width: none; }
+}
+
+/* ===== /ACT: veien-videre to-lag ===== */
