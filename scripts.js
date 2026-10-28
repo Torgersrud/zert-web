@@ -236,7 +236,9 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:losningen ===== */
 
-  /* Losningen-ticketen eier denne blokken. */
+  /* Losningen eier denne blokken. Akten er bevisst uten egen atferd:
+     budskapet er statisk, og avdukingen håndteres av BEHAVIOR:scroll-reveal
+     via data-reveal / data-reveal-group i HTML. Ingen terminal i denne akten. */
 
   /* ===== /BEHAVIOR:losningen ===== */
 

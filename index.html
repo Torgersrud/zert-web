@@ -275,10 +275,66 @@
 
     <!-- ===== ACT:losningen:start ===== -->
     <section id="losningen" class="section section--losningen" data-act="losningen" aria-labelledby="losningen-tittel">
-      <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 3</p>
-        <h2 class="section__title" id="losningen-tittel" data-reveal>Løsningen</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+      <div class="section__inner losningen__layout" data-reveal-group>
+        <header class="losningen__intro">
+          <p class="kicker" data-reveal>Løsningen — to dører</p>
+          <h2 class="section__title" id="losningen-tittel" data-reveal>To dører. Ett produkt.</h2>
+          <p class="ingress" data-reveal>Zert er to ting i én løsning: en KI-harness utviklerne faktisk vil bruke, og en runtime dere kan ansvarlig godkjenne.</p>
+        </header>
+
+        <figure class="losningen__figure" data-reveal>
+          <div class="designelement" role="img" aria-label="To utviklere sitter skulder ved skulder og ser på felles skjerm på en bærbar pc.">
+            <span class="designelement__leaf designelement__leaf--ov">
+              <img class="designelement__bilde" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
+            </span>
+            <span class="designelement__leaf designelement__leaf--oh">
+              <img class="designelement__bilde designelement__bilde--hoyre" src="static/utviklere-1600.webp" srcset="static/utviklere-800.webp 800w, static/utviklere-1600.webp 1600w, static/utviklere-2400.webp 2400w" sizes="(min-width: 900px) 46vw, 92vw" width="1600" height="1067" loading="lazy" decoding="async" alt="">
+            </span>
+            <span class="designelement__leaf designelement__leaf--nv designelement__leaf--tone" aria-hidden="true"></span>
+            <span class="designelement__leaf designelement__leaf--nh designelement__leaf--tone" aria-hidden="true"></span>
+          </div>
+          <figcaption class="losningen__figure-label">To utviklere. Én skjerm. Én sandbox.</figcaption>
+        </figure>
+
+        <div class="losningen__doors">
+          <article class="door" data-reveal>
+            <p class="door__label">Dør én — Styret og CISO</p>
+            <h3 class="door__title">En runtime dere kan stå inne for</h3>
+            <dl class="door__points">
+              <div class="door__point">
+                <dt>Karantene</dt>
+                <dd>Sandboxen står i norsk datasenter. Eneste vei ut er KI-endepunktet. Alt annet er stengt.</dd>
+              </div>
+              <div class="door__point">
+                <dt>Revisjon</dt>
+                <dd>Alle VM-hendelser og tilgangshandlinger logges per kunde — inkludert nektede forsøk.</dd>
+              </div>
+            </dl>
+            <p class="door__close">Dermed godkjenner dere KI basert på fakta, ikke blind tillit.</p>
+          </article>
+
+          <article class="door" data-reveal>
+            <p class="door__label">Dør to — Utvikleren</p>
+            <h3 class="door__title">En KI-harness utviklerne vil ha</h3>
+            <dl class="door__points">
+              <div class="door__point">
+                <dt>Åpen kildekode</dt>
+                <dd>Klienten er åpen. Du leser koden før du installerer den.</dd>
+              </div>
+              <div class="door__point">
+                <dt>Rask CLI</dt>
+                <dd>Én kommando reiser sandboxen. Resten er terminalen du allerede bruker.</dd>
+              </div>
+              <div class="door__point">
+                <dt>Åpne vekter</dt>
+                <dd>Ekte åpne KI-modeller — ikke én snal åpen modell. Det du skriver, blir i datasenteret.</dd>
+              </div>
+            </dl>
+            <p class="door__close">Et verktøy utviklerne selv velger — ikke noe de blir påtvunget.</p>
+          </article>
+        </div>
+
+        <p class="losningen__creed" data-reveal>De to dørene er ikke to produkter. De er to sider av samme sandbox.</p>
       </div>
     </section>
     <!-- ===== /ACT:losningen ===== -->
