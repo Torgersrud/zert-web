@@ -563,8 +563,106 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:footer ===== */
 
+  /* ===== BEHAVIOR:footer ===== */
+
   /* Footer-ticketen eier denne blokken. */
 
   /* ===== /BEHAVIOR:footer ===== */
+
+  /* ===== BEHAVIOR:dev-port ===== */
+
+  /* Utviklerdøren i headern er vanlige lenker (utvikler.html / index.html)
+     uten egen atferd: nettleseren navigerer, og nav-sync berører dem ikke
+     fordi de ikke starter på #. Denne blokken er bevisst tom for kode. */
+
+  /* ===== /BEHAVIOR:dev-port ===== */
+
+  /* ===== BEHAVIOR:dev-venteliste ===== */
+
+  /* Venteliste for utviklerflaten (utvikler.html). Atferden er kom-i-gangs
+     mønster ord for ord — plain fetch POST {name, company, email, door},
+     ingen optimistisk kvittering, mailto-fallback som alltid avsløres ved
+     feil (aldri stille tap) — men med egne id-er, og døren leses fra det
+     skjulte feltet i stedet for radio-knapper: besøkende på utviklerflaten
+     er utviklere, og spørsmålet er allerede besvart. */
+
+  (function () {
+    var form = doc.getElementById('venteliste-utvikler');
+    var takk = doc.getElementById('venteliste-utvikler-takk');
+    var feil = doc.getElementById('venteliste-utvikler-feil');
+    if (!form || !takk || !feil) { return; }
+
+    var knapp = form.querySelector('.dev-kig__send');
+    var feilLenke = feil.querySelector('a');
+    var knappetekst = knapp ? knapp.textContent : '';
+    var sender = false;
+
+    function verdi(navn) {
+      var el = form.querySelector('[name="' + navn + '"]');
+      return el ? el.value.replace(/^\s+|\s+$/, '') : '';
+    }
+
+    // Doren er skjult innhold, ikke et valg: verdien (utvikler) står i HTML.
+    function dør() { return verdi('door'); }
+
+    function settSending(på) {
+      sender = på;
+      if (!knapp) { return; }
+      knapp.disabled = på;
+      knapp.textContent = på ? 'Sender …' : knappetekst;
+    }
+
+    // Fallbacklenka bærer med alt brukeren har skrevet inn, døren inkludert.
+    function mailtoLenke() {
+      var tekst = 'Navn: ' + verdi('name') +
+        '\nSelskap: ' + verdi('company') +
+        '\nE-post: ' + verdi('email') +
+        '\nKommer som: ' + dør();
+      return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
+        '&body=' + encodeURIComponent(tekst);
+    }
+
+    function visTakk() {
+      feil.hidden = true;
+      form.hidden = true;
+      takk.hidden = false;
+    }
+
+    function visFeil() {
+      if (feilLenke) { feilLenke.href = mailtoLenke(); }
+      takk.hidden = true;
+      feil.hidden = false;
+      settSending(false); // tillat forsøk igjen — fallbacken står uansett fram
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sender) { return; }
+
+      var melding = {
+        name: verdi('name'),
+        company: verdi('company'),
+        email: verdi('email'),
+        door: dør()
+      };
+
+      settSending(true);
+
+      // Gammel nettleser utan fetch: fallback med en gang, aldri stille tap.
+      if (!('fetch' in window)) { visFeil(); return; }
+
+      fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(melding)
+      }).then(function (svar) {
+        if (svar.ok) { visTakk(); } else { visFeil(); }
+      })['catch'](function () {
+        visFeil();
+      });
+    });
+  }());
+
+  /* ===== /BEHAVIOR:dev-venteliste ===== */
 
 }());

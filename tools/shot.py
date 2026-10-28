@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """Dev-only screenshot harness for zert.no (Seam 3 — the implementor's eyes).
 
-Serves the static site locally and captures it with headless Chromium:
+Serves the static site locally and captures every page with headless Chromium:
 
   * full page and one screenshot per section (every [data-act] element)
   * desktop at 1440px, mobile at 390px
   * one extra pass with prefers-reduced-motion: reduce (desktop)
+  * all of the above for each page in PAGES (board page + developer page)
 
 The harness doubles as the Seam-1 gate: any console error, page error,
 failed request, HTTP >= 400 response or third-party (non-localhost) request
 is reported and fails the run.
 
-Screenshots are only ever written under /tmp. Nothing is committed.
+Screenshots are only ever written under /tmp, grouped per page
+(<out>/<page>/<pass>/). Nothing is committed.
 
 Usage:
-  tools/shot.py                  # all passes (desktop, mobile, reduced-motion)
+  tools/shot.py                  # all pages, all passes
   tools/shot.py --only desktop   # one pass: desktop | mobile | reduced
+  tools/shot.py --page utvikler  # one page: forside | utvikler
   tools/shot.py --out /tmp/opencode/shots/t4
 
 Exit codes:
@@ -40,6 +43,11 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+PAGES = [
+    # name,        path served from the repo root
+    ("forside", "/"),
+    ("utvikler", "/utvikler.html"),
+]
 PASSES = [
     # name,          width, height, reduced_motion
     ("desktop", 1440, 900, False),
@@ -121,9 +129,11 @@ def auto_scroll(page):
     page.wait_for_timeout(SETTLE_MS)
 
 
-def capture_pass(browser, name, width, height, reduced, base_url, out_dir, problems):
+def capture_pass(browser, page_name, page_path, name, width, height, reduced,
+                 base_url, out_dir, problems):
     label = "%s-%d%s" % (name, width, "-reduced-motion" if reduced else "")
-    pass_dir = out_dir / label
+    tag = "%s/%s" % (page_name, label)
+    pass_dir = out_dir / page_name / label
     pass_dir.mkdir(parents=True, exist_ok=True)
 
     context = browser.new_context(
@@ -134,32 +144,32 @@ def capture_pass(browser, name, width, height, reduced, base_url, out_dir, probl
 
     def on_console(msg):
         if msg.type == "error":
-            problems.append("%s: console error: %s" % (label, msg.text))
+            problems.append("%s: console error: %s" % (tag, msg.text))
 
     page.on("console", on_console)
-    page.on("pageerror", lambda err: problems.append("%s: page error: %s" % (label, err)))
+    page.on("pageerror", lambda err: problems.append("%s: page error: %s" % (tag, err)))
     page.on(
         "requestfailed",
         lambda req: problems.append(
-            "%s: request failed: %s (%s)" % (label, req.url, req.failure)
+            "%s: request failed: %s (%s)" % (tag, req.url, req.failure)
         ),
     )
     page.on(
         "request",
-        lambda req: problems.append("%s: third-party request: %s" % (label, req.url))
+        lambda req: problems.append("%s: third-party request: %s" % (tag, req.url))
         if not is_local(req.url)
         else None,
     )
     page.on(
         "response",
         lambda res: problems.append(
-            "%s: HTTP %d for %s" % (label, res.status, res.url)
+            "%s: HTTP %d for %s" % (tag, res.status, res.url)
         )
         if res.status >= 400
         else None,
     )
 
-    page.goto(base_url, wait_until="networkidle")
+    page.goto(base_url.rstrip("/") + page_path, wait_until="networkidle")
     page.evaluate("() => document.fonts.ready.then(() => true)")
 
     acts = page.evaluate(
@@ -167,7 +177,7 @@ def capture_pass(browser, name, width, height, reduced, base_url, out_dir, probl
         " el => el.getAttribute('data-act'))"
     )
     if not acts:
-        raise RuntimeError("no [data-act] sections found in the page")
+        raise RuntimeError("no [data-act] sections found on page %s" % page_path)
 
     auto_scroll(page)
 
@@ -185,7 +195,7 @@ def capture_pass(browser, name, width, height, reduced, base_url, out_dir, probl
         shots.append(path)
 
     context.close()
-    return label, shots
+    return tag, shots
 
 
 def main():
@@ -200,6 +210,11 @@ def main():
         choices=[p[0] for p in PASSES],
         help="run a single pass instead of all three",
     )
+    parser.add_argument(
+        "--page",
+        choices=[p[0] for p in PAGES],
+        help="run a single page instead of all pages",
+    )
     args = parser.parse_args()
 
     out_dir = Path(args.out).resolve()
@@ -210,6 +225,7 @@ def main():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True)
 
+    pages = [p for p in PAGES if not args.page or p[0] == args.page]
     passes = [p for p in PASSES if not args.only or p[0] == args.only]
     server, base_url = serve_static()
     problems = []
@@ -219,12 +235,14 @@ def main():
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
-            for name, width, height, reduced in passes:
-                label, shots = capture_pass(
-                    browser, name, width, height, reduced, base_url, out_dir, problems
-                )
-                total_shots += len(shots)
-                print("%s: %d screenshots -> %s" % (label, len(shots), out_dir / label))
+            for page_name, page_path in pages:
+                for name, width, height, reduced in passes:
+                    tag, shots = capture_pass(
+                        browser, page_name, page_path, name, width, height,
+                        reduced, base_url, out_dir, problems
+                    )
+                    total_shots += len(shots)
+                    print("%s: %d screenshots -> %s" % (tag, len(shots), out_dir / page_name))
             browser.close()
     except Exception as exc:  # noqa: BLE001 — report, plain exit code
         sys.stderr.write("shot.py: render failed: %s\n" % exc)

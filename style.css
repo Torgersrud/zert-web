@@ -2028,3 +2028,295 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* ===== /ACT: veien-videre to-lag ===== */
+
+/* ===== ACT: port (utviklerdøren i headern) ===== */
+
+/* Døren mellom de to flatene (GLOSSARY: dual-dør). På styre-flaten heter
+   lenken «Utvikler», på utvikler-flaten «For ledelsen». Hairline-kontur
+   holder den diskret og skiller den fra seksjonsankrene i navigasjonen.
+   flex: 0 0 auto sikrer at den er synlig i alle visninger — det er .site-nav
+   som krympes og horisontalscrolles når plassen blir knapp. */
+
+.site-header__flate {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.site-header__flate:hover {
+  color: var(--blue-300);
+  border-color: var(--interactive-hover);
+  text-decoration: none;
+}
+
+/* ===== /ACT: port (utviklerdoren i headern) ===== */
+
+/* ===== ACT: dev-hero ===== */
+
+/* Utvikler-flatens apning: kort forretningsgang, ingen diagram. Bla er
+   fortsatte sidens eneste interaktive farge — ingen --action-color-override. */
+
+.section--dev-hero {
+  padding-top: calc(var(--header-h) + clamp(56px, 10vh, 120px));
+  padding-bottom: clamp(56px, 9vh, 100px);
+}
+
+.dev-hero__content { max-width: 900px; }
+
+.dev-hero__title {
+  font-weight: 600;
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 26px;
+}
+
+/* Overskriften settes i to faste linjer — to korte setninger, én idé per
+   linje, aldri hengekøye-ord på egen linje (DESIGN.md: to linjer max). */
+.dev-hero__linje { display: block; }
+
+.dev-hero__ingress { margin-bottom: 34px; max-width: 56ch; }
+
+.dev-hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ===== /ACT: dev-hero ===== */
+
+/* ===== ACT: dev-karantene ===== */
+
+/* Sandboxen innenfra: fire steg pa rad (samme leselogikk som svd-flowen pa
+   styre-flaten) og en overstegs-setning. Tonal aktor er bla — standard
+   interaktiv, ingen override. Redusert bevegelse dekkes av kjerne-CSS for
+   reveal; ingen egen animasjon i denne akten. */
+
+.dev-karantene__ingress { margin-bottom: clamp(44px, 6vh, 64px); }
+
+.dev-steg__flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px clamp(16px, 2.4vw, 32px);
+}
+
+.dev-steg__steg {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+}
+
+.dev-steg__nummer {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--interactive);
+  margin-bottom: 10px;
+}
+
+.dev-steg__tittel {
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.dev-steg__tekst {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  max-width: 34ch;
+}
+
+.dev-steg__tekst code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--fg);
+}
+
+.dev-karantene__tro {
+  margin-top: clamp(44px, 6vh, 64px);
+  font-weight: 500;
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.4;
+  max-width: 46ch;
+}
+
+@media (max-width: 880px) {
+  .dev-steg__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .dev-steg__flow { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== /ACT: dev-karantene ===== */
+
+/* ===== ACT: dev-kode ===== */
+
+/* To hairline-bokser — installasjon og åpen kildekode — og en ærlighetssetning
+   under. Innholdet er flyttet hit fra kom-i-gang-sidestolpen på styre-flaten
+   (den fjernes der i en senere ticket). Blå som resten av siden; ingen ny
+   fargefamilie. */
+
+.dev-kode__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+
+.dev-kode__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.dev-kode__boks {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.dev-kode__tekst { color: var(--fg-muted); }
+
+.dev-kode__install {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+.dev-kode__prompt { color: var(--interactive-hover); }
+.dev-kode__install-kode { color: var(--fg); }
+
+.dev-kode__repo a { font-family: var(--font-mono); font-size: 15px; }
+
+.dev-kode__guidet {
+  margin-top: clamp(28px, 4vh, 40px);
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--fg-muted);
+  font-size: 15px;
+  max-width: 62ch;
+}
+
+@media (max-width: 720px) {
+  .dev-kode__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== /ACT: dev-kode ===== */
+
+/* ===== ACT: dev-venteliste ===== */
+
+/* Venteliste uten dørspørsmål: døren kommer som et skjult felt (value
+   utvikler) og følger med i payloaden — se BEHAVIOR:dev-venteliste. Skjema,
+   takk- og feilblokk og mailto-fallback følger kom-i-gangs mønster nøyaktig
+   (aldri stille tap); egne id-er slik at begge skjemaene kan eksistere per
+   nettside. */
+
+.dev-kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+
+.dev-kig__form { display: grid; gap: 22px; max-width: 540px; }
+
+/* Egne display-regler overskrider UA-stilarkets [hidden] — samme felle som
+   i kom-i-gang: ellers staar skjemaet og feilboksen framme alltid. */
+.dev-kig__form[hidden],
+.dev-kig__takk[hidden],
+.dev-kig__feil[hidden] { display: none; }
+
+.dev-kig__felt { display: grid; gap: 8px; }
+
+.dev-kig__merkelapp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.dev-kig__input {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+}
+.dev-kig__input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--interactive);
+}
+
+.dev-kig__send { width: 100%; }
+.dev-kig__send[disabled] { opacity: 0.6; cursor: default; }
+
+.dev-kig__personvern {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.dev-kig__noscript {
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.dev-kig__takk {
+  max-width: 540px;
+  border: 1px solid var(--interactive);
+  border-radius: 6px;
+  padding: 28px 26px;
+}
+.dev-kig__takk-tekst {
+  font-weight: 600;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.35;
+}
+
+.dev-kig__feil {
+  display: grid;
+  gap: 10px;
+  max-width: 540px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 22px 22px;
+  line-height: 1.5;
+}
+
+/* --- Sluttband: utvikler ved laptopen — personer i arbeid (DESIGN.md) --- */
+
+.dev-kig__band { margin-top: clamp(56px, 9vh, 96px); }
+
+.dev-kig__band-bilde { width: 100%; height: auto; }
+
+.dev-kig__band-tekst {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 12px var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+/* ===== /ACT: dev-venteliste ===== */
