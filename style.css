@@ -1603,7 +1603,7 @@ p.beviset__micro { margin-top: 12px; }
 .agent__pil { fill: var(--interactive); }
 .agent__puls { fill: var(--blue-300); opacity: 0; }
 
-/* Engangsanimasjon, samme tilstandsmaskin som hero__diagram (js-patterns):
+/* Engangsanimasjon, samme tilstandsmaskin som losningen__diagram (js-patterns):
    første sikt gir .is-drawn (linjene tegnes -> tekst toner fram -> hodet
    tegnes -> forbindelse + puls), deretter bytter JS til .is-done — da er den
    fulle komposisjonen basen i CSS. Uten JS og under redusert bevegelse vises
