@@ -618,19 +618,9 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:footer ===== */
 
-  /* ===== BEHAVIOR:footer ===== */
-
   /* Footer-ticketen eier denne blokken. */
 
   /* ===== /BEHAVIOR:footer ===== */
-
-  /* ===== BEHAVIOR:dev-port ===== */
-
-  /* Utviklerdøren i headern er vanlige lenker (utvikler.html / index.html)
-     uten egen atferd: nettleseren navigerer, og nav-sync berører dem ikke
-     fordi de ikke starter på #. Denne blokken er bevisst tom for kode. */
-
-  /* ===== /BEHAVIOR:dev-port ===== */
 
   /* ===== BEHAVIOR:dev-venteliste ===== */
 
@@ -647,7 +637,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     var feil = doc.getElementById('venteliste-utvikler-feil');
     if (!form || !takk || !feil) { return; }
 
-    var knapp = form.querySelector('.dev-kig__send');
+    var knapp = form.querySelector('.dev-liste__send');
     var feilLenke = feil.querySelector('a');
     var knappetekst = knapp ? knapp.textContent : '';
     var sender = false;

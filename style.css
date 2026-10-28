@@ -2252,19 +2252,19 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
    (aldri stille tap); egne id-er slik at begge skjemaene kan eksistere per
    nettside. */
 
-.dev-kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
+.dev-liste__intro { margin-bottom: clamp(40px, 6vh, 64px); }
 
-.dev-kig__form { display: grid; gap: 22px; max-width: 540px; }
+.dev-liste__form { display: grid; gap: 22px; max-width: 540px; }
 
 /* Egne display-regler overskrider UA-stilarkets [hidden] — samme felle som
    i kom-i-gang: ellers staar skjemaet og feilboksen framme alltid. */
-.dev-kig__form[hidden],
-.dev-kig__takk[hidden],
-.dev-kig__feil[hidden] { display: none; }
+.dev-liste__form[hidden],
+.dev-liste__takk[hidden],
+.dev-liste__feil[hidden] { display: none; }
 
-.dev-kig__felt { display: grid; gap: 8px; }
+.dev-liste__felt { display: grid; gap: 8px; }
 
-.dev-kig__merkelapp {
+.dev-liste__merkelapp {
   font-family: var(--font-mono);
   font-weight: 500;
   font-size: 12px;
@@ -2273,7 +2273,7 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   color: var(--fg-muted);
 }
 
-.dev-kig__input {
+.dev-liste__input {
   width: 100%;
   padding: 13px 14px;
   font-family: var(--font-sans);
@@ -2283,22 +2283,22 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   border: 1px solid var(--line-strong);
   border-radius: 4px;
 }
-.dev-kig__input:focus {
+.dev-liste__input:focus {
   outline: 2px solid var(--focus);
   outline-offset: 1px;
   border-color: var(--interactive);
 }
 
-.dev-kig__send { width: 100%; }
-.dev-kig__send[disabled] { opacity: 0.6; cursor: default; }
+.dev-liste__send { width: 100%; }
+.dev-liste__send[disabled] { opacity: 0.6; cursor: default; }
 
-.dev-kig__personvern {
+.dev-liste__personvern {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--fg-muted);
 }
 
-.dev-kig__noscript {
+.dev-liste__noscript {
   border: 1px dashed var(--line-strong);
   border-radius: 4px;
   padding: 14px 16px;
@@ -2308,19 +2308,19 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
   color: var(--fg-muted);
 }
 
-.dev-kig__takk {
+.dev-liste__takk {
   max-width: 540px;
   border: 1px solid var(--interactive);
   border-radius: 6px;
   padding: 28px 26px;
 }
-.dev-kig__takk-tekst {
+.dev-liste__takk-tekst {
   font-weight: 600;
   font-size: clamp(20px, 2vw, 24px);
   line-height: 1.35;
 }
 
-.dev-kig__feil {
+.dev-liste__feil {
   display: grid;
   gap: 10px;
   max-width: 540px;
@@ -2332,11 +2332,11 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 
 /* --- Sluttband: utvikler ved laptopen — personer i arbeid (DESIGN.md) --- */
 
-.dev-kig__band { margin-top: clamp(56px, 9vh, 96px); }
+.dev-liste__band { margin-top: clamp(56px, 9vh, 96px); }
 
-.dev-kig__band-bilde { width: 100%; height: auto; }
+.dev-liste__band-bilde { width: 100%; height: auto; }
 
-.dev-kig__band-tekst {
+.dev-liste__band-tekst {
   max-width: 1160px;
   margin: 0 auto;
   padding: 12px var(--gutter) 0;
