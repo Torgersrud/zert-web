@@ -16,6 +16,15 @@
     - prefers-reduced-motion: CSS viser alt statisk; JS blander ikke inn.
 */
 
+/*
+ * WAITLIST_ENDPOINT — én linje å endre: URL-en til venteliste-API-et
+ * (POST /v1/waitlist, JSON {name, company, email, door}).
+ * Backend er et eget ticket og ennå ikke deployet; så lenge endepunktet
+ * ikke svarer, viser skjemaet mailto-fallbacken i stedet — aldri stille tap.
+ * Ved lokal testing: pek denne på en stub (se ticket #12).
+ */
+var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
+
 (function () {
   'use strict';
 
@@ -155,7 +164,9 @@
 
   /* ===== BEHAVIOR:problemet ===== */
 
-  /* Problemet-ticketen eier denne blokken. */
+  /* Problemet-akten trenger ingen egen atferd: åpningen, de to risikoene og
+     avslutningen er statisk innhold, og revealene håndteres av
+     BEHAVIOR:scroll-reveal. Ingen interaktive elementer i akten. */
 
   /* ===== /BEHAVIOR:problemet ===== */
 
@@ -169,33 +180,205 @@
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Slik-virker-det-ticketen eier denne blokken: iscenesatt autoplay-terminal
-     som skriver seg selv én gang (scrollutløst eller engangspass), aldri løkke. */
+  /* Iscenesatt autoplay-terminal. Scrollutloest, skriver seg selv én gang
+     og blir så stående på den komplette sesjonen. Aldri loekke, aldri
+     interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
+     JavaScript: den komplette terminaltranskripsjonen står statisk i
+     HTML-en, og denne blokken blander seg ikke inn. */
+
+  (function () {
+    var term = doc.querySelector('[data-term]');
+    if (!term) { return; }
+    if (reducedMotion()) { return; }
+    if (!('IntersectionObserver' in window)) { return; }
+
+    var TYPE_MS = 12;       // millisekunder per tegn i kommandolinjene
+    var FINALIZE_MS = 6000; // sikkerhetsnett: fullendt senest da
+
+    var lines = [];
+    each(term.querySelectorAll('.term__line'), function (el) { lines.push(el); });
+    if (!lines.length) { return; }
+
+    var caret = term.querySelector('.term__caret');
+    var lastLine = lines[lines.length - 1];
+    var done = false;
+    var index = 0;
+
+    // Kommandoene tas ut av DOM-en før skrivningen starter.
+    each(term.querySelectorAll('.term__cmd'), function (el) {
+      el.setAttribute('data-cmd', el.textContent);
+    });
+
+    term.className += ' term--replay';
+
+    function finish() {
+      if (done) { return; }
+      done = true;
+      var i, cmd;
+      for (i = 0; i < lines.length; i++) {
+        lines[i].className += ' is-shown';
+        cmd = lines[i].querySelector('.term__cmd');
+        if (cmd) { cmd.textContent = cmd.getAttribute('data-cmd'); }
+      }
+      if (caret && lastLine) { lastLine.appendChild(caret); }
+      term.className += ' term--done';
+    }
+
+    function type(el, text, at) {
+      if (done) { return; }
+      el.textContent = text.slice(0, at);
+      if (at >= text.length) { step(); return; }
+      setTimeout(function () { type(el, text, at + 1); }, TYPE_MS);
+    }
+
+    function step() {
+      if (done) { return; }
+      if (index >= lines.length) { finish(); return; }
+      var line = lines[index];
+      index += 1;
+      var pause = parseInt(line.getAttribute('data-pause'), 10) || 0;
+      setTimeout(function () {
+        if (done) { return; }
+        var cmd = line.querySelector('.term__cmd');
+        line.className += ' is-shown';
+        if (caret) { line.appendChild(caret); }
+        if (cmd && cmd.getAttribute('data-cmd')) {
+          type(cmd, cmd.getAttribute('data-cmd'), 0);
+        } else {
+          step();
+        }
+      }, pause);
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      var i;
+      for (i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) { continue; }
+        observer.unobserve(term); // én gangs avspilling — aldri omstart
+        setTimeout(finish, FINALIZE_MS);
+        step();
+        return;
+      }
+    }, { threshold: 0, rootMargin: '0px 0px 12% 0px' });
+
+    observer.observe(term);
+  }());
 
   /* ===== /BEHAVIOR:slik-virker-det ===== */
 
   /* ===== BEHAVIOR:infrastrukturen ===== */
 
-  /* Infrastrukturen-ticketen eier denne blokken. */
+  /* Infrastrukturen-ticketen eier denne blokken. Handlingen trenger ingen
+     egen JS: fotoet er et stillbilde, og tekst og modellkort rises inn av
+     BEHAVIOR:scroll-reveal via data-reveal / data-reveal-group. */
 
   /* ===== /BEHAVIOR:infrastrukturen ===== */
 
   /* ===== BEHAVIOR:beviset ===== */
 
-  /* Beviset-ticketen eier denne blokken. */
+  /* Beviset er statisk: dokumentet trenger ingen egen atferd. Avduking
+     skjer via BEHAVIOR:scroll-reveal, og prefers-reduced-motion dekkes av
+     kjerne-CSS. Ingen hendelsesdata genereres i nettleseren — radene er
+     faktatekst, ikke simulering. */
 
   /* ===== /BEHAVIOR:beviset ===== */
 
   /* ===== BEHAVIOR:veien-videre ===== */
 
-  /* Veien-videre-ticketen eier denne blokken. */
+  /* Veien-videre-ticketen eier denne blokken. Akten er statisk: fjell-
+     bakgrunnen skjøtes av CSS og reveal av BEHAVIOR:scroll-reveal.
+     Ingen egen atferd per i dag. */
 
   /* ===== /BEHAVIOR:veien-videre ===== */
 
   /* ===== BEHAVIOR:kom-i-gang ===== */
 
-  /* Kom-i-gang-ticketen eier denne blokken: venteliste-skjema, POST til
-     /v1/waitlist via en konfigurerbar endepunktskonstant, mailto-fallback. */
+  /* Venteliste med dual-dør. Plain fetch POST-er JSON {name, company,
+     email, door} til WAITLIST_ENDPOINT. Ingen optimistisk kvittering:
+     takkemeldingen vises bare når endepunktet svarer 2xx. Nettverksfeil
+     eller ikke-2xx avslører mailto-fallbacken med feltene ferdig utfylt —
+     interessen skal aldri forsvinne stille. Dobbelsending er blokkert av
+     en sending-flagg, og knappen er deaktivert mens sendinga pågår. */
+
+  (function () {
+    var form = doc.getElementById('venteliste');
+    var takk = doc.getElementById('venteliste-takk');
+    var feil = doc.getElementById('venteliste-feil');
+    if (!form || !takk || !feil) { return; }
+
+    var knapp = form.querySelector('.kig__send');
+    var feilLenke = feil.querySelector('a');
+    var knappetekst = knapp ? knapp.textContent : '';
+    var sender = false;
+
+    function verdi(navn) {
+      var el = form.querySelector('[name="' + navn + '"]');
+      return el ? el.value.replace(/^\s+|\s+$/, '') : '';
+    }
+
+    function dør() {
+      var el = form.querySelector('[name="door"]:checked');
+      return el ? el.value : '';
+    }
+
+    function settSending(på) {
+      sender = på;
+      if (!knapp) { return; }
+      knapp.disabled = på;
+      knapp.textContent = på ? 'Sender …' : knappetekst;
+    }
+
+    // Fallbacklenka bærer med alt brukeren har skrevet inn, slik at
+    // e-posten er ferdig utfylt når den åpnes.
+    function mailtoLenke() {
+      var tekst = 'Navn: ' + verdi('name') +
+        '\nSelskap: ' + verdi('company') +
+        '\nE-post: ' + verdi('email') +
+        '\nKommer som: ' + dør();
+      return 'mailto:jp@zert.no?subject=' + encodeURIComponent('Venteliste Zert') +
+        '&body=' + encodeURIComponent(tekst);
+    }
+
+    function visTakk() {
+      feil.hidden = true;
+      form.hidden = true;
+      takk.hidden = false;
+    }
+
+    function visFeil() {
+      if (feilLenke) { feilLenke.href = mailtoLenke(); }
+      takk.hidden = true;
+      feil.hidden = false;
+      settSending(false); // tillat forsøk igjen — fallbacken står uansett fram
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sender) { return; }
+
+      var melding = {
+        name: verdi('name'),
+        company: verdi('company'),
+        email: verdi('email'),
+        door: dør()
+      };
+
+      settSending(true);
+
+      // Gammel nettleser utan fetch: fallback med en gang, aldri stille tap.
+      if (!('fetch' in window)) { visFeil(); return; }
+
+      fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(melding)
+      }).then(function (svar) {
+        if (svar.ok) { visTakk(); } else { visFeil(); }
+      })['catch'](function () {
+        visFeil();
+      });
+    });
+  }());
 
   /* ===== /BEHAVIOR:kom-i-gang ===== */
 

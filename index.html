@@ -84,9 +84,31 @@
     <!-- ===== ACT:problemet:start ===== -->
     <section id="problemet" class="section section--problemet" data-act="problemet" aria-labelledby="problemet-tittel">
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 2</p>
-        <h2 class="section__title" id="problemet-tittel" data-reveal>Problemet</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="problemet__led" data-reveal>Utviklerne dine bruker KI allerede. Spørsmålet er hva de sender, og hvor.</p>
+
+        <div class="problemet__hode">
+          <p class="kicker" data-reveal>Den dobbelte risikoen</p>
+          <h2 class="section__title" id="problemet-tittel" data-reveal>Én vane. To risikoer.</h2>
+          <p class="ingress" data-reveal>Du trenger ikke ta en KI-beslutning. Den er allerede tatt — på laptoper i virksomheten din. To risikoer følger med. Hver av dem står alene på en risikoliste.</p>
+        </div>
+
+        <div class="problemet__kort">
+          <article class="problemet__risiko" data-reveal>
+            <p class="problemet__merke">Risiko 1 — Data ut</p>
+            <h3 class="problemet__risiko-tittel">Følsomt materiale drar ut.</h3>
+            <p class="problemet__risiko-tekst">Utviklerne har private KI-abonnement og bruker dem på jobbmaskiner. Følsom kode og kundedata limes inn hos amerikanske tilbydere. Hvor dataene ender opp, er ukjent. Ingen logger utvegen.</p>
+            <p class="problemet__risiko-note">Retningslinjene dine dekker e-post og filsystem. Ikke dette.</p>
+          </article>
+
+          <article class="problemet__risiko" data-reveal>
+            <p class="problemet__merke">Risiko 2 — Agenter inn</p>
+            <h3 class="problemet__risiko-tittel">Autoritet slipper inn.</h3>
+            <p class="problemet__risiko-tekst">Samme utviklere kjører KI-agenter som jobber selvstendig. Agentene har autoritet på bedriftens maskiner: de leser filer, endrer kode og utfører kommandoer. De kjenner ingen retningslinjer utover oppgaven de fikk.</p>
+            <p class="problemet__risiko-note">En agent arver maskinens tilganger. Ikke din vurderingsevne.</p>
+          </article>
+        </div>
+
+        <p class="ingress problemet__avslutning" data-reveal>Ingen av risikoene er hypotetiske. De pågår i uken som gikk. Verken policy eller opplæring har stoppet dem så langt.</p>
       </div>
     </section>
     <!-- ===== /ACT:problemet ===== -->
@@ -160,50 +182,327 @@
     <!-- ===== ACT:slik-virker-det:start ===== -->
     <section id="slik-virker-det" class="section section--slik-virker-det" data-act="slik-virker-det" aria-labelledby="slik-virker-det-tittel">
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 4</p>
+        <p class="kicker" data-reveal>Én økt · fire steg</p>
         <h2 class="section__title" id="slik-virker-det-tittel" data-reveal>Slik virker det</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="svd__ingress ingress" data-reveal>Én økt, fire steg. Slik forklarer du Zert for noen andre på under ett minutt — uten å se på notatene.</p>
+
+        <ol class="svd__flow">
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">01</p>
+            <h3 class="svd__step-title">Repo inn</h3>
+            <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">02</p>
+            <h3 class="svd__step-title">KI-arbeid inne</h3>
+            <p class="svd__step-text">Utvikleren jobber med en ledende åpen KI-modell. VM-en når bare KI-endepunktet — ingenting annet.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">03</p>
+            <h3 class="svd__step-title">Resultater ut</h3>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">04</p>
+            <h3 class="svd__step-title">VM-en dør</h3>
+            <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
+          </li>
+        </ol>
+
+        <figure class="term" data-reveal>
+          <p class="term__label">Slik ser en økt ut i terminalen</p>
+          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
+<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
+<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
+<span class="term__line" data-pause="110">route out: KI endpoint only</span>
+<span class="term__line" data-pause="200">attached — you are inside the VM</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
+<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
+<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
+<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
+<span class="term__line" data-pause="300"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
+<span class="term__line" data-pause="170">connection to sandbox closed</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
+<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
+<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
+<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
+<span class="term__line" data-pause="340"> </span>
+<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
+<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
+          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
+        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
 
     <!-- ===== ACT:infrastrukturen:start ===== -->
     <section id="infrastrukturen" class="section section--infrastrukturen" data-act="infrastrukturen" aria-labelledby="infrastrukturen-tittel">
-      <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 5</p>
-        <h2 class="section__title" id="infrastrukturen-tittel" data-reveal>Infrastrukturen</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+
+      <div class="infra__band">
+        <img class="infra__band-img"
+             src="static/lofoten-1600.webp"
+             srcset="static/lofoten-800.webp 800w, static/lofoten-1600.webp 1600w, static/lofoten-2400.webp 2400w"
+             sizes="100vw"
+             alt="Flyfoto av et fiskevær i Lofoten: rorbuene ved vannet, omgitt av fjell"
+             loading="lazy" decoding="async">
+        <div class="section__inner infra__band-copy" data-reveal-group>
+          <p class="kicker" data-reveal>Blix datasenter · Oslo</p>
+          <h2 class="section__title" id="infrastrukturen-tittel" data-reveal>Infrastrukturen</h2>
+          <p class="infra__band-lead ingress" data-reveal>Det er ikke noe hav mellom koden din og svarene. Inferensen og VM-ene dine bor i samme bygget i Oslo.</p>
+        </div>
       </div>
+
+      <div class="section__inner">
+        <div class="infra__partner" data-reveal-group>
+          <p class="kicker" data-reveal>Infrastrukturpartner</p>
+          <h3 class="infra__sub" data-reveal>Norskeiet datasenter i Oslo</h3>
+          <p class="prose" data-reveal>Blix Solutions eier og drifter datasenteret i Oslo der KI-endepunktet og VM-ene dine kjører. Blix er norskeid. De er infrastrukturpartneren vår — inferensen skjer i samme bygget som VM-ene.</p>
+          <p class="infra__iso" data-reveal>Datasenteret er <span class="infra__iso-word">ISO 27001-sertifisert</span> — Zert er det ikke.</p>
+          <!-- TODO (eksternt avhengighet, eier: Zert): innhent Blix' godkjenning
+               for bruk av logoen deres. Inntil da står tekstnavngivelsen over
+               alene. Når godkjenningen foreligger er byttet én fil: erstatt
+               span.infra__logo-stub under med
+               <img class="infra__logo-img" src="static/blix-logo.webp" alt="Blix Solutions" width="120" height="48">. -->
+          <div class="infra__logo" data-reveal>
+            <span class="infra__logo-stub" aria-hidden="true">logo</span>
+            <p class="infra__logo-note">Blix Solutions — logo: avventer Blix' godkjenning</p>
+          </div>
+        </div>
+
+        <div class="infra__modeller" data-reveal-group>
+          <p class="kicker" data-reveal>Modellene</p>
+          <h3 class="infra__sub" data-reveal>De beste åpent vektede modellene, på norsk jord — det norske alternativet.</h3>
+          <ul class="infra__model-grid" data-reveal-group>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">Qwen3.8 Flash Next FP8</p>
+              <p class="infra__model-spec">Tekst og bilde</p>
+            </li>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">GLM 5.3 FP4</p>
+              <p class="infra__model-spec">512k context · 32k output</p>
+            </li>
+            <li class="infra__model" data-reveal>
+              <p class="infra__model-eyebrow">Åpne vekter</p>
+              <p class="infra__model-name">DeepSeek V4 Flash</p>
+            </li>
+          </ul>
+          <p class="infra__honest" data-reveal>Vektene kan komme globalt — det du skriver, forlater aldri Norge.</p>
+        </div>
+      </div>
+
     </section>
     <!-- ===== /ACT:infrastrukturen ===== -->
 
     <!-- ===== ACT:beviset:start ===== -->
     <section id="beviset" class="section section--beviset section-light-style" data-act="beviset" aria-labelledby="beviset-tittel">
+      <figure class="beviset__band" data-reveal>
+        <img src="static/operaen-1600.webp"
+             srcset="static/operaen-800.webp 800w, static/operaen-1600.webp 1600w, static/operaen-2400.webp 2400w"
+             sizes="100vw"
+             width="2400" height="823"
+             alt="Panorama av Operahuset i Oslo i dagslys.">
+        <figcaption>Pl. 1 · Operahuset, Oslo</figcaption>
+      </figure>
+
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 6</p>
+        <p class="kicker" data-reveal>Zert i presens</p>
         <h2 class="section__title" id="beviset-tittel" data-reveal>Beviset</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="ingress" data-reveal>Revisors spørsmål er enkelt: «who did what to whose VM, and were they allowed». Zert skriver svaret for én kunde om gangen — som et løpende hendelsesspor.</p>
+
+        <dl class="beviset__log">
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Hendelsesspor</dt>
+            <dd class="beviset__entry">
+              <p>Zert loggfører hver VM-opprettelse, -avslutting og -forlengelse — og hver nektet eller kvotavvist handling — i ett revisjonsspor per kunde.</p>
+              <p>Feilede innlogginger loggføres. Bruk av bedriftens egne KI-nøkler (BYOK) spores på nøkkel-ID — aldri på nøkkelmateriale.</p>
+              <ul class="beviset__chips" aria-label="De 12 hendelsestypene i revisjonssporet">
+                <li>vm.create</li>
+                <li>vm.kill</li>
+                <li>vm.timeout_extend</li>
+                <li>tunnel.open</li>
+                <li>tunnel.close</li>
+                <li>auth.login</li>
+                <li>auth.key_use</li>
+                <li>quota.reject</li>
+                <li>byok.key_set</li>
+                <li>byok.key_delete</li>
+                <li>admin.user_add</li>
+                <li>admin.user_remove</li>
+              </ul>
+              <p class="beviset__micro">12 hendelsestyper. En handling som ikke står i hendelseslisten, er per definisjon utenfor revisjonsgrensen.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Retensjon</dt>
+            <dd class="beviset__entry">
+              <p class="beviset__tall">12 mnd</p>
+              <p>Revisjonshistorikken er spørrbar i 12 måneder. Fristen håndheves i lagringsmotoren — ikke ved manuell opprydding.</p>
+              <p class="beviset__micro">8760 t · 365 d — retensjon som lagringskonfigurasjon.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Tenantisolasjon</dt>
+            <dd class="beviset__entry">
+              <p class="beviset__tall">36 tester</p>
+              <p>Isolasjonen håndheves i lagringslaget — ikke i et dashbordfilter. Automatiserte cross-tenant-tester maskinbeviser isolasjonen: 36 sjekker kjører mot levende system og dekker autentisering, nektet kryssleier-forespørsel i lagringsflatene og loopback-postur.</p>
+              <p>I tillegg kjøres hvert dashboardpanel med sine egne spørringer, som to separate lejere, begge veier — null rader på tvers er kravet. Intet panel kan vise en annen kundes rader.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Hull i recorden</dt>
+            <dd class="beviset__entry">
+              <p>Hull i hendelsesrecorden kan oppdages og telleres. Mangler et sekvensnummer, utløses en alarm i stedet for at hullet passerer stille.</p>
+              <p>Vi oppgir gap-tall som en nedre grense — ikke som en garanti.</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Gap Policy</dt>
+            <dd class="beviset__entry">
+              <blockquote class="beviset__quote">infra metrics may be marked lost during outages; audit events are never lost while the stack host's own disk holds.</blockquote>
+              <p>Gap Policy, sitert ordrett. Policyen er skriftlig og testet mot et levende brudd.</p>
+              <p class="beviset__micro">Ærlige grenser (ADR-0002): «The operator can in principle still rewrite storage; the policy is 'nobody does', not 'nobody can'.»</p>
+            </dd>
+          </div>
+
+          <div class="beviset__row" data-reveal>
+            <dt class="beviset__field">Kantsone</dt>
+            <dd class="beviset__entry">
+              <p>Ingenting nytt åpnes mot produksjonsverten. Compliance-data flyter én vei ut, over autentisert OTLP, til et sentralt lager.</p>
+              <p>Revisorer får et avgrenset utsnitt, levert av Zert — ikke en portal med egeninnlogging.</p>
+            </dd>
+          </div>
+        </dl>
+
+        <p class="beviset__closing" data-reveal>Alt som står i denne delen, er bygget og i drift i dag. Det som ennå ikke er bygget, står i <a href="#veien-videre">Veien videre</a>.</p>
       </div>
     </section>
     <!-- ===== /ACT:beviset ===== -->
 
     <!-- ===== ACT:veien-videre:start ===== -->
     <section id="veien-videre" class="section section--veien-videre" data-act="veien-videre" aria-labelledby="veien-videre-tittel">
+      <div class="veien-videre__fjell" aria-hidden="true">
+        <picture>
+          <source srcset="static/fjell-2400.webp" media="(min-width: 1400px)">
+          <source srcset="static/fjell-1600.webp" media="(min-width: 720px)">
+          <img src="static/fjell-800.webp" alt="" width="800" height="247" loading="lazy" decoding="async">
+        </picture>
+      </div>
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 7</p>
+        <p class="kicker" data-reveal>Roadmap</p>
         <h2 class="section__title" id="veien-videre-tittel" data-reveal>Veien videre</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="ingress" data-reveal>Vi skriver i presens bare om det vi styrer i dag. Det som ikke er i produksjon ennå, står her — merket som det de er.</p>
+        <ol class="roadmap">
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">01</p>
+            <h3 class="roadmap__tittel">Nettkutt i switch-laget</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">Karantenen skjerpes fra vertsplan til switch-lag ved produksjonslanseringen. Da er det maskinvaren som avgjør at sandboxens eneste vei ut er KI-endepunktet.</p>
+          </li>
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">02</p>
+            <h3 class="roadmap__tittel">DMZ for prompt injection</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">En DMZ foran KI-endepunktet som inspiserer trafikken for prompt injection. Målet er å stoppe manipulerte forespørsler før de når modellen.</p>
+          </li>
+          <li class="roadmap__item" data-reveal>
+            <p class="roadmap__nummer" aria-hidden="true">03</p>
+            <h3 class="roadmap__tittel">Eksport av signerte bevis</h3>
+            <p class="roadmap__status">Ikke i produksjon ennå</p>
+            <p class="roadmap__tekst">Revisjonsbevis skal kunne eksporteres med digital signatur. Da kan en Compliance Consumer verifisere utskriften selv — uten å be oss om tillit.</p>
+          </li>
+        </ol>
+        <p class="veien-videre__avslutning" data-reveal>Hva som er i drift i dag, står <a href="#beviset">i Beviset</a>.</p>
       </div>
     </section>
     <!-- ===== /ACT:veien-videre ===== -->
 
     <!-- ===== ACT:kom-i-gang:start ===== -->
     <section id="kom-i-gang" class="section section--kom-i-gang" data-act="kom-i-gang" aria-labelledby="kom-i-gang-tittel">
-      <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 8</p>
-        <h2 class="section__title" id="kom-i-gang-tittel" data-reveal>Kom i gang</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+      <div class="section__inner">
+        <div class="kig__intro" data-reveal-group>
+          <p class="kicker" data-reveal>Venteliste · to dører</p>
+          <h2 class="section__title" id="kom-i-gang-tittel" data-reveal>Kom i gang</h2>
+          <p class="ingress" data-reveal>Skriv dere på ventelisten, så kontakter vi dere. Vi setter opp zert sammen — fra installasjon til første KI-svar i deres egen sandbox.</p>
+        </div>
+
+        <div class="kig__grid" data-reveal-group>
+          <div class="kig__formside" data-reveal>
+            <form class="kig__form" id="venteliste">
+              <fieldset class="kig__doors">
+                <legend class="kig__legend">Kommer du som utvikler eller leder?</legend>
+                <div class="kig__doorvalg">
+                  <input class="kig__door-input" type="radio" name="door" id="door-utvikler" value="utvikler" required>
+                  <label class="kig__door" for="door-utvikler">
+                    <span class="kig__door-tittel">Utvikler</span>
+                    <span class="kig__door-tekst">Jeg vil bruke zert selv</span>
+                  </label>
+                  <input class="kig__door-input" type="radio" name="door" id="door-leder" value="leder" required>
+                  <label class="kig__door" for="door-leder">
+                    <span class="kig__door-tittel">Leder</span>
+                    <span class="kig__door-tekst">Jeg vurderer en runtime for organisasjonen</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <p class="kig__felt">
+                <label class="kig__merkelapp" for="felt-navn">Navn</label>
+                <input class="kig__input" id="felt-navn" name="name" type="text" autocomplete="name" required>
+              </p>
+              <p class="kig__felt">
+                <label class="kig__merkelapp" for="felt-selskap">Selskap</label>
+                <input class="kig__input" id="felt-selskap" name="company" type="text" autocomplete="organization" required>
+              </p>
+              <p class="kig__felt">
+                <label class="kig__merkelapp" for="felt-epost">E-post</label>
+                <input class="kig__input" id="felt-epost" name="email" type="email" autocomplete="email" inputmode="email" required>
+              </p>
+
+              <button class="btn btn--primary kig__send" type="submit">Skriv meg på</button>
+              <p class="kig__personvern">E-posten brukes bare til å svare dere.</p>
+
+              <noscript>
+                <p class="kig__noscript">Skjemaet trenger JavaScript for å sende. Send i stedet en e-post til <a href="mailto:jp@zert.no">jp@zert.no</a> med navn, selskap, e-post og om du kommer som utvikler eller leder.</p>
+              </noscript>
+            </form>
+
+            <div class="kig__takk" id="venteliste-takk" role="status" hidden>
+              <p class="kig__takk-tekst">Takk. Vi kontakter dere personlig — vi installerer sammen.</p>
+            </div>
+
+            <div class="kig__feil" id="venteliste-feil" role="alert" hidden>
+              <p>Noe gikk galt med påmeldingen. Interessen skal ikke forsvinne.</p>
+              <p><a href="mailto:jp@zert.no?subject=Venteliste%20Zert">Send til jp@zert.no</a> — beskjeden står ferdig utfylt, og vi svarer personlig.</p>
+            </div>
+          </div>
+
+          <aside class="kig__bevis" data-reveal aria-labelledby="kig-bevis-tittel">
+            <p class="kicker" id="kig-bevis-tittel">Veien inn</p>
+            <p class="kig__bevis-tekst">Klienten er et lite CLI-verktøy. Du installerer den med:</p>
+            <p class="kig__install"><span class="kig__install-prompt" aria-hidden="true">$</span> <code class="kig__install-kode">brew install zert</code></p>
+            <p class="kig__bevis-tekst">Kilden er åpen og MIT-lisensiert. Les koden selv, før dere skriver dere på.</p>
+            <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
+            <p class="kig__repo"><a href="https://github.com/zert" rel="noopener">github.com/zert</a></p>
+            <p class="kig__guidet">Ingen selvbetjening ennå. De første brukerne onboarder vi selv, sammen med dere. Derfor tar vi imot få om gangen.</p>
+          </aside>
+        </div>
       </div>
+
+      <figure class="kig__band" data-reveal>
+        <img class="kig__band-bilde" src="static/bluetime-1600.webp"
+             srcset="static/bluetime-800.webp 800w, static/bluetime-1600.webp 1600w, static/bluetime-2400.webp 2400w"
+             sizes="100vw" width="2400" height="970" loading="lazy" decoding="async"
+             alt="Oslo sentrum og Bjørvika mot Oslofjorden i blåtime.">
+        <figcaption class="kig__band-tekst">Det vi bygger, står på norsk jord.</figcaption>
+      </figure>
     </section>
     <!-- ===== /ACT:kom-i-gang ===== -->
 
@@ -213,7 +512,14 @@
   <footer id="footer" class="site-footer" data-act="footer">
     <div class="site-footer__inner">
       <p class="site-footer__logo"><img src="static/Zert_Kjennemerke_DempetHvit.png" alt="Zert" width="44" height="44"></p>
-      <p class="site-footer__meta">© 2026 Zert · All rett ligg hjå Zert.</p>
+      <p class="site-footer__skrav">Zert gir utviklere en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
+      <ul class="site-footer__lenker">
+        <li><a href="mailto:jp@zert.no">jp@zert.no</a></li>
+        <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
+        <li><a href="https://github.com/zert" rel="noopener">GitHub</a></li>
+        <li><a href="#kom-i-gang">Ventelisten</a></li>
+      </ul>
+      <p class="site-footer__meta">Zert · Norge · © 2026. Alle rettigheter reservert.</p>
     </div>
   </footer>
   <!-- ===== /ACT:footer ===== -->
