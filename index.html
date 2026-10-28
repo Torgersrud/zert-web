@@ -126,9 +126,58 @@
     <!-- ===== ACT:slik-virker-det:start ===== -->
     <section id="slik-virker-det" class="section section--slik-virker-det" data-act="slik-virker-det" aria-labelledby="slik-virker-det-tittel">
       <div class="section__inner" data-reveal-group>
-        <p class="kicker" data-reveal>Handling 4</p>
+        <p class="kicker" data-reveal>Én økt · fire steg</p>
         <h2 class="section__title" id="slik-virker-det-tittel" data-reveal>Slik virker det</h2>
-        <p class="act-placeholder" data-reveal>Plassholder. Innholdet i denne delen høyrer sitt eige ticket.</p>
+        <p class="svd__ingress ingress" data-reveal>Én økt, fire steg. Slik forklarer du Zert for noen andre på under ett minutt — uten å se på notatene.</p>
+
+        <ol class="svd__flow">
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">01</p>
+            <h3 class="svd__step-title">Repo inn</h3>
+            <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">02</p>
+            <h3 class="svd__step-title">KI-arbeid inne</h3>
+            <p class="svd__step-text">Utvikleren jobber med en ledende åpen KI-modell. VM-en når bare KI-endepunktet — ingenting annet.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">03</p>
+            <h3 class="svd__step-title">Resultater ut</h3>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+          </li>
+          <li class="svd__step" data-reveal>
+            <p class="svd__num" aria-hidden="true">04</p>
+            <h3 class="svd__step-title">VM-en dør</h3>
+            <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
+          </li>
+        </ol>
+
+        <figure class="term" data-reveal>
+          <p class="term__label">Slik ser en økt ut i terminalen</p>
+          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
+<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
+<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
+<span class="term__line" data-pause="110">route out: KI endpoint only</span>
+<span class="term__line" data-pause="200">attached — you are inside the VM</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
+<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
+<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
+<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
+<span class="term__line" data-pause="300"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
+<span class="term__line" data-pause="170">connection to sandbox closed</span>
+<span class="term__line" data-pause="280"> </span>
+<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
+<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
+<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
+<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
+<span class="term__line" data-pause="340"> </span>
+<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
+<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
+          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
+        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
