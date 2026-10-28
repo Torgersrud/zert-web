@@ -538,6 +538,10 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 
 .problemet__hode .ingress { margin-top: 18px; }
 
+/* Akuten på «En vane» (É) rager over linjeboksen — litt luft mellom kicker
+   og tittel slik at akuten ikke tar kontakt med kickerlinjen over. */
+.problemet__hode .section__title { padding-top: 0.14em; }
+
 /* De to risikoene — ett bilde på samme problem (GLOSSARY: Data ut /
    agenter inn). Redaksjonelt: hairline toppregel i aktens farge, ingen
    kortflate, ingen effekter. */
