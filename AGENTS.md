@@ -21,17 +21,11 @@ To preview locally, serve the folder statically (e.g. `python3 -m http.server`) 
 
 1. **All user-facing copy is Norwegian bokmål.** Use «KI», never «AI». Keep sentences short, active, and factual — no hype, no exaggeration.
 2. **Never use emojis.** Anywhere. In copy, comments, or commit messages.
-3. **Design tokens are fixed.** Use the CSS variables in `:root` (`style.css`). Key colors: `#191919` (dark bg) and `#fcfcfc` (light bg) — never pure `#000`/`#fff` as backgrounds. Secondary color families (blue/orange/yellow/green, see `DESIGN.md` §3) are for graphics only, and only **one color family at a time**.
 4. **Typography: IBM Plex Sans** for text, **IBM Plex Mono** for terminal/code. Distinguish heading levels by weight, not by font. Fallbacks: Arial/Helvetica. Do not introduce new fonts.
-5. **No decorative effects** — no shadows, glows, 3D. Don't stretch, rotate, or recolor the logo (white logo on dark surfaces, dark logo on light surfaces).
 6. **Tone:** calm, precise, self-assured. Sage + Creator archetype. Only promise what can be delivered; be transparent.
 
 ## Structure & conventions
 
-- `index.html` sections, in order: `#hjem` (hero) → `#utfordring` → `#losning` → `#sikkerhet` (light) → `#kom-i-gang` → `#pilot` → `#om-oss` (light) → `#kontakt` (footer). Nav links mirror these anchors; keep them in sync when adding/removing sections.
-- Light sections use `.section-light`; dark is the default.
-- Scroll-in animations use the `.reveal` class, activated by an IntersectionObserver in `scripts.js` (adds `.in`). Respect `prefers-reduced-motion` — there is a `<noscript>` fallback and a JS check; don't break either.
-- JavaScript stays vanilla and defensive (feature-detect, ES5-style syntax as in the existing code). No frameworks, no npm.
 - Images live in `static/`, referenced with relative paths (`static/…`). Prefer `.webp`. All imagery should be Norwegian/society-relevant per `DESIGN.md`.
 - Meta/OG tags in `<head>` use absolute `https://zert.no/` URLs — update them if page title or description changes.
 
@@ -41,3 +35,4 @@ To preview locally, serve the folder statically (e.g. `python3 -m http.server`) 
 - Match existing patterns in `style.css` (BEM-ish flat class names, tokens for all colors/fonts) and `scripts.js` (single IIFE, `var`, plain DOM APIs).
 - Keep diffs minimal and consistent with the single-file, zero-dependency architecture.
 - Git history is small and clean; write concise imperative commit messages, no emojis.
+- Push to github https://github.com/Torgersrud/zert-web continously as you solve tickets
