@@ -159,8 +159,10 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* Karantene-diagrammet: starter engangsanimasjonen første gang diagrammet
      er i visningen (og aldri igjen), og velger hvelvform via ?vault=rect|leaf
-     (dev-parameter; standard: rektangel). All styling og hele animasjonstid-
-     linjen ligger i CSS; denne blokken legger bare på klasser én gang. */
+     (dev-parameter; standard: firblad). Formvalget venter på endelig
+     gjennomgang hos brukeren; tapervarianten fjernes ved den endelige
+     poleringen. All styling og hele animasjonstidslinjen ligger i CSS;
+     denne blokken legger bare på klasser én gang. */
 
   (function () {
     var diagrams = doc.querySelectorAll('.hero__diagram');
@@ -179,13 +181,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       el.className = (' ' + el.className + ' ').replace(' ' + name + ' ', ' ').replace(/^ | $/g, '');
     }
 
-    // Dev-only hvelvvalg: ?vault=leaf bytter til firbladet. Rektangel er
-    // standard og krever ingen JS — varianten byttes kun på classen.
+    // Dev-only hvelvvalg: firblad er standard; ?vault=rect bytter tilbake.
+    // Formvalget venter på endelig gjennomgang hos brukeren; tapervarianten
+    // fjernes ved den endelige poleringen. Variant byttes kun på classen.
     var search = window.location && window.location.search ? window.location.search : '';
     var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
 
     each(diagrams, function (el) {
-      if (vault && vault[1] === 'leaf') { addClass(el, LEAF_CLASS); }
+      if (vault && vault[1] === 'rect') { removeClass(el, LEAF_CLASS); }
+      else { addClass(el, LEAF_CLASS); }
 
       function arm() {
         addClass(el, DRAWN_CLASS);
