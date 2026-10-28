@@ -1969,3 +1969,145 @@ html.js .lovdiagram.is-drawn .lovdiagram__reach { animation: lov-draw 620ms ease
 }
 
 /* ===== /ACT: loven ===== */
+/* ===== ACT: beviset-to-lags ===== */
+
+/* Beviset i to lag. Det synlige laget er én hverdagssetning per bevis
+   (beviset__setning), avløst av revisjonsordlyden — urørt — i et native
+   <details>/<summary> som virker uten JavaScript. Aktoren er samme grønn
+   som i ACT: beviset, arvet via --action-color. Utvidelsen er et
+   dokumentutdrag med hairline-vensterkant, mikrolabelen i samme mono-snitt
+   som feltmerkene. Kun tokens — ingen nye farger eller fonter. */
+
+.beviset__setning {
+  max-width: 60ch;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.beviset__detaljer {
+  margin-top: 14px;
+}
+
+/* Mikrolabelen som åpner: blå er sidens eneste interaktive farge. */
+.beviset__oppslag {
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive);
+}
+
+.beviset__oppslag::-webkit-details-marker { display: none; }
+
+/* Grønt firkantmerke — samme aktørmärke som i feltspalten, her som klikk-antydning. */
+.beviset__oppslag::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 4px;
+  background: var(--action-color);
+}
+
+.beviset__oppslag:hover { text-decoration: underline; }
+
+/* Fokusmarkøren i den lyse akten: den mørke blåtonen, blue-300 mot
+   --zert-white gir for lav kontrast. */
+.beviset__oppslag:focus-visible {
+  outline: 2px solid var(--interactive);
+  outline-offset: 3px;
+}
+
+/* Utvidelsen: dokumentutdrag i samme hairline-språk som radreglene. */
+.beviset__utvidelse {
+  margin-top: 16px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line-strong);
+  max-width: 66ch;
+}
+
+@media (max-width: 720px) {
+  .beviset__oppslag { padding: 6px 0; } /* større klikkflate på telefon */
+}
+
+/* ===== /ACT: beviset-to-lags ===== */
+
+/* ===== ACT: veien-videre to-lag ===== */
+
+/* To-lagsavduking i roadmap-akten (samme mønster som Beviset): den flate
+   setningen ligger synlig på kortet, den presise ordlyden ligger urørt i en
+   <details>-utvidelse — kjerne-mekanisme, ingen JS. Den tonale aktøren
+   forblir gul, brukt på ærlighetsmerket og åpningsmarkøren. */
+
+/* Den flate setningen: lesbar brødtekst i --fg, ikke dempet. */
+.roadmap__plain {
+  color: var(--fg);
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+/* Presislaget: atskilt med hairline, åpnet av en mono-mikroetikett. */
+.roadmap__presis {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.roadmap__oppsummering {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.roadmap__oppsummering::-webkit-details-marker { display: none; }
+
+/* Åpningsmarkør: kvadrat i samme geometri som ærlighetsmerket —
+   tom når utvidelsen er lukket, fylt når den er åpen. */
+.roadmap__oppsummering::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering::before {
+  background: var(--action-color);
+}
+.roadmap__presis[open] .roadmap__oppsummering { color: var(--fg); }
+
+/* Utvidelsen: vensterkant i aktens gul, presistitel som mono-etikett. */
+.roadmap__presis-innhold {
+  margin-top: 12px;
+  padding-left: 16px;
+  border-left: 3px solid var(--action-color);
+}
+
+.roadmap__presistittel {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .roadmap__plain { max-width: none; }
+}
+
+/* ===== /ACT: veien-videre to-lag ===== */
