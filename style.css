@@ -1400,10 +1400,12 @@ p.beviset__micro { margin-top: 12px; }
 
 /* ===== ACT: kom-i-gang ===== */
 
-/* Dual-dør venteliste (utvikler|leder) + bevis for ernst + bluetime-band.
-   Den tonale aktøren er blå — sidens standard for interaktivt, ingen
-   --action-color-override trengs. Endepunktskonstanten ligger øverst i
-   scripts.js; feil avslører alltid mailto-fallbacken (ingen stille tap). */
+/* Styre-flatens venteliste: navn, selskap, e-post — døren («leder») følger
+   med i et skjult felt og nevnes aldri i tekst. Invitasjonen bærer akten;
+   guidet-linja er den load-bearing-ærligheten, ordrett. Den tonale aktøren
+   er blå — sidens standard for interaktivt, ingen --action-color-override
+   trengs. Endepunktskonstanten ligger øverst i scripts.js; feil avslører
+   alltid mailto-fallbacken (ingen stille tap). */
 
 .kig__intro { margin-bottom: clamp(40px, 6vh, 64px); }
 
@@ -1423,66 +1425,6 @@ p.beviset__micro { margin-top: 12px; }
 .kig__form[hidden],
 .kig__takk[hidden],
 .kig__feil[hidden] { display: none; }
-
-.kig__doors { border: 0; margin: 0; padding: 0; min-width: 0; }
-
-.kig__legend {
-  padding: 0;
-  font-weight: 600;
-  font-size: 17px;
-  color: var(--fg);
-}
-
-.kig__doorvalg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-/* Radioknappen er visuelt skjult, men fokusbar — selve døra er knappen. */
-.kig__door-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  border: 0;
-}
-
-.kig__door {
-  display: block;
-  height: 100%;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 16px;
-  cursor: pointer;
-}
-.kig__door:hover { border-color: var(--line-strong); }
-
-.kig__door-input:checked + .kig__door {
-  border-color: var(--interactive);
-  background: color-mix(in srgb, var(--interactive) 10%, transparent);
-}
-.kig__door-input:focus-visible + .kig__door {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
-.kig__door-tittel {
-  display: block;
-  font-weight: 600;
-  font-size: 17px;
-  margin-bottom: 4px;
-}
-.kig__door-tekst {
-  display: block;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--fg-muted);
-}
 
 .kig__felt { display: grid; gap: 8px; }
 
@@ -1554,9 +1496,9 @@ p.beviset__micro { margin-top: 12px; }
   line-height: 1.5;
 }
 
-/* --- Bevis for ernst: brew-linja og det opne repoet --- */
+/* --- Pilotinvitasjonen: plassen ved det korte bordet --- */
 
-.kig__bevis {
+.kig__invitasjon {
   display: grid;
   gap: 16px;
   align-content: start;
@@ -1566,22 +1508,7 @@ p.beviset__micro { margin-top: 12px; }
   padding: clamp(22px, 3vw, 34px);
 }
 
-.kig__bevis-tekst { color: var(--fg-muted); }
-
-.kig__install {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  padding: 14px 16px;
-  font-family: var(--font-mono);
-  font-size: 15px;
-}
-.kig__install-prompt { color: var(--interactive-hover); }
-.kig__install-kode { color: var(--fg); }
-
-.kig__repo a { font-family: var(--font-mono); font-size: 15px; }
+.kig__invitasjon-tekst { color: var(--fg-muted); }
 
 .kig__guidet {
   border-top: 1px solid var(--line);

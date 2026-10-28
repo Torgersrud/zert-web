@@ -517,12 +517,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:kom-i-gang ===== */
 
-  /* Venteliste med dual-dør. Plain fetch POST-er JSON {name, company,
-     email, door} til WAITLIST_ENDPOINT. Ingen optimistisk kvittering:
-     takkemeldingen vises bare når endepunktet svarer 2xx. Nettverksfeil
-     eller ikke-2xx avslører mailto-fallbacken med feltene ferdig utfylt —
-     interessen skal aldri forsvinne stille. Dobbelsending er blokkert av
-     en sending-flagg, og knappen er deaktivert mens sendinga pågår. */
+  /* Venteliste for styreflaten. Plain fetch POST-er JSON {name, company,
+     email, door} til WAITLIST_ENDPOINT. Døren er skjult innhold, ikke et
+     valg: besøkende på styreflaten er ledelsen, og verdien «leder» står i
+     HTML — utviklerflaten har sin tilsvarende skjulte verdi. Ingen
+     optimistisk kvittering: takkemeldingen vises bare når endepunktet
+     svarer 2xx. Nettverksfeil eller ikke-2xx avslører mailto-fallbacken
+     med feltene ferdig utfylt — interessen skal aldri forsvinne stille.
+     Dobbelsending er blokkert av en sending-flagg, og knappen er deaktivert
+     mens sendinga pågår. */
 
   (function () {
     var form = doc.getElementById('venteliste');
@@ -540,10 +543,8 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
       return el ? el.value.replace(/^\s+|\s+$/, '') : '';
     }
 
-    function dør() {
-      var el = form.querySelector('[name="door"]:checked');
-      return el ? el.value : '';
-    }
+    // Doren er skjult innhold, ikke et valg: verdien (leder) står i HTML.
+    function dør() { return verdi('door'); }
 
     function settSending(på) {
       sender = på;
