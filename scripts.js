@@ -175,74 +175,11 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
     });
   }());
 
-  /* ===== BEHAVIOR:hero-diagram ===== */
-
-  /* Karantene-diagrammet: starter engangsanimasjonen første gang diagrammet
-     er i visningen (og aldri igjen), og velger hvelvform via ?vault=rect|leaf
-     (dev-parameter; standard: firblad). Formvalget venter på endelig
-     gjennomgang hos brukeren; tapervarianten fjernes ved den endelige
-     poleringen. All styling og hele animasjonstidslinjen ligger i CSS;
-     denne blokken legger bare på klasser én gang. */
-
-  (function () {
-    var diagrams = doc.querySelectorAll('.hero__diagram');
-    if (!diagrams.length) { return; }
-
-    var DRAWN_CLASS = 'is-drawn';
-    var DONE_CLASS = 'is-done';
-    var LEAF_CLASS = 'hero__diagram--leaf';
-    var PASS_MS = 1700; // hele einepasseringen; + margin for bytte til sluttstate
-
-    // Dev-only hvelvvalg: firblad er standard; ?vault=rect bytter tilbake.
-    // Formvalget venter på endelig gjennomgang hos brukeren; tapervarianten
-    // fjernes ved den endelige poleringen. Variant byttes kun på classen.
-    var search = window.location && window.location.search ? window.location.search : '';
-    var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
-
-    each(diagrams, function (el) {
-      if (vault && vault[1] === 'rect') { removeClass(el, LEAF_CLASS); }
-      else { addClass(el, LEAF_CLASS); }
-
-      function arm() {
-        addClass(el, DRAWN_CLASS);
-        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
-        // bytter vi til den statiske slutttilstanden (is-done). Da kan
-        // animasjonen verken loope eller starte på ny (f.eks. ved at
-        // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
-        window.setTimeout(function () {
-          removeClass(el, DRAWN_CLASS);
-          addClass(el, DONE_CLASS);
-        }, PASS_MS);
-      }
-
-      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
-      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
-      if (reducedMotion()) { return; }
-
-      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
-      if (!('IntersectionObserver' in window)) { arm(); return; }
-
-      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
-      var observer = new IntersectionObserver(function (entries) {
-        var i;
-        for (i = 0; i < entries.length; i++) {
-          if (entries[i].isIntersecting) {
-            observer.unobserve(entries[i].target);
-            arm();
-          }
-        }
-      }, { threshold: 0.2 });
-      observer.observe(el);
-    });
-  }());
-
-  /* ===== /BEHAVIOR:hero-diagram ===== */
-
   /* ===== BEHAVIOR:hero-scene ===== */
 
   /* Hodet/hender-diagrammet (ticket #17): starter engangsanimasjonen første
      gang diagrammet er i visningen (og aldri igjen). Ingen dev-variantbytter;
-     ellers samme klokkemønster som BEHAVIOR:hero-diagram. All styling og hele
+     ellers samme klokkemønster som BEHAVIOR:losningen. All styling og hele
      animasjonstidslinjen ligger i CSS; denne blokken legger bare på klasser
      én gang. */
 
@@ -346,7 +283,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* Jurisdiksjonsdiagrammet (ticket #18): starter engangsanimasjonen første
      gang diagrammet er i visningen, og aldri igjen. Klon av
-     BEHAVIOR:hero-diagram uten dev-varianten. All styling og hele
+     BEHAVIOR:losningen (karantene-diagrammet) uten dev-varianten. All styling og hele
      animasjonstidslinjen ligger i CSS (ACT: loven); denne blokken legger
      bare på klasser én gang. */
 
@@ -396,9 +333,69 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:losningen ===== */
 
-  /* Losningen eier denne blokken. Akten er bevisst uten egen atferd:
-     budskapet er statisk, og avdukingen håndteres av BEHAVIOR:scroll-reveal
-     via data-reveal / data-reveal-group i HTML. Ingen terminal i denne akten. */
+  /* Losningen eier denne blokken. To engangsanimasjoner: karantene-diagrammet
+     (flyttet hit fra hero, ticket #21) og ramme-figuren som avslutter akten.
+     Begge starter første gang de er i visningen, og aldri igjen. Karantene-
+     diagrammet beholder dev-variantvalget ?vault=rect|leaf (standard:
+     firblad; formvalget venter på endelig gjennomgang, tapervarianten
+     fjernes ved den endelige poleringen). All styling og hele
+     animasjonstidslinjen ligger i CSS (ACT: losningen); denne blokken
+     legger bare på klasser én gang. Resten av akten er statisk, og
+     revealene håndteres av BEHAVIOR:scroll-reveal. */
+
+  (function () {
+    var DRAWN_CLASS = 'is-drawn';
+    var DONE_CLASS = 'is-done';
+
+    function aktiver(el, passMs) {
+      function arm() {
+        addClass(el, DRAWN_CLASS);
+        // Ett eneste pass: når animasjonstidslinjen er spilt ferdig,
+        // bytter vi til den statiske slutttilstanden (is-done). Da kan
+        // animasjonen verken loope eller starte på ny (f.eks. ved at
+        // viewportstørrelsen endres) — slutttilstanden er basen i CSS.
+        window.setTimeout(function () {
+          removeClass(el, DRAWN_CLASS);
+          addClass(el, DONE_CLASS);
+        }, passMs);
+      }
+
+      // Redusert bevegelse: CSS viser den fulle statiske komposisjonen
+      // uten animasjon — da aktiverer vi ikke diagrammet i det hele tatt.
+      if (reducedMotion()) { return; }
+
+      // Ingen IntersectionObserver: vis den ferdige komposisjonen med en gang.
+      if (!('IntersectionObserver' in window)) { arm(); return; }
+
+      // Første sikt: da aktiverer vi animasjonen — og slår observatoren av for godt.
+      var observer = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.unobserve(entries[i].target);
+            arm();
+          }
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+    }
+
+    // Karantene-diagrammet: dev-only hvelvvalg — firblad er standard;
+    // ?vault=rect bytter tilbake. Klokkemønsteret er det arvede (1,7 s pass).
+    var search = window.location && window.location.search ? window.location.search : '';
+    var vault = search.match(/[?&]vault=(rect|leaf)(?:&|$)/);
+    each(doc.querySelectorAll('.losningen__diagram'), function (el) {
+      if (vault && vault[1] === 'rect') { removeClass(el, 'losningen__diagram--leaf'); }
+      else { addClass(el, 'losningen__diagram--leaf'); }
+      aktiver(el, 1700);
+    });
+
+    // Ramme-figuren: avslutningsbeatet virtualiseres -> norsk jord -> rammen
+    // blir Zerts merke. Samme klokkemønster, egen tidslinje (~1,9 s pass).
+    each(doc.querySelectorAll('.grensediagram'), function (el) {
+      aktiver(el, 2000);
+    });
+  }());
 
   /* ===== /BEHAVIOR:losningen ===== */
 

@@ -406,112 +406,6 @@ html.js [data-reveal].is-revealed {
   margin-bottom: 12px;
 }
 
-/* --- Karantene-diagram (ticket #5): inline SVG, engangsanimasjon. --- */
-
-.hero__diagram { position: relative; }
-
-.hero__diagram svg { display: block; width: 100%; height: auto; }
-
-/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
-   Valgene må være spesifikke nok til å overstyre size-regelen over,
-   som også treffer svg-elementene. */
-.hero__diagram .diagram--tall { display: none; }
-@media (max-width: 720px) {
-  .hero__diagram .diagram--wide { display: none; }
-  .hero__diagram .diagram--tall { display: block; }
-}
-
-/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
-   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
-.diagram__vault--leaf { display: none; }
-.hero__diagram--leaf .diagram__vault--rect { display: none; }
-.hero__diagram--leaf .diagram__vault--leaf { display: block; }
-
-/* Mikroetiketter — Plex Mono, alle farger via tokens */
-.diagram__text {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 11px;
-  fill: var(--fg-muted);
-}
-.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
-.diagram__text--strong { fill: var(--fg); }
-.diagram__text--micro { font-size: 10px; }
-.diagram__text--muted { fill: var(--gray-600); }
-.diagram__text--exit { fill: var(--blue-300); }
-.diagram__text--strike { text-decoration: line-through; }
-
-/* Streker og flater — tokens alene, tynn streg */
-.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
-.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
-.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
-.diagram__leaf-shape {
-  fill: var(--blue-500);
-  fill-opacity: 0.05;
-  stroke: var(--interactive);
-  stroke-opacity: 0.85;
-  stroke-width: 1.4;
-  vector-effect: non-scaling-stroke;
-}
-.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
-.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
-.diagram__arrow--in { fill: var(--line-strong); }
-.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
-.diagram__arrow--out { fill: var(--interactive); }
-.diagram__pulse { fill: var(--blue-300); opacity: 0; }
-.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
-.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
-.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
-
-/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
-   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
-   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
-   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
-   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
-   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
-   den ferdige komposisjonen direkte. */
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
-html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
-
-html.js .hero__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
-html.js .hero__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
-html.js .hero__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
-html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
-
-@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
-
-/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
-   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
-   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
-@keyframes d-probe {
-  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
-  18% { opacity: 0.9; }
-  55% { transform: translate(0, 0); opacity: 0.5; }
-  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
-}
-
-@keyframes d-pulse {
-  0% { transform: translate(0, 0); opacity: 0; }
-  25% { opacity: 1; }
-  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
-}
-
-/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
-   alle etiketter synlige, partiklene frosset midt i oplosningen. */
-@media (prefers-reduced-motion: reduce) {
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
-  html.js .hero__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
-  html.js .hero__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
-  html.js .hero__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
-  html.js .hero__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
-  html.js .hero__diagram.is-drawn .diagram__pulse { animation: none; }
-}
-
-/* --- /Karantene-diagram (ticket #5) --- */
-
 /* ===== ACT: problemet ===== */
 
 /* Akten åpner med den låste setningen, nevner den dobbelte risikoen — data
@@ -594,135 +488,18 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
 
 /* ===== ACT: losningen ===== */
 
-/* Den doble losningen: to dører til ett produkt. Styret presenteres først,
-   utvikleren er publikummet som må overbevises. Blå er aktens eneste
-   aksent (--action-color er ikke override her — standarden holder).
-   Fotoet vises i designelementet: fire blad fra kjennemerket, så den mørke
-   bakgrunnen skjærer seg inn mellom bildeflatene. */
-
-.losningen__layout {
-  display: grid;
-  gap: clamp(36px, 5vw, 56px);
-  align-items: start;
-}
+/* Løsningen i én stemme: det flyttede utsagnet ankommer som svar på den
+   dokumenterte frykten, karantene-diagrammet følger (flyttet hit fra hero,
+   ticket #21), og akten avsluttes av ramme-figuren der rammen blir Zerts
+   merke. Blå er aktens eneste aksent (--action-color er ikke override her —
+   standarden holder). Ingen utviklerregister i akten: eneste bro til
+   utviklerflaten er den rolige lenken til slutt. */
 
 .losningen__intro { max-width: 68ch; }
 
-/* --- Dørene: to paneler, samme kasse, én aksent --- */
-
-.losningen__doors {
-  display: grid;
-  gap: 18px;
-}
-
-.door {
-  border: 1px solid var(--line);
-  border-left: 2px solid var(--interactive);
-  border-radius: 6px;
-  padding: clamp(20px, 2.6vw, 30px);
-}
-
-.door__label {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--interactive-hover);
-  margin-bottom: 12px;
-}
-
-.door__title {
-  font-weight: 600;
-  font-size: clamp(20px, 1.7vw, 25px);
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.door__points {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-}
-
-.door__point dt {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 4px;
-}
-
-.door__point dd {
-  margin: 0;
-  max-width: 48ch;
-  line-height: 1.45;
-}
-
-.door__close {
-  margin-top: 16px;
-  font-weight: 500;
-  color: var(--fg-muted);
-}
-
-/* --- Designelementet: foto i kjennemerkets fire blad ---
-   2x2-blad etter nordstjerne-formen: de to øvre fylt med fotoet (hvert blad
-   er et portrettsnitt av hver sin utvikler), de to nedre tone-i-tone —
-   autoriserte varianter fra DESIGN.md. Den mørke bakgrunnen skjærer seg inn
-   mellom bildeflatene. Fotoet er beskåret slik at ansiktene faller i
-   bladene, ikke i merkevarens negative rom. */
-
-.losningen__figure { width: 100%; }
-
-.designelement {
-  --leaf-gap: clamp(9px, 0.9vw, 13px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* Øvre bladerekke er høyere: portrettsnittene gir hver utvikler et blad
-     der ansiktet faller trygt innenfor buen. */
-  grid-template-rows: 1.75fr 1fr;
-  gap: var(--leaf-gap);
-  aspect-ratio: 0.97;
-}
-
-.designelement__leaf {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Kvartsirkel-blad forankret i elementets ytterhjørne (DESIGN.md: to par
-   bueformer i 2x2-rutenett). Radius 100% gir buen fra cellehjørne til
-   cellehjørne — det negative rommet i midten blir nordstjernen. */
-.designelement__leaf--ov { border-radius: 0 0 100% 0; }
-.designelement__leaf--oh { border-radius: 0 0 0 100%; }
-.designelement__leaf--nv { border-radius: 0 100% 0 0; }
-.designelement__leaf--nh { border-radius: 100% 0 0 0; }
-
-.designelement__leaf--tone {
-  background: color-mix(in srgb, var(--fg) 5%, transparent);
-}
-
-/* Hvert øvre blad er sin egen bildeflate — merkevarens kollasjgrep: «den
-   mørke bakgrunnen skjærer seg inn mellom bildeflatene». Beskjæringene
-   plasserer den ene utvikleren i hvert sitt blad: ansiktene faller i
-   bladenes fulle flate, aldri i buen eller den smale spissen. */
-.designelement__bilde {
-  position: absolute;
-  top: -11%;
-  left: -45%;
-  width: 300%;
-  height: auto;
-  max-width: none;
-  /* Beskjæringen er kalkulert: bildet er 1600x1067. Mannens ansikt dekker
-     ca. 27–41 % av bredden, kvinnens 49–63 %. Bladet viser en tredjedel av
-     bredden; forskyvningen legger hvert ansikt midt i bladets fulle flate,
-     langt fra buen og den smale spissen. */
-}
-
-.designelement__bilde--hoyre {
-  left: -126%;
+.losningen__figure {
+  max-width: 920px;
+  margin-top: clamp(56px, 9vh, 96px);
 }
 
 .losningen__figure-label {
@@ -732,34 +509,234 @@ html.js .hero__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fg-muted);
-  margin-top: 14px;
+  margin-bottom: 12px;
 }
 
-/* --- Erklæringen under begge dørene --- */
+/* --- Karantene-diagrammet (flyttet fra hero, ticket #21): inline SVG,
+       engangsanimasjon. --- */
 
-.losningen__creed {
+.losningen__diagram { position: relative; }
+
+.losningen__diagram svg { display: block; width: 100%; height: auto; }
+
+/* Layout: bred visning i viewport-bredde, loddrett visning på mobil.
+   Valgene må være spesifikke nok til å overstyre size-regelen over,
+   som også treffer svg-elementene. */
+.losningen__diagram .diagram--tall { display: none; }
+@media (max-width: 720px) {
+  .losningen__diagram .diagram--wide { display: none; }
+  .losningen__diagram .diagram--tall { display: block; }
+}
+
+/* Hvelvform: firblad som standard, rektangel via ?vault=rect (kun dev).
+   Begge variantene ligger i markupen; parameteren velger hvilken som vises. */
+.diagram__vault--leaf { display: none; }
+.losningen__diagram--leaf .diagram__vault--rect { display: none; }
+.losningen__diagram--leaf .diagram__vault--leaf { display: block; }
+
+/* Mikroetiketter — Plex Mono, alle farger via tokens */
+.diagram__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.diagram__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.diagram__text--strong { fill: var(--fg); }
+.diagram__text--micro { font-size: 10px; }
+.diagram__text--muted { fill: var(--gray-600); }
+.diagram__text--exit { fill: var(--blue-300); }
+.diagram__text--strike { text-decoration: line-through; }
+
+/* Streker og flater — tokens alene, tynn streg */
+.diagram__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__vault-frame { fill: var(--blue-500); fill-opacity: 0.05; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__seam { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1; }
+.diagram__leaf-shape {
+  fill: var(--blue-500);
+  fill-opacity: 0.05;
+  stroke: var(--interactive);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.diagram__chip { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+.diagram__entry { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.diagram__arrow--in { fill: var(--line-strong); }
+.diagram__exit { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.diagram__arrow--out { fill: var(--interactive); }
+.diagram__pulse { fill: var(--blue-300); opacity: 0; }
+.diagram__stub { fill: none; stroke: var(--line-strong); stroke-opacity: 0.6; stroke-width: 1.2; }
+.diagram__stub--far { stroke: var(--gray-600); stroke-opacity: 0.4; stroke-dasharray: 3 5; stroke-width: 1; }
+.diagram__ghost { fill: var(--gray-400); opacity: 0.5; }
+
+/* Engangsanimasjon (forsinkelse via --d på elementene, alt i ett pass på
+   omtrent 1,4 sekunder): tegn linjene -> tekst toner fram -> utvegen tegnes
+   -> partikler prøver seg. Alt med iteration-count 1 — ingenting looper.
+   Tilstandsmaskin: første sikt gir .is-drawn (animasjonen spilles én gang),
+   deretter bytter JS til .is-done — da er den fulle komposisjonen basen i
+   CSS og kan ikke starte på ny. Uten JS og under redusert bevegelse vises
+   den ferdige komposisjonen direkte. */
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+html.js .losningen__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0; }
+
+html.js .losningen__diagram.is-drawn .d-draw { animation: d-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .losningen__diagram.is-drawn .d-fade { animation: d-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .losningen__diagram.is-drawn .diagram__ghost { animation: d-probe 500ms ease-out var(--d, 0ms) 1 backwards; }
+html.js .losningen__diagram.is-drawn .diagram__pulse { animation: d-pulse 500ms ease-in-out var(--d, 0ms) 1 both; }
+
+/* Globalt keyframe-vokabular (d-draw/d-fade pluss partikkel- og
+   puls-nøklene): delt av alle diagrammene med d- klasser (hero-scene,
+   to piler, karantene). Bor her sammen med diagrammet de ble født for. */
+@keyframes d-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Partikkelen starter ved hvelvet, prøver utover og oppløses — basetilstanden
+   (partikkelen midt på stummen, lav bakgrunns-opasitet) er det statiske bildet
+   av en partikkel som aldri kom fram, og den tre fram etter ett eneste pass. */
+@keyframes d-probe {
+  0% { transform: translate(var(--sx, 0px), var(--sy, 0px)); opacity: 0; }
+  18% { opacity: 0.9; }
+  55% { transform: translate(0, 0); opacity: 0.5; }
+  100% { transform: translate(var(--ex, 0px), var(--ey, 0px)); opacity: 0; }
+}
+
+@keyframes d-pulse {
+  0% { transform: translate(0, 0); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(var(--px, 0px), var(--py, 0px)); opacity: 0; }
+}
+
+/* Redusert bevegelse: fullstendig statisk tilstand — den ene utvegen tegnet,
+   alle etiketter synlige, partiklene frosset midt i oppløsningen. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .losningen__diagram:not(.is-drawn):not(.is-done) .diagram__ghost { opacity: 0.5; }
+  html.js .losningen__diagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .losningen__diagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .losningen__diagram.is-drawn .diagram__ghost { animation: none; transform: none; }
+  html.js .losningen__diagram.is-drawn .diagram__pulse { animation: none; }
+}
+
+/* --- /Karantene-diagrammet (ticket #21) --- */
+
+/* --- Ramme-figuren (ticket #21): virtualiseres -> norsk jord -> den
+       omsluttende rammen som løses opp i Zerts merke. --- */
+
+.grensediagram { position: relative; }
+
+.grensediagram svg { display: block; width: 100%; height: auto; }
+
+/* Bred visning i viewport-bredde, loddrett på mobil. */
+.grensediagram .ramme--tall { display: none; }
+@media (max-width: 720px) {
+  .grensediagram .ramme--wide { display: none; }
+  .grensediagram .ramme--tall { display: block; }
+}
+
+/* Mikroetiketter — Plex Mono; ordmerket er det eneste som står i Plex Sans
+   (nivåer skilles med vekt, ikke font — DESIGN.md). */
+.ramme__text {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  fill: var(--fg-muted);
+}
+.ramme__text--node { font-size: 13px; font-weight: 500; fill: var(--fg); letter-spacing: 0.04em; }
+.ramme__text--strong { fill: var(--fg); }
+.ramme__text--micro { font-size: 10px; }
+.ramme__text--muted { fill: var(--gray-600); }
+.ramme__text--exit { fill: var(--blue-300); }
+.ramme__ord { font-family: var(--font-sans); font-weight: 600; font-size: 34px; fill: var(--fg); }
+
+/* Streker og flater — tokens alene, tynn streg; blå er eneste sekundærfarge. */
+.ramme__jord { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__jord-mark { fill: none; stroke: var(--line-strong); stroke-opacity: 0.5; stroke-width: 1.2; }
+.ramme__boks { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__node { fill: var(--fg); fill-opacity: 0.02; stroke: var(--line-strong); stroke-width: 1.4; }
+.ramme__utvei { fill: none; stroke: var(--interactive); stroke-width: 1.6; }
+.ramme__spiss { fill: var(--interactive); }
+.ramme__ramme { fill: var(--blue-500); fill-opacity: 0.04; stroke: var(--interactive); stroke-width: 1.6; }
+.ramme__over { stroke: var(--interactive); stroke-opacity: 0.5; stroke-dasharray: 3 5; stroke-width: 1.2; }
+.ramme__over-spiss { fill: var(--interactive); }
+.ramme__blad {
+  fill: var(--blue-500);
+  fill-opacity: 0.07;
+  stroke: var(--interactive);
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Engangsanimasjon i samme tilstandsmaskin som karantene-diagrammet: jord ->
+   boks -> endepunkt -> utvei -> rammen tegnes sist -> rammen løses opp i
+   merket (blad tegnes, navnet toner fram). Eget navngitte keyframes, slik at
+   blokken er selvstendig. Rammen får lengre tegnetid — den er poenget.
+   JS bytter is-drawn -> is-done; slutttilstanden er basen i CSS og kan ikke
+   starte på ny. Uten JS og under redusert bevegelse vises den ferdige
+   komposisjonen direkte. */
+html.js .grensediagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dasharray: 100; stroke-dashoffset: 100; }
+html.js .grensediagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 0; }
+
+html.js .grensediagram.is-drawn .d-draw { animation: grense-draw 500ms ease-in-out var(--d, 0ms) 1 both; }
+html.js .grensediagram.is-drawn .d-fade { animation: grense-fade 250ms ease var(--d, 0ms) 1 both; }
+html.js .grensediagram.is-drawn .ramme__ramme { animation: grense-draw 700ms ease-in-out var(--d, 0ms) 1 both; }
+
+@keyframes grense-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes grense-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Redusert bevegelse: fullstendig statisk tilstand — alt tegnet, rammen på
+   plass, merke og navn synlige. */
+@media (prefers-reduced-motion: reduce) {
+  html.js .grensediagram:not(.is-drawn):not(.is-done) .d-draw { stroke-dashoffset: 0; }
+  html.js .grensediagram:not(.is-drawn):not(.is-done) .d-fade { opacity: 1; }
+  html.js .grensediagram.is-drawn .d-draw { animation: none; stroke-dashoffset: 0; }
+  html.js .grensediagram.is-drawn .d-fade { animation: none; opacity: 1; }
+  html.js .grensediagram.is-drawn .ramme__ramme { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Forklaringen under ramme-figuren: tre trinn i leserekkefølge — virtualisere,
+   norsk jord, én ramme. Etiketten i aktens blå, aldri på brødtekst. */
+.losningen__forklaring {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(24px, 3.5vw, 44px);
+  margin-top: clamp(24px, 3vh, 36px);
   border-top: 1px solid var(--line);
-  padding-top: 26px;
-  max-width: 56ch;
-  font-weight: 500;
-  font-size: clamp(19px, 1.5vw, 22px);
-  line-height: 1.4;
+  padding-top: clamp(20px, 3vh, 32px);
 }
 
-@media (min-width: 900px) {
-  .losningen__layout {
-    grid-template-columns: minmax(0, 10fr) minmax(0, 11fr);
-    grid-template-areas:
-      "intro intro"
-      "doors element"
-      "creed creed";
-    column-gap: clamp(48px, 6vw, 88px);
-    row-gap: clamp(40px, 5vh, 60px);
-  }
-  .losningen__intro { grid-area: intro; }
-  .losningen__figure { grid-area: element; }
-  .losningen__doors { grid-area: doors; }
-  .losningen__creed { grid-area: creed; }
+.losningen__merke {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--interactive-hover);
+  margin-bottom: 14px;
+}
+
+.losningen__del-tekst {
+  max-width: 46ch;
+  line-height: 1.45;
+}
+
+/* --- Den rolige lenken til utviklerflaten: aktens eneste bro. --- */
+
+.losningen__utvikler {
+  margin-top: clamp(56px, 9vh, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  max-width: 62ch;
+  color: var(--fg-muted);
+  font-size: 15px;
+}
+
+@media (max-width: 720px) {
+  .losningen__forklaring { grid-template-columns: 1fr; }
 }
 
 /* ===== /ACT: losningen ===== */
@@ -1626,7 +1603,7 @@ p.beviset__micro { margin-top: 12px; }
 .agent__pil { fill: var(--interactive); }
 .agent__puls { fill: var(--blue-300); opacity: 0; }
 
-/* Engangsanimasjon, samme tilstandsmaskin som hero__diagram (js-patterns):
+/* Engangsanimasjon, samme tilstandsmaskin som losningen__diagram (js-patterns):
    første sikt gir .is-drawn (linjene tegnes -> tekst toner fram -> hodet
    tegnes -> forbindelse + puls), deretter bytter JS til .is-done — da er den
    fulle komposisjonen basen i CSS. Uten JS og under redusert bevegelse vises
