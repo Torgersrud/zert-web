@@ -18,7 +18,7 @@ Screenshots are only ever written under /tmp, grouped per page
 Usage:
   tools/shot.py                  # all pages, all passes
   tools/shot.py --only desktop   # one pass: desktop | mobile | reduced
-  tools/shot.py --page utvikler  # one page: forside | utvikler
+  tools/shot.py --page utviklere # one page: forside | utviklere
   tools/shot.py --out /tmp/opencode/shots/t4
 
 Exit codes:
@@ -46,7 +46,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = [
     # name,        path served from the repo root
     ("forside", "/"),
-    ("utvikler", "/utvikler.html"),
+    ("utviklere", "/utviklere.html"),
 ]
 PASSES = [
     # name,          width, height, reduced_motion

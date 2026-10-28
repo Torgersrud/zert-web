@@ -40,7 +40,7 @@ re-render -> re-look.
 ```sh
 tools/shot.py                  # all pages, all passes (desktop 1440, mobile 390, reduced-motion)
 tools/shot.py --only desktop   # single pass: desktop | mobile | reduced
-tools/shot.py --page utvikler  # single page: forside | utvikler
+tools/shot.py --page utviklere # single page: forside | utviklere
 tools/shot.py --out /tmp/opencode/shots/t4
 ```
 

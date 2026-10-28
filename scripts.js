@@ -624,7 +624,7 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:dev-venteliste ===== */
 
-  /* Venteliste for utviklerflaten (utvikler.html). Atferden er kom-i-gangs
+  /* Venteliste for utviklerflaten (utviklere.html). Atferden er kom-i-gangs
      mønster ord for ord — plain fetch POST {name, company, email, door},
      ingen optimistisk kvittering, mailto-fallback som alltid avsløres ved
      feil (aldri stille tap) — men med egne id-er, og døren leses fra det
