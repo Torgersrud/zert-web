@@ -270,7 +270,9 @@ verify() {
     cmp -s "$OUT/${pair%%:*}" "${pair#*:}" \
       && ok "${pair%%:*} matches the brand master" || fail "${pair%%:*} missing or altered"
   done
-  for gone in image.webp telenor_ai_factory_some_refined.png; do
+  for gone in image.webp telenor_ai_factory_some_refined.png \
+              Selmer-logo-RGB-Korall.webp jp.webp oskar.webp \
+              komplisert.webp lett.webp zert.png; do
     [[ -e "$OUT/$gone" ]] && fail "unlicensed asset still present: static/$gone" \
       || ok "static/$gone removed from the repo"
   done
