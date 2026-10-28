@@ -401,11 +401,15 @@ var WAITLIST_ENDPOINT = 'https://api.zert.no/v1/waitlist';
 
   /* ===== BEHAVIOR:slik-virker-det ===== */
 
-  /* Iscenesatt autoplay-terminal. Scrollutløst, skriver seg selv én gang
-     og blir så stående på den komplette sesjonen. Aldri løkke, aldri
-     interaktiv. Redusert bevegelse, ingen IntersectionObserver eller ingen
-     JavaScript: den komplette terminaltranskripsjonen står statisk i
-     HTML-en, og denne blokken blander seg ikke inn. */
+  /* Iscenesatt autoplay-terminal. Flyttet ut av slik-virker-det på
+     styreflaten og inn i dev-karantene på utviklerflaten (review av
+     spec #15): blokken er værende per akt-mønsteret og vender hjem
+     tidlig når [data-term] mangler — som på styreflaten nå.
+     Scrollutløst, skriver seg selv én gang og blir så stående på den
+     komplette sesjonen. Aldri løkke, aldri interaktiv. Redusert bevegelse,
+     ingen IntersectionObserver eller ingen JavaScript: den komplette
+     terminaltranskripsjonen står statisk i HTML-en, og denne blokken
+     blander seg ikke inn. */
 
   (function () {
     var term = doc.querySelector('[data-term]');

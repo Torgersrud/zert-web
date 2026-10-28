@@ -827,7 +827,7 @@
         <ol class="svd__flow">
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">01</p>
-            <h3 class="svd__step-title">Repo inn</h3>
+            <h3 class="svd__step-title">Koden inn</h3>
             <p class="svd__step-text">Du skriver <code>zert vm</code>. En midlertidig VM reises i norsk datasenter, og koden kopieres inn.</p>
           </li>
           <li class="svd__step" data-reveal>
@@ -838,7 +838,7 @@
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">03</p>
             <h3 class="svd__step-title">Resultater ut</h3>
-            <p class="svd__step-text">Du henter de ferdige endringene ut med CLI-en og pusher dem fra din egen maskin. Bare resultatet forlater sandboxen.</p>
+            <p class="svd__step-text">Du henter de ferdige endringene ut med verktøyet og fører dem selv inn i bedriftens systemer fra din egen maskin. Bare resultatet forlater sandboxen.</p>
           </li>
           <li class="svd__step" data-reveal>
             <p class="svd__num" aria-hidden="true">04</p>
@@ -846,32 +846,6 @@
             <p class="svd__step-text">Når arbeidet er slutt, avsluttes VM-en automatisk. Ingen data blir liggende igjen. Neste økt er en helt ny VM.</p>
           </li>
         </ol>
-
-        <figure class="term" data-reveal>
-          <p class="term__label">Slik ser en økt ut i terminalen</p>
-          <pre class="term__screen" data-term><code><span class="term__line" data-pause="150"><span class="term__prompt">$ </span><span class="term__cmd">zert vm --repo betaling</span></span>
-<span class="term__line" data-pause="200">starting sandbox · Blix data center, Oslo</span>
-<span class="term__line" data-pause="110">repo 'betaling' copied in · 2.4 MB</span>
-<span class="term__line" data-pause="110">route out: KI endpoint only</span>
-<span class="term__line" data-pause="200">attached — you are inside the VM</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">zert ask "make webhook retry idempotent"</span></span>
-<span class="term__line" data-pause="380">model: qwen3.8 flash next</span>
-<span class="term__line" data-pause="160">edited webhooks/retry.go + retry_test.go</span>
-<span class="term__line" data-pause="200">go test ./... · 128 passed, 0 failed</span>
-<span class="term__line" data-pause="300"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">exit</span></span>
-<span class="term__line" data-pause="170">connection to sandbox closed</span>
-<span class="term__line" data-pause="280"> </span>
-<span class="term__line" data-pause="200"><span class="term__prompt">$ </span><span class="term__cmd">git push origin main</span></span>
-<span class="term__line" data-pause="200">Enumerating objects: 12, done.</span>
-<span class="term__line" data-pause="100">To github.com:bedrift/betaling.git</span>
-<span class="term__line" data-pause="100">   3c9a1f2..81bd4e0  main -&gt; main</span>
-<span class="term__line" data-pause="340"> </span>
-<span class="term__line" data-pause="200">[zert] sbx-4f2a terminated · nothing remains</span>
-<span class="term__line" data-pause="260"><span class="term__prompt">$ </span><span class="term__caret" aria-hidden="true"></span></span></code></pre>
-          <figcaption class="term__caption">Iscenesatt opptak av en vanlig økt. Den spiller seg selv én gang og er ikke interaktiv.</figcaption>
-        </figure>
       </div>
     </section>
     <!-- ===== /ACT:slik-virker-det ===== -->
@@ -1194,8 +1168,6 @@
       <p class="site-footer__tagline">Zert gir utviklere en KI-sandbox i norsk datasenter. Den når KI-endepunktet — og ingenting annet.</p>
       <ul class="site-footer__lenker">
         <li><a href="mailto:jp@zert.no">jp@zert.no</a></li>
-        <!-- TODO: oppdater lenken når det offentlige repoet er på plass (plassholder inntil videre) -->
-        <li><a href="https://github.com/zert" rel="noopener">GitHub</a></li>
         <li><a href="#kom-i-gang">Ventelisten</a></li>
       </ul>
       <p class="site-footer__meta">Zert · Norge · © 2026. Alle rettigheter reservert.</p>
